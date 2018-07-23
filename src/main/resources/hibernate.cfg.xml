@@ -1,0 +1,40 @@
+<!DOCTYPE hibernate-configuration PUBLIC 
+	"-//Hibernate/Hibernate Configuration DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory name="IMOFactory">
+
+
+	<!-- 	<property name="cache.provider_class">org.hibernate.cache.EhCacheProvider</property>
+		<property name="hibernate.cache.use_second_level_cache">true</property>
+		<property name="hibernate.cache.use_structured_entries">true</property>
+		<property name="hibernate.cache.use_query_cache">true</property>
+		<property name="current_session_context_class">thread</property>
+		<property name="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</property>
+		<property name="net.sf.ehcache.configurationResourceName">/ehcache.xml</property> -->
+		<!-- <property name="hbm2ddl.auto">create</property> -->
+
+		<!-- MSSQL -->
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+		 <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+		 <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/softnicenikah</property>
+		  <property name="hibernate.connection.username">root</property>
+		<property name="hibernate.connection.password">admin</property>
+		<property name="connection.autocommit">true</property>
+		
+		
+		<property name="hibernate.connection.pool_size">20</property>
+		<property name="show_sql">true</property>
+		<property name="hibernate.jdbc.batch_size">10</property>
+
+		 <mapping resource="com/softNice/nikah/hbm/Role.hbm.xml" />
+		 <mapping resource="com/softNice/nikah/hbm/permission.hbm.xml" />
+		 <mapping resource="com/softNice/nikah/hbm/permissionnames.hbm.xml" />
+		 <mapping resource="com/softNice/nikah/hbm/country.hbm.xml" />
+		 <mapping resource="com/softNice/nikah/hbm/state.hbm.xml" />
+		 <mapping resource="com/softNice/nikah/hbm/city.hbm.xml" />
+		 <mapping resource="com/softNice/nikah/hbm/User.hbm.xml" /> 
+	
+		
+	</session-factory>
+</hibernate-configuration>
