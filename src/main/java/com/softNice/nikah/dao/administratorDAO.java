@@ -28,6 +28,7 @@ package com.softNice.nikah.dao;
 import java.util.ArrayList;
 
 import com.softNice.nikah.beans.UserBean;
+import com.softNice.nikah.beans.countryBean;
 import com.softNice.nikah.beans.permissionBean;
 import com.softNice.nikah.beans.permissionnamesBean;
 import com.softNice.nikah.beans.roleBean;
@@ -58,6 +59,8 @@ public interface administratorDAO {
 	public abstract permissionBean getExistingPermisstion(int id,permissionnamesBean bean);
 	
 	public abstract ArrayList<UserBean> getAllUsers();
+
+	public abstract ArrayList<countryBean> getAllCountry();
 
 
 }

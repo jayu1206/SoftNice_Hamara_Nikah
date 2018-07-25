@@ -1,0 +1,16 @@
+<!DOCTYPE dwr PUBLIC
+    "-//GetAhead Limited//DTD Direct Web Remoting 2.0//EN"
+    "http://directwebremoting.org/schema/dwr20.dtd">
+<dwr>
+ 
+	  <allow>
+		  
+		    <create creator="new" javascript="softNiceUtilityData">
+		      <param name="class" value="com.softNice.nikah.utility.softNiceUtilityData"/>
+		    </create>
+		     <convert converter="bean" match="com.softNice.nikah.utility.softNiceUtilityData"/>
+		     
+	</allow>
+		   
+  
+</dwr>

@@ -91,7 +91,7 @@
 	            $("#txtRoleName").focus();
 	            return false;
 	        }else{
-	        	alert("submit");
+	        	//alert("submit");
 	        	$("#addRole").submit();
 	        	
 	        }

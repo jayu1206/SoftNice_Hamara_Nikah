@@ -50,6 +50,22 @@ public class UserBean {
 	private String cityName;
 	private String email;
 	
+	public UserBean(){
+				
+		  userName="";
+		  password="";
+		  firstName="";
+		  lastName="";
+		  phno="";
+		  createdBy="";
+		  gender="";
+		  roleName="";
+		  countryName="";
+		  stateName="";
+		  cityName="";
+		  email="";
+		
+	}
 	
 	
 	public String getCountryName() {

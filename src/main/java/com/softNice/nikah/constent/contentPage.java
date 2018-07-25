@@ -34,5 +34,7 @@ public class contentPage {
 	public static String LOCALOBJ="localObj";
 	public static String MODIFYOBJ="modifyObj";
 	public static String PERMISSIONNAME="permissionNames";
+	public static String COUNTRYOBJ="countryObj";
+	public static String ROLEOBJ="roleObj";
 
 }

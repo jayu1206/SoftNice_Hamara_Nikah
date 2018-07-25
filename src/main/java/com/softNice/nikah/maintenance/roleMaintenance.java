@@ -97,7 +97,7 @@ public class roleMaintenance {
 	public ArrayList<roleBean> getAllRole(HttpServletRequest request){
 		administratorDAO dao=new administratorImpl();
 		ArrayList<roleBean> list=dao.getAllRole();
-		request.setAttribute("localObj", list);
+		request.setAttribute("roleObj", list);
 		return list;
 	}
 

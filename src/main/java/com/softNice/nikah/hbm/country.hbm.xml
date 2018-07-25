@@ -12,8 +12,8 @@
             <generator class = "native"/>
       </id>
         
-        <property  name="sorftname" type="java.lang.String">
-            <column name="sorftname"  />
+        <property  name="sortname" type="java.lang.String">
+            <column name="sortname"  />
         </property>
         
          <property  name="name" type="java.lang.String">

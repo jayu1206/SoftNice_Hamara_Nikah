@@ -27,8 +27,11 @@
 		<![endif]-->
 		<link rel="stylesheet" href="assets/css/ace-skins.min.css" />
 		<link rel="stylesheet" href="assets/css/ace-rtl.min.css" />
+		
 
 		<script src="assets/js/jquery-2.1.4.min.js"></script>
+		
+		<link rel="stylesheet" href="assets/css/bootstrap-datepicker3.min.css" />
 		<!--[if lte IE 9]>
 		  <link rel="stylesheet" href="assets/css/ace-ie.min.css" />
 		<![endif]-->
@@ -38,14 +41,7 @@
 		<!-- ace settings handler -->
 		<script src="assets/js/ace-extra.min.js"></script>
 
-		<!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
 
-		<!--[if lte IE 8]>
-		<script src="assets/js/html5shiv.min.js"></script>
-		<script src="assets/js/respond.min.js"></script>
-		
-		
-		<![endif]-->
 		
 		<script src="assets/js/jquery-ui.custom.min.js"></script>
 		<script src="assets/js/jquery.ui.touch-punch.min.js"></script>
@@ -54,6 +50,7 @@
 		<script src="assets/js/jquery.flot.min.js"></script>
 		<script src="assets/js/jquery.flot.pie.min.js"></script>
 		<script src="assets/js/jquery.flot.resize.min.js"></script>
+		
 		
 		<!-- page specific plugin scripts -->
 		<script src="assets/js/jquery.dataTables.min.js"></script>
@@ -64,6 +61,18 @@
 		<script src="assets/js/buttons.print.min.js"></script>
 		<script src="assets/js/buttons.colVis.min.js"></script>
 		<script src="assets/js/dataTables.select.min.js"></script>
+		
+
+	
+		<script src="assets/js/bootstrap-datepicker.min.js"></script>
+		<script src="assets/js/jquery.hotkeys.index.min.js"></script>
+		<script src="assets/js/select2.min.js"></script>
+		
+		<script type='text/javascript' src='dwr/engine.js'></script>
+		<script type='text/javascript' src='dwr/interface/softNiceUtilityData.js'></script>
+		<script type='text/javascript' src='dwr/util.js'></script>
+		<script src="js/softnice.js" type="text/javascript" charset="utf-8"></script>
+		
 		
 </head>
 <body class="no-skin">

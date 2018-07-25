@@ -37,6 +37,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.softNice.nikah.beans.roleBean;
 import com.softNice.nikah.constent.ErrorMsg;
 import com.softNice.nikah.constent.contentPage;
+import com.softNice.nikah.maintenance.adminMaintenance;
 import com.softNice.nikah.maintenance.roleMaintenance;
 
 /**
@@ -68,6 +69,8 @@ public class FormServlet extends HttpServlet {
 				
 			}
 			if(key.equals("addUser")){
+				adminMaintenance.getInstance().getAllCountry(request);
+				roleMaintenance.getInstance().getAllRole(request);
 				request.setAttribute(contentPage.CONTENT_PAGE, "/administrator/addUser.jsp");
 			}
 			

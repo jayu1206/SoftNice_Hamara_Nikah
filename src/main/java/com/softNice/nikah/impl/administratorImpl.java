@@ -33,6 +33,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 
 import com.softNice.nikah.beans.UserBean;
+import com.softNice.nikah.beans.countryBean;
 import com.softNice.nikah.beans.permissionBean;
 import com.softNice.nikah.beans.permissionnamesBean;
 import com.softNice.nikah.beans.roleBean;
@@ -329,6 +330,29 @@ public class administratorImpl implements administratorDAO{
 
 			Query query = session.createQuery(" from UserBean where status=1");
 			arrActivity = (ArrayList<UserBean>) query.list();
+
+		} catch (Exception e) {
+			log.log(Level.SEVERE, e.getMessage());
+			 e.printStackTrace();
+		} finally {
+			HibernateFactory.close(session);
+		}
+
+		return arrActivity;
+	}
+
+	@Override
+	public ArrayList<countryBean> getAllCountry() {
+		// TODO Auto-generated method stub
+		Session session = null;
+
+		ArrayList<countryBean> arrActivity = new ArrayList<countryBean>();
+		try {
+
+			session = HibernateFactory.openSession();
+
+			Query query = session.createQuery(" from countryBean where status=1");
+			arrActivity = (ArrayList<countryBean>) query.list();
 
 		} catch (Exception e) {
 			log.log(Level.SEVERE, e.getMessage());

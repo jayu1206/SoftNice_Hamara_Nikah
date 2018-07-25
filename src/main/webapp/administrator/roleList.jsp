@@ -5,8 +5,8 @@
 <%
 
 ArrayList<roleBean> list=new ArrayList<roleBean>();
-	if(request.getAttribute(contentPage.LOCALOBJ)!=null){
-		list = (ArrayList<roleBean>)request.getAttribute(contentPage.LOCALOBJ);
+	if(request.getAttribute(contentPage.ROLEOBJ)!=null){
+		list = (ArrayList<roleBean>)request.getAttribute(contentPage.ROLEOBJ);
 	}
 
 %>

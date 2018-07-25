@@ -16,7 +16,7 @@
             <column name="name"  />
         </property>
         
-         <property  name="countryId" type="java.lang.String">
+         <property  name="countryId" type="java.lang.Integer">
             <column name="country_id"  />
         </property>
         

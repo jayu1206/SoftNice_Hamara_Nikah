@@ -3,7 +3,7 @@ package com.softNice.nikah.beans;
 public class countryBean {
 	
 	private int id;
-	private String sorftname;
+	private String sortname;
 	private String name;
 	private int phonecode;
 	private boolean status;
@@ -15,11 +15,11 @@ public class countryBean {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getSorftname() {
-		return sorftname;
+	public String getSortname() {
+		return sortname;
 	}
-	public void setSorftname(String sorftname) {
-		this.sorftname = sorftname;
+	public void setSortname(String sorftname) {
+		this.sortname = sorftname;
 	}
 	public String getName() {
 		return name;
