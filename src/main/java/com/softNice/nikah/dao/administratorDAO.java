@@ -62,5 +62,17 @@ public interface administratorDAO {
 
 	public abstract ArrayList<countryBean> getAllCountry();
 
+	public abstract boolean checkDublicateUserName(String str);
+
+	public abstract boolean checkDublicateEmail(String str);
+
+	public abstract boolean checkDublicatePhone(String str);
+
+	public abstract int insertUser(UserBean bean);
+
+	public abstract UserBean getUserbyId(int parseInt);
+
+	public abstract int updateUser(UserBean bean);
+
 
 }

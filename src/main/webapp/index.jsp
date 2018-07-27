@@ -71,7 +71,7 @@
 		<script type='text/javascript' src='dwr/engine.js'></script>
 		<script type='text/javascript' src='dwr/interface/softNiceUtilityData.js'></script>
 		<script type='text/javascript' src='dwr/util.js'></script>
-		<script src="js/softnice.js" type="text/javascript" charset="utf-8"></script>
+		<script src='js/softnice.js?v=" + Date.now() + "' type="text/javascript" charset="utf-8"></script>
 		
 		
 </head>

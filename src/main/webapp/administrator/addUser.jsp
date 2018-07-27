@@ -1,4 +1,5 @@
 
+<%@page import="com.softNice.nikah.utility.validation"%>
 <%@page import="com.softNice.nikah.beans.roleBean"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.softNice.nikah.beans.countryBean"%>
@@ -8,6 +9,22 @@
 
 <div class="main-content">
 						<%
+						
+						String userName="";
+						String firstName="";
+						String lastName="";
+						String dob="";
+						String gender="";
+						int country=0;
+						int state=0;
+						int city=0;
+						String email="";
+						String phno="";
+						int role=0;
+						String psw="";
+						String confPsw="";
+						
+						
 							boolean modifyFlag=false;
 							String key="addUser";
 							UserBean bean= new UserBean();
@@ -19,6 +36,23 @@
 									bean = (UserBean)request.getAttribute(contentPage.MODIFYOBJ);
 									key="updateUser";
 									modifyFlag=true;
+									
+									 userName=bean.getUserName();
+									 firstName=bean.getFirstName();
+									 lastName=bean.getLastName();
+									 dob=bean.getDob()==null?"":validation.convertDateToString(bean.getDob());
+									 gender=bean.getGender()==null?"":bean.getGender();
+									 country=bean.getCountry();
+									 state=bean.getState();
+									 city=bean.getCity();
+									 email=bean.getEmail();
+									 phno=bean.getPhno();
+									 role=bean.getRoleId();
+									 psw=bean.getPassword();
+									 confPsw=bean.getPassword();
+									
+									
+									
 								}
 								if(request.getAttribute(contentPage.COUNTRYOBJ)!=null){
 									countryList = (ArrayList<countryBean>)request.getAttribute(contentPage.COUNTRYOBJ);
@@ -54,7 +88,10 @@
 									<div id="user-profile-3" class="user-profile row">
 										<div class="col-sm-offset-1 col-sm-10">
 
-											<form class="form-horizontal" id="addUser" name="addUser">
+											<form class="form-horizontal" id="addUser" name="addUser" action="FormServlet?key=<%=key %>" method="post">
+											<%if(modifyFlag){ %>
+													<input type="hidden" id="txtId" name="txtId" value="<%=bean.getId() %>" />
+											<%} %>
 												<div class="tabbable">
 													<ul class="nav nav-tabs padding-16">
 														<li class="active">
@@ -78,7 +115,36 @@
 															</a>
 														</li>
 													</ul>
-
+											<div class="space-4"></div>
+											<div align="center" style="color: red">
+												<%
+												 String str="";
+												if(request.getAttribute(contentPage.ERROR)!=null){ 
+													str=((ErrorMsg)request.getAttribute(contentPage.ERROR)).getError();
+													try{
+														 userName=request.getParameter("txtUserName");
+														 firstName=request.getParameter("txtFirstName");
+														 lastName=request.getParameter("txtLastName");
+														 dob=request.getParameter("txtDob")==null?"":request.getParameter("txtDob");
+														 gender=request.getParameter("gender")==null?"":request.getParameter("gender");
+														 country=request.getParameter("country")!=null?Integer.parseInt(request.getParameter("country")):0;
+														 state=request.getParameter("state")!=null?Integer.parseInt(request.getParameter("state")):0;
+														 city=request.getParameter("city")!=null?Integer.parseInt(request.getParameter("city")):0;
+														 email=request.getParameter("txtEmail");
+														 phno=request.getParameter("txtPhno");
+														 role=Integer.parseInt(request.getParameter("role"));
+														 psw=request.getParameter("txtPsw");
+														 confPsw=request.getParameter("txtConfPsw");
+													}catch(Exception e){
+														
+													}
+												
+												} %>
+												
+												<label><%=str %> </label>
+									
+											</div>
+											
 													<div class="tab-content profile-edit-tab-content">
 														<div id="edit-basic" class="tab-pane in active">
 															<h4 class="header blue bolder smaller">General</h4>
@@ -95,7 +161,7 @@
 																		<label class="col-sm-4 control-label no-padding-right" for="form-field-username">User name</label>
 
 																		<div class="col-sm-8">
-																			<input class="col-xs-12 col-sm-10" type="text" id="txtUserName" name="txtUserName" placeholder="User Name" value="" />
+																			<input class="col-xs-12 col-sm-10" type="text" id="txtUserName" name="txtUserName" placeholder="User Name" value="<%=userName %>" />
 																		</div>
 																	</div>
 
@@ -105,8 +171,8 @@
 																		<label class="col-sm-4 control-label no-padding-right" for="form-field-first">Name</label>
 
 																		<div class="col-sm-8">
-																			<input class="input-small" type="text" id="txtFirstName" name="txtFirstName" placeholder="First Name" value="" />
-																			<input class="input-small" type="text" id="txtLastName" name="txtLastName" placeholder="Last Name" value="" />
+																			<input class="input-small" type="text" id="txtFirstName" name="txtFirstName" placeholder="First Name" value="<%=firstName %>" />
+																			<input class="input-small" type="text" id="txtLastName" name="txtLastName" placeholder="Last Name" value="<%=lastName %>" />
 																		</div>
 																	</div>
 																</div>
@@ -119,7 +185,7 @@
 																<div class="col-sm-9">
 																	<div class="input-medium">
 																		<div class="input-group">
-																			<input class="input-medium date-picker" id="txtDob" name="txtDob" type="text" data-date-format="dd-mm-yyyy" placeholder="dd-mm-yyyy" />
+																			<input class="input-medium date-picker" id="txtDob" name="txtDob" type="text" data-date-format="dd-mm-yyyy" placeholder="dd-mm-yyyy" value="<%=dob==null?"":dob %>" readonly="readonly" />
 																			<span class="input-group-addon">
 																				<i class="ace-icon fa fa-calendar"></i>
 																			</span>
@@ -127,7 +193,8 @@
 																	</div>
 																</div>
 															</div>
-
+											
+								
 															<div class="space-4"></div>
 
 															<div class="form-group">
@@ -135,13 +202,22 @@
 
 																<div class="col-sm-9">
 																	<label class="inline">
-																		<input name="male" id="male" type="radio" class="ace" />
+																		<%if(gender.equalsIgnoreCase("male")){ %>
+																			<input name="gender" id="male" type="radio" class="ace" value="male" checked="checked" />
+																		<%}else{ %>
+																			<input name="gender" id="male" type="radio" class="ace" value="male" />
+																		<%} %>
 																		<span class="lbl middle"> Male</span>
 																	</label>
 
 																	&nbsp; &nbsp; &nbsp;
 																	<label class="inline">
-																		<input name="female" name="female" type="radio" class="ace" />
+																		<%if(gender.equalsIgnoreCase("female")){ %>
+																			<input name="gender" id="female" type="radio" class="ace" value="female" checked="checked"/>
+																		<%}else{ %>
+																			<input name="gender" id="female" type="radio" class="ace" value="female"/>
+																		<%} %>
+																		
 																		<span class="lbl middle"> Female</span>
 																	</label>
 																</div>
@@ -153,11 +229,15 @@
 																<label class="col-sm-3 control-label no-padding-right" for="form-field-comment">Country</label>
 
 																<div class="col-sm-9">
-																	<select class="col-sm-3" id="country" name="country" onchange="getState(this.value);">
+																	<select class="col-sm-3" id="country" name="country" onchange="getState(this.value,0);">
 																	<option value="0">Select</option>
-																		<%for(countryBean countrybean : countryList){ %>
+																		<%for(countryBean countrybean : countryList){ 
+																				if(country == countrybean.getId()){
+																		%>
+																				<option selected="selected" value="<%=countrybean.getId() %>" ><%=countrybean.getName() %></option>
+																		<%}else{ %>
 																				<option value="<%=countrybean.getId() %>" ><%=countrybean.getName() %></option>
-																		<%} %>
+																		<%}} %>
 																		
 																		
 																	</select>
@@ -168,7 +248,8 @@
 																<label class="col-sm-3 control-label no-padding-right" for="form-field-comment">State</label>
 
 																<div class="col-sm-9">
-																	<select class="col-sm-3" id="state" name="state" onchange="getCity(this.value);">
+																	<select class="col-sm-3" id="state" name="state" onchange="getCity(this.value,0);">
+																	<option value="0">Select</option>
 																	</select>
 																</div>
 															</div>
@@ -178,6 +259,7 @@
 
 																<div class="col-sm-9">
 																	<select class="col-sm-3" id="city" name="city" >
+																	<option value="0">Select</option>
 																	</select>
 																</div>
 															</div>
@@ -190,7 +272,7 @@
 
 																<div class="col-sm-9">
 																	<span class="input-icon input-icon-right">
-																		<input type="email" id="txtEmail" name="txtEmail" placeholder="abc@domain.com"  value="" />
+																		<input type="email" id="txtEmail" name="txtEmail" placeholder="abc@domain.com"  value="<%=email %>" />
 																		<i class="ace-icon fa fa-envelope"></i>
 																	</span>
 																</div>
@@ -205,7 +287,7 @@
 
 																<div class="col-sm-9">
 																	<span class="input-icon input-icon-right">
-																		<input class="input-medium input-mask-phone" type="text" id="txtPhno" name="txtPhno" />
+																		<input class="input-medium input-mask-phone" type="text" id="txtPhno" name="txtPhno" value="<%=phno %>"/>
 																		<i class="ace-icon fa fa-phone fa-flip-horizontal"></i>
 																	</span>
 																</div>
@@ -221,9 +303,13 @@
 																<div class="col-sm-9">
 																	<select class="col-sm-3" id="role" name="role">
 																		<option value="0">Select</option>
-																		<%for(roleBean rolebean : rolelist){ %>
+																		<%for(roleBean rolebean : rolelist){ 
+																				if(role == rolebean.getRoleId()){
+																		%>
+																			<option selected="selected" value="<%=rolebean.getRoleId() %>" ><%=rolebean.getRoleName() %></option>
+																		<%}else{ %>
 																				<option value="<%=rolebean.getRoleId() %>" ><%=rolebean.getRoleName() %></option>
-																		<%} %>
+																		<%} }%>
 																	</select>
 																</div>
 															</div>
@@ -278,7 +364,7 @@
 																<label class="col-sm-3 control-label no-padding-right" for="form-field-pass1">New Password</label>
 
 																<div class="col-sm-9">
-																	<input type="password" id="form-field-pass1" />
+																	<input type="password" id="txtPsw" name="txtPsw" value="<%=psw %>" />
 																</div>
 															</div>
 
@@ -288,7 +374,7 @@
 																<label class="col-sm-3 control-label no-padding-right" for="form-field-pass2">Confirm Password</label>
 
 																<div class="col-sm-9">
-																	<input type="password" id="form-field-pass2" />
+																	<input type="password" id="form-field-pass2" id="txtConfPsw" name="txtConfPsw" value="<%=confPsw %>" />
 																</div>
 															</div>
 														</div>
@@ -297,16 +383,16 @@
 
 												<div class="clearfix form-actions">
 													<div class="col-md-offset-3 col-md-9">
-														<button class="btn btn-info" type="button">
+														<button class="btn btn-info" type="button" id="btnSubmit" name="btnSubmit">
 															<i class="ace-icon fa fa-check bigger-110"></i>
-															Save
+																Submit
 														</button>
 
-														&nbsp; &nbsp;
-														<button class="btn" type="reset">
+														&nbsp; &nbsp; &nbsp;
+														<a href="#" class="btn" type="reset" id="btnBack" name="btnBack">
 															<i class="ace-icon fa fa-undo bigger-110"></i>
-															Reset
-														</button>
+																Back
+														</a>
 													</div>
 												</div>
 											</form>
@@ -319,17 +405,7 @@
 								
 								
 								
-								<div align="center" style="color: red">
-												<%
-												 String str="";
-												if(request.getAttribute(contentPage.ERROR)!=null){ 
-													str=((ErrorMsg)request.getAttribute(contentPage.ERROR)).getError();
-												
-												} %>
-												
-												<label><%=str %> </label>
-									
-								</div>
+								
 								<!-- PAGE CONTENT ENDS -->
 							</div><!-- /.col -->
 						</div><!-- /.row -->
@@ -339,7 +415,8 @@
 	<script>
 	$( document ).ready(function() {
 
-	
+		getState('<%=country %>','<%=state %>');
+		getCity('<%=state %>','<%=city %>')
 		
 		  $("#txtDob").datepicker({
 	            changeMonth: true,
@@ -349,15 +426,7 @@
 	        });
 		
 	    $('#btnSubmit').click(function(){                   
-	        if( $("#txtRoleName").val().lenght == 0) {
-	            $("#txtRoleName").focus();
-	            return false;
-	        }else{
-	        	alert("submit");
 	        	$("#addUser").submit();
-	        	
-	        }
-	        
 	    });
 	    
 	   

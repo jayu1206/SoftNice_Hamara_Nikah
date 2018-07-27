@@ -27,6 +27,8 @@ package com.softNice.nikah.beans;
 
 import java.util.Date;
 
+import com.softNice.nikah.utility.EncrypitDecrypit;
+
 public class UserBean {
 	
 	private int id;
@@ -129,7 +131,13 @@ public class UserBean {
 		this.userName = userName;
 	}
 	public String getPassword() {
-		return password;
+		try {
+			return   EncrypitDecrypit.decrypt(password, "password") ;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 	public void setPassword(String password) {
 		this.password = password;

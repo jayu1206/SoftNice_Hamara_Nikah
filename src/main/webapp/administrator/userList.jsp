@@ -1,3 +1,4 @@
+<%@page import="com.softNice.nikah.utility.validation"%>
 <%@page import="com.softNice.nikah.beans.UserBean"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.softNice.nikah.constent.ErrorMsg"%>
@@ -64,7 +65,7 @@ ArrayList<UserBean> list=new ArrayList<UserBean>();
 														<td><%=user.getEmail() %></td>
 														<td><%=user.getGender() %></td>
 														<td><%=user.getRoleName() %></td>
-														<td><%=user.getDob() %></td>
+														<td><%=validation.convertDateToString(user.getDob()) %></td>
 														<td><%=user.getCountryName() %></td>
 														<td><%=user.getStateName() %></td>
 														<td><%=user.getCityName() %></td>
@@ -79,11 +80,11 @@ ArrayList<UserBean> list=new ArrayList<UserBean>();
 															<div class="hidden-sm hidden-xs action-buttons">
 																
 																
-																<a class="green" href="#">
+																<a class="green" href="ContentServlet?key=updateUser&id=<%=user.getId() %>">
 																	<i class="ace-icon fa fa-pencil bigger-130"></i>
 																</a>
 
-																<a class="red" href="#" >
+																<a class="red" href="#" onclick="deleteDilog('<%=user.getId() %>')" >
 																	<i class="ace-icon fa fa-trash-o bigger-130"></i>
 																</a>
 																
@@ -166,11 +167,11 @@ ArrayList<UserBean> list=new ArrayList<UserBean>();
 	   
 	});
 	
-			/* function deleteDilog(id){
-				var result = confirm("Are you sure to delete role?");
-				if (result) {
-					window.location.href = 'ContentServlet?key=deleteRole&id='+id;
-				}
-				
-			}	 */	
+	function deleteDilog(id){
+		var result = confirm("Are you sure to delete user?");
+		if (result) {
+			window.location.href = 'ContentServlet?key=deleteUser&id='+id;
+		}
+		
+	}	
 		</script>

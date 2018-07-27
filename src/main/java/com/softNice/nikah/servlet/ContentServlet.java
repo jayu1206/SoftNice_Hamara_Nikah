@@ -92,6 +92,25 @@ public class ContentServlet extends HttpServlet {
 				request.setAttribute(contentPage.CONTENT_PAGE, "/administrator/userList.jsp");
 			}
 			
+			if(key.equals("dashboard")){
+				//request.getSession().setAttribute(contentPage.PERMISSIONNAME,getServletContext().getAttribute(contentPage.PERMISSIONNAME));
+				request.setAttribute(contentPage.CONTENT_PAGE, "/home.jsp");
+				
+			}
+			
+			if(key.equals("deleteUser")){
+				adminMaintenance.getInstance().deleteUser(request);
+				request.setAttribute(contentPage.CONTENT_PAGE, "/administrator/userList.jsp");
+				
+			}
+			
+			if(key.equals("updateUser")){
+				adminMaintenance.getInstance().getUserbyId(request);
+				roleMaintenance.getInstance().getAllRole(request);
+				request.setAttribute(contentPage.CONTENT_PAGE, "/administrator/addUser.jsp");
+				
+			}
+			
 			
 		}
 		rd=request.getRequestDispatcher("/index.jsp");  

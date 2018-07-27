@@ -364,4 +364,189 @@ public class administratorImpl implements administratorDAO{
 		return arrActivity;
 	}
 
+	@Override
+	public boolean checkDublicateUserName(String str) {
+		// TODO Auto-generated method stub
+		boolean flag= true;
+		long count = 0;
+		Session session = null;
+		try {
+			session = HibernateFactory.openSession();
+
+			Query query = session
+					.createQuery("select count(*) from UserBean where  userName=:userName and status=1");
+			query.setParameter("userName", str);
+			count = (Long) query.uniqueResult();
+			session.flush();
+			
+			if(count>0){
+				flag = false;
+			}
+		
+
+		} catch (Exception e) {
+			log.log(Level.SEVERE, e.getMessage());
+			e.printStackTrace();
+			flag = true;
+			  
+		} finally {
+			try {
+				HibernateFactory.close(session);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		return flag;
+	}
+
+	@Override
+	public boolean checkDublicateEmail(String str) {
+		// TODO Auto-generated method stub
+		boolean flag= true;
+		long count = 0;
+		Session session = null;
+		try {
+			session = HibernateFactory.openSession();
+
+			Query query = session
+					.createQuery("select count(*) from UserBean where  email=:email and status=1");
+			query.setParameter("email", str);
+			count = (Long) query.uniqueResult();
+			session.flush();
+			
+			if(count>0){
+				flag = false;
+			}
+		
+
+		} catch (Exception e) {
+			log.log(Level.SEVERE, e.getMessage());
+			e.printStackTrace();
+			flag = true;
+			  
+		} finally {
+			try {
+				HibernateFactory.close(session);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		return flag;
+	}
+
+	@Override
+	public boolean checkDublicatePhone(String str) {
+		// TODO Auto-generated method stub
+		boolean flag= true;
+		long count = 0;
+		Session session = null;
+		try {
+			session = HibernateFactory.openSession();
+
+			Query query = session
+					.createQuery("select count(*) from UserBean where  phno=:phno and status=1");
+			query.setParameter("phno", str);
+			count = (Long) query.uniqueResult();
+			session.flush();
+			
+			if(count>0){
+				flag = false;
+			}
+		
+
+		} catch (Exception e) {
+			log.log(Level.SEVERE, e.getMessage());
+			e.printStackTrace();
+			flag = true;
+			  
+		} finally {
+			try {
+				HibernateFactory.close(session);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		return flag;
+	}
+
+	@Override
+	public int insertUser(UserBean bean) {
+		// TODO Auto-generated method stub
+		Session session=null;
+		try {
+			session=HibernateFactory.openSession();
+			session.save(bean);
+			session.flush();
+			return 0;
+
+		} catch (Exception e) {
+			log.log(Level.SEVERE, e.getMessage());
+			e.printStackTrace();
+			return 2;
+			  
+		} finally {
+			try {
+				HibernateFactory.close(session);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	@Override
+	public UserBean getUserbyId(int id) {
+		// TODO Auto-generated method stub
+		Session session = null;
+
+		UserBean arrActivity = new UserBean();
+		try {
+
+			session = HibernateFactory.openSession();
+
+			Query query = session.createQuery(" from UserBean where id=:id and status=1");
+			query.setParameter("id", id);
+			arrActivity = (UserBean) query.list().get(0);
+
+		} catch (Exception e) {
+			log.log(Level.SEVERE, e.getMessage());
+			 e.printStackTrace();
+		} finally {
+			HibernateFactory.close(session);
+		}
+
+		return arrActivity;
+	}
+
+	@Override
+	public int updateUser(UserBean bean) {
+		// TODO Auto-generated method stub
+		Session session=null;
+		try {
+			session=HibernateFactory.openSession();
+			session.update(bean);
+			session.flush();
+			return 0;
+
+		} catch (Exception e) {
+			log.log(Level.SEVERE, e.getMessage());
+			e.printStackTrace();
+			return 2;
+			  
+		} finally {
+			try {
+				HibernateFactory.close(session);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
 }

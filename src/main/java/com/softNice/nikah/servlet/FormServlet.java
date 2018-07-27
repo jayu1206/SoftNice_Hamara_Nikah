@@ -118,6 +118,18 @@ public class FormServlet extends HttpServlet {
 				
 			}
 			
+			//
+			if(key.equals("addUser")){
+				ErrorMsg obj=(ErrorMsg) adminMaintenance.getInstance().addvalidation(request);
+				request.setAttribute("error", obj);
+				if(obj.getErrorCode()!=0){
+					request.setAttribute(contentPage.CONTENT_PAGE, "/administrator/addUser.jsp");
+				}else{
+					request.setAttribute(contentPage.CONTENT_PAGE, "/administrator/userList.jsp");
+				}
+				
+			}
+			
 		}
 		rd=request.getRequestDispatcher("/index.jsp");  
 		rd.forward(request, response); 
