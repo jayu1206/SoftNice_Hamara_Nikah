@@ -108,6 +108,14 @@ public class roleMaintenance {
 		return bean;
 		
 	}
+	
+	public roleBean getRoleBaseOnId(int id) {
+		administratorDAO dao=new administratorImpl();
+		roleBean bean=dao.getRoleBaseOnId(id);
+		//request.setAttribute("modifyObj", bean);
+		return bean;
+		
+	}
 
 	public ErrorMsg validationUpdate(HttpServletRequest request) {
 		// TODO Auto-generated method stub

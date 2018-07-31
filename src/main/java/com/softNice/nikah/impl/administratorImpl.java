@@ -37,8 +37,10 @@ import com.softNice.nikah.beans.countryBean;
 import com.softNice.nikah.beans.permissionBean;
 import com.softNice.nikah.beans.permissionnamesBean;
 import com.softNice.nikah.beans.roleBean;
+import com.softNice.nikah.beans.settingBean;
 import com.softNice.nikah.dao.administratorDAO;
 import com.softNice.nikah.database.HibernateFactory;
+import com.softNice.nikah.utility.EncrypitDecrypit;
 
 
 public class administratorImpl implements administratorDAO{
@@ -365,17 +367,24 @@ public class administratorImpl implements administratorDAO{
 	}
 
 	@Override
-	public boolean checkDublicateUserName(String str) {
+	public boolean checkDublicateUserName(String str,int id) {
 		// TODO Auto-generated method stub
 		boolean flag= true;
 		long count = 0;
 		Session session = null;
 		try {
 			session = HibernateFactory.openSession();
-
-			Query query = session
-					.createQuery("select count(*) from UserBean where  userName=:userName and status=1");
+			Query query = null;
+			if(id != 0){
+				query = session
+						.createQuery("select count(*) from UserBean where  userName=:userName and status=1 and id!=:id");
+				query.setParameter("id", id);
+			}else{
+				query = session
+						.createQuery("select count(*) from UserBean where  userName=:userName and status=1");
+			}
 			query.setParameter("userName", str);
+			
 			count = (Long) query.uniqueResult();
 			session.flush();
 			
@@ -402,16 +411,23 @@ public class administratorImpl implements administratorDAO{
 	}
 
 	@Override
-	public boolean checkDublicateEmail(String str) {
+	public boolean checkDublicateEmail(String str,int id) {
 		// TODO Auto-generated method stub
 		boolean flag= true;
 		long count = 0;
 		Session session = null;
 		try {
 			session = HibernateFactory.openSession();
-
-			Query query = session
-					.createQuery("select count(*) from UserBean where  email=:email and status=1");
+			Query query= null;
+			if(id != 0){
+				query = session
+						.createQuery("select count(*) from UserBean where  email=:email and status=1 and id!=:id");
+				query.setParameter("id", id);
+			}else{
+				 query = session
+							.createQuery("select count(*) from UserBean where  email=:email and status=1");
+			}
+				
 			query.setParameter("email", str);
 			count = (Long) query.uniqueResult();
 			session.flush();
@@ -439,16 +455,24 @@ public class administratorImpl implements administratorDAO{
 	}
 
 	@Override
-	public boolean checkDublicatePhone(String str) {
+	public boolean checkDublicatePhone(String str,int id) {
 		// TODO Auto-generated method stub
 		boolean flag= true;
 		long count = 0;
 		Session session = null;
 		try {
 			session = HibernateFactory.openSession();
-
-			Query query = session
-					.createQuery("select count(*) from UserBean where  phno=:phno and status=1");
+			Query query= null;
+			
+			if(id != 0){
+				query = session
+						.createQuery("select count(*) from UserBean where  phno=:phno and status=1 and id!=:id");
+				query.setParameter("id", id);
+			}else{
+				 query = session
+						.createQuery("select count(*) from UserBean where  phno=:phno and status=1");
+			}
+			
 			query.setParameter("phno", str);
 			count = (Long) query.uniqueResult();
 			session.flush();
@@ -513,6 +537,7 @@ public class administratorImpl implements administratorDAO{
 			Query query = session.createQuery(" from UserBean where id=:id and status=1");
 			query.setParameter("id", id);
 			arrActivity = (UserBean) query.list().get(0);
+			arrActivity.setPassword(EncrypitDecrypit.decrypt(arrActivity.getPassword(), "password"));
 
 		} catch (Exception e) {
 			log.log(Level.SEVERE, e.getMessage());
@@ -526,6 +551,86 @@ public class administratorImpl implements administratorDAO{
 
 	@Override
 	public int updateUser(UserBean bean) {
+		// TODO Auto-generated method stub
+		Session session=null;
+		try {
+			session=HibernateFactory.openSession();
+			session.update(bean);
+			session.flush();
+			return 0;
+
+		} catch (Exception e) {
+			log.log(Level.SEVERE, e.getMessage());
+			e.printStackTrace();
+			return 2;
+			  
+		} finally {
+			try {
+				HibernateFactory.close(session);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	@Override
+	public UserBean loginUserAuth(String userName, String password) {
+		// TODO Auto-generated method stub
+		Session session = null;
+
+		UserBean arrActivity = null;
+		try {
+
+			session = HibernateFactory.openSession();
+
+			Query query = session.createQuery(" from UserBean where userName=:userName and password=:password  and status=1");
+			query.setParameter("userName", userName);
+			query.setParameter("password", password);
+			if(query.list().size()>0){
+				arrActivity = new UserBean();
+				arrActivity = (UserBean) query.list().get(0);
+			}
+			
+			//arrActivity.setPassword(EncrypitDecrypit.decrypt(arrActivity.getPassword(), "password"));
+
+		} catch (Exception e) {
+			log.log(Level.SEVERE, e.getMessage());
+			 e.printStackTrace();
+		} finally {
+			HibernateFactory.close(session);
+		}
+
+		return arrActivity;
+	}
+
+	@Override
+	public settingBean getSetting(String string) {
+		// TODO Auto-generated method stub
+		Session session = null;
+
+		settingBean arrActivity = new settingBean();
+		try {
+
+			session = HibernateFactory.openSession();
+
+			Query query = session.createQuery(" from settingBean where type=:type ");
+			query.setParameter("type", string);
+			arrActivity = (settingBean) query.list().get(0);
+			
+
+		} catch (Exception e) {
+			log.log(Level.SEVERE, e.getMessage());
+			 e.printStackTrace();
+		} finally {
+			HibernateFactory.close(session);
+		}
+
+		return arrActivity;
+	}
+
+	@Override
+	public int updateSetting(settingBean bean) {
 		// TODO Auto-generated method stub
 		Session session=null;
 		try {

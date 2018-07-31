@@ -72,10 +72,21 @@
             <column name="email"  />
         </property>
         
+        <set name="roleList" table="role"
+			inverse="true" lazy="false" fetch="select">
+			<key>
+				<column name="roleId" />
+			</key>
+			<one-to-many
+				class="com.softNice.nikah.beans.roleBean" />
+		</set>
+        
         <property name="roleName" formula="(SELECT b.roleName FROM role b WHERE b.roleId=roleId AND b.status=1 ) " update="false"></property>
         <property name="countryName" formula="(SELECT b.name FROM countries b WHERE b.id=country AND b.status=1 ) " update="false"></property>
         <property name="stateName" formula="(SELECT b.name FROM states b WHERE b.id=state AND b.status=1 ) " update="false"></property>
         <property name="cityName" formula="(SELECT b.name FROM cities b WHERE b.id=city AND b.status=1 ) " update="false"></property>
+        
+        
     
     </class>
 </hibernate-mapping>

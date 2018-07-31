@@ -1,3 +1,5 @@
+<%@page import="com.softNice.nikah.beans.permissionBean"%>
+<%@page import="java.util.HashMap"%>
 <%@page import="com.softNice.nikah.utility.validation"%>
 <%@page import="com.softNice.nikah.beans.UserBean"%>
 <%@page import="java.util.ArrayList"%>
@@ -10,6 +12,12 @@ ArrayList<UserBean> list=new ArrayList<UserBean>();
 		list = (ArrayList<UserBean>)request.getAttribute(contentPage.LOCALOBJ);
 	}
 
+	HashMap<String, permissionBean> map= null;
+	if(request.getSession().getAttribute(contentPage.MAPOBJ)!=null){
+		new HashMap<String, permissionBean>();
+		map = (HashMap) request.getSession().getAttribute(contentPage.MAPOBJ);
+	}
+	
 %>
 <div class="main-content">
 				<div class="main-content-inner">
@@ -18,14 +26,17 @@ ArrayList<UserBean> list=new ArrayList<UserBean>();
 						
 
 						<div class="page-header">
-						
+						<%
+						permissionBean Perbean=(permissionBean) map.get("Administration");
+						if(Perbean.isView() && Perbean.isAdd()){
+						%>
 						<table width="100%">
 							<tr>
 								<th><h1> Users List  </h1></th>
 								<th align="right"><a href="FormServlet?key=addUser" class="btn btn-info"  style="margin-left: 85%;" >Add New</a></th>
 							</tr>
 						</table>
-							
+					<%} %>		
 						</div><!-- /.page-header -->
 
 						<div class="row">
@@ -60,7 +71,7 @@ ArrayList<UserBean> list=new ArrayList<UserBean>();
 												<% for(UserBean user: list){ %>
 													<tr>
 														<td><%=user.getUserName() %></td>
-														<td><%=user.getFirstName() + user.getLastName() %></td>
+														<td><%=user.getFirstName()+" " + user.getLastName() %></td>
 														<td><%=user.getPhno() %></td>
 														<td><%=user.getEmail() %></td>
 														<td><%=user.getGender() %></td>
@@ -79,15 +90,16 @@ ArrayList<UserBean> list=new ArrayList<UserBean>();
 														<td>
 															<div class="hidden-sm hidden-xs action-buttons">
 																
-																
+																<% if(Perbean.isView() && Perbean.isUpdate()){ %>
 																<a class="green" href="ContentServlet?key=updateUser&id=<%=user.getId() %>">
 																	<i class="ace-icon fa fa-pencil bigger-130"></i>
 																</a>
-
+																<%}
+																   if(Perbean.isView() && Perbean.isDelete()){ %>
 																<a class="red" href="#" onclick="deleteDilog('<%=user.getId() %>')" >
 																	<i class="ace-icon fa fa-trash-o bigger-130"></i>
 																</a>
-																
+																<%} %>
 																
 															</div>
 

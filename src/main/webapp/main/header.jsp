@@ -1,3 +1,14 @@
+	<%@page import="com.softNice.nikah.beans.UserBean"%>
+<%@page import="com.softNice.nikah.constent.contentPage"%>
+<%
+			UserBean bean=new UserBean();
+			if(request.getSession().getAttribute(contentPage.USERSOBJ)!=null){
+				bean = (UserBean)request.getSession().getAttribute(contentPage.USERSOBJ);
+			}
+	
+	%>
+	
+	
 		<div id="navbar" class="navbar navbar-default          ace-save-state">
 			<div class="navbar-container ace-save-state" id="navbar-container">
 				<button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler" data-target="#sidebar">
@@ -281,7 +292,8 @@
 								<img class="nav-user-photo" src="assets/images/avatars/user.jpg" alt="Jason's Photo" />
 								<span class="user-info">
 									<small>Welcome,</small>
-									Jason
+									<%System.out.println(bean.getFirstName()); %>
+									<%=bean.getFirstName() + " " + bean.getLastName() %>
 								</span>
 
 								<i class="ace-icon fa fa-caret-down"></i>
@@ -305,7 +317,7 @@
 								<li class="divider"></li>
 
 								<li>
-									<a href="#">
+									<a href="loginServlet?key=logout">
 										<i class="ace-icon fa fa-power-off"></i>
 										Logout
 									</a>

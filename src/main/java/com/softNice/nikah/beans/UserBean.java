@@ -26,6 +26,7 @@
 package com.softNice.nikah.beans;
 
 import java.util.Date;
+import java.util.Set;
 
 import com.softNice.nikah.utility.EncrypitDecrypit;
 
@@ -51,7 +52,10 @@ public class UserBean {
 	private String stateName;
 	private String cityName;
 	private String email;
+	private Set<roleBean> roleList;
 	
+	
+
 	public UserBean(){
 				
 		  userName="";
@@ -131,13 +135,14 @@ public class UserBean {
 		this.userName = userName;
 	}
 	public String getPassword() {
-		try {
+		return password;
+	/*	try {
 			return   EncrypitDecrypit.decrypt(password, "password") ;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+		return null;*/
 	}
 	public void setPassword(String password) {
 		this.password = password;
@@ -197,6 +202,15 @@ public class UserBean {
 		this.email = email;
 	}
 	
+	public Set<roleBean> getRoleList() {
+		return roleList;
+	}
+
+
+	public void setRoleList(Set<roleBean> roleList) {
+		this.roleList = roleList;
+	}
+
 	
 
 }

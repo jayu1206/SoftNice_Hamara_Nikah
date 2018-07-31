@@ -1,3 +1,5 @@
+<%@page import="com.softNice.nikah.constent.contentPage"%>
+<%@page import="com.softNice.nikah.constent.ErrorMsg"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
@@ -90,6 +92,18 @@
 													</div>
 
 													<div class="space-4"></div>
+													
+													<div align="center" style="color: red">
+														<%
+														 String str="";
+														if(request.getAttribute(contentPage.ERROR)!=null){ 
+															str=((ErrorMsg)request.getAttribute(contentPage.ERROR)).getError();
+														
+														} %>
+														
+														<label><%=str %> </label>
+									
+												</div>
 												</fieldset>
 					</form>
 
@@ -269,5 +283,9 @@
 				</div><!-- /.row -->
 			</div><!-- /.main-content -->
 		</div><!-- /.main-container -->
+		
+		<%
+			request.getSession().invalidate();
+		%>
 </body>
 </html>

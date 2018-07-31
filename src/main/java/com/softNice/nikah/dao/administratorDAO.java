@@ -32,6 +32,7 @@ import com.softNice.nikah.beans.countryBean;
 import com.softNice.nikah.beans.permissionBean;
 import com.softNice.nikah.beans.permissionnamesBean;
 import com.softNice.nikah.beans.roleBean;
+import com.softNice.nikah.beans.settingBean;
 
 
 
@@ -62,17 +63,23 @@ public interface administratorDAO {
 
 	public abstract ArrayList<countryBean> getAllCountry();
 
-	public abstract boolean checkDublicateUserName(String str);
+	public abstract boolean checkDublicateUserName(String str, int id);
 
-	public abstract boolean checkDublicateEmail(String str);
+	public abstract boolean checkDublicateEmail(String str, int id);
 
-	public abstract boolean checkDublicatePhone(String str);
+	public abstract boolean checkDublicatePhone(String str,int id);
 
 	public abstract int insertUser(UserBean bean);
 
 	public abstract UserBean getUserbyId(int parseInt);
 
 	public abstract int updateUser(UserBean bean);
+
+	public abstract UserBean loginUserAuth(String userName, String password);
+
+	public abstract settingBean getSetting(String string);
+
+	public abstract int updateSetting(settingBean bean);
 
 
 }

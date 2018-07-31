@@ -25,7 +25,9 @@
 
 package com.softNice.nikah.servlet;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.logging.ErrorManager;
 
 import javax.servlet.RequestDispatcher;
@@ -34,11 +36,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+
 import com.softNice.nikah.beans.roleBean;
+import com.softNice.nikah.beans.settingBean;
 import com.softNice.nikah.constent.ErrorMsg;
 import com.softNice.nikah.constent.contentPage;
 import com.softNice.nikah.maintenance.adminMaintenance;
 import com.softNice.nikah.maintenance.roleMaintenance;
+import com.softNice.nikah.maintenance.settingMaintenance;
 
 /**
  * Servlet implementation class FormServlet
@@ -72,6 +80,16 @@ public class FormServlet extends HttpServlet {
 				adminMaintenance.getInstance().getAllCountry(request);
 				roleMaintenance.getInstance().getAllRole(request);
 				request.setAttribute(contentPage.CONTENT_PAGE, "/administrator/addUser.jsp");
+			}
+			
+			if(key.equals("generalSetting")){
+				request.setAttribute(contentPage.CONTENT_PAGE, "/setting/general.jsp");
+				
+			}
+			
+			if(key.equals("emailSetting")){
+				settingBean bean= settingMaintenance.getInstance().getSetting("email_setting", request);
+				request.setAttribute(contentPage.CONTENT_PAGE, "/setting/email.jsp");
 			}
 			
 		}
@@ -118,7 +136,7 @@ public class FormServlet extends HttpServlet {
 				
 			}
 			
-			//
+			
 			if(key.equals("addUser")){
 				ErrorMsg obj=(ErrorMsg) adminMaintenance.getInstance().addvalidation(request);
 				request.setAttribute("error", obj);
@@ -127,6 +145,51 @@ public class FormServlet extends HttpServlet {
 				}else{
 					request.setAttribute(contentPage.CONTENT_PAGE, "/administrator/userList.jsp");
 				}
+				
+			} 
+			
+			if(key.equals("updateUser")){
+				
+				ErrorMsg obj=(ErrorMsg) adminMaintenance.getInstance().updateValidation(request);
+				request.setAttribute("error", obj);
+				if(obj.getErrorCode()!=0){
+					request.setAttribute(contentPage.CONTENT_PAGE, "/administrator/addUser.jsp");
+				}else{
+					request.setAttribute(contentPage.CONTENT_PAGE, "/administrator/userList.jsp");
+				}
+				
+			}
+			
+			if(key.equals("updateSetting")){
+				 if(ServletFileUpload.isMultipartContent(request)){
+			            try {
+			                List<FileItem> multiparts = new ServletFileUpload(
+			                                         new DiskFileItemFactory()).parseRequest(request);
+			              
+			                for(FileItem item : multiparts){
+			                    if(!item.isFormField()){
+			                        String name = new File(item.getName()).getName();
+			                        //item.write( item.ge);
+			                    }
+			                }
+			           
+			               //File uploaded successfully
+			               request.setAttribute("message", "File Uploaded Successfully");
+			            } catch (Exception ex) {
+			               request.setAttribute("message", "File Upload Failed due to " + ex);
+			            }          
+			         
+			        }else{
+			            request.setAttribute("message",
+			                                 "Sorry this Servlet only handles file upload request");
+			        }
+				
+			}
+			 
+			if(key.equals("emailSetting")){
+				ErrorMsg obj=(ErrorMsg) settingMaintenance.getInstance().updateEmail(request);
+				request.setAttribute("error", obj);
+				request.setAttribute(contentPage.CONTENT_PAGE, "/setting/email.jsp");
 				
 			}
 			

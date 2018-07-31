@@ -36,5 +36,8 @@ public class contentPage {
 	public static String PERMISSIONNAME="permissionNames";
 	public static String COUNTRYOBJ="countryObj";
 	public static String ROLEOBJ="roleObj";
+	public static String USERSOBJ="userObj";
+	public static String MAPOBJ="mapObj";
+	public static String SETTING="settingObj";
 
 }

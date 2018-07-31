@@ -34,6 +34,7 @@
 		 <mapping resource="com/softNice/nikah/hbm/state.hbm.xml" />
 		 <mapping resource="com/softNice/nikah/hbm/city.hbm.xml" />
 		 <mapping resource="com/softNice/nikah/hbm/User.hbm.xml" /> 
+		  <mapping resource="com/softNice/nikah/hbm/setting.hbm.xml" /> 
 	
 		
 	</session-factory>

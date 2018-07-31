@@ -107,6 +107,7 @@ public class ContentServlet extends HttpServlet {
 			if(key.equals("updateUser")){
 				adminMaintenance.getInstance().getUserbyId(request);
 				roleMaintenance.getInstance().getAllRole(request);
+				adminMaintenance.getInstance().getAllCountry(request);
 				request.setAttribute(contentPage.CONTENT_PAGE, "/administrator/addUser.jsp");
 				
 			}

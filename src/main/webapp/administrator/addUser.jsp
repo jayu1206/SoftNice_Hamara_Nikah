@@ -389,7 +389,7 @@
 														</button>
 
 														&nbsp; &nbsp; &nbsp;
-														<a href="#" class="btn" type="reset" id="btnBack" name="btnBack">
+														<a href="ContentServlet?key=user" class="btn" type="reset" id="btnBack" name="btnBack">
 															<i class="ace-icon fa fa-undo bigger-110"></i>
 																Back
 														</a>

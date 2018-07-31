@@ -26,6 +26,8 @@
 package com.softNice.nikah.servlet;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -33,7 +35,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.softNice.nikah.beans.UserBean;
+import com.softNice.nikah.beans.permissionBean;
+import com.softNice.nikah.beans.roleBean;
+import com.softNice.nikah.constent.ErrorMsg;
 import com.softNice.nikah.constent.contentPage;
+import com.softNice.nikah.maintenance.adminMaintenance;
+import com.softNice.nikah.maintenance.roleMaintenance;
 
 
 
@@ -56,6 +64,18 @@ public class loginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		RequestDispatcher rd = null;
+		if(request.getParameter("key")!=null){
+			
+			if(request.getParameter("key").equals("logout")){
+				request.getSession().invalidate();
+				rd=request.getRequestDispatcher("/login.jsp");  
+				rd.forward(request, response); 
+				
+			}
+			
+		}
+		
 	}
 
 	/**
@@ -64,14 +84,44 @@ public class loginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		RequestDispatcher rd = null;
-		if(request.getParameter("txtUserName").equals("admin") && request.getParameter("txtPsw").equals("admin")){
+		UserBean bean=adminMaintenance.getInstance().authentication(request);
+		if(bean!=null){
+			request.getSession().setAttribute(contentPage.USERSOBJ,bean);
+			HashMap<String, permissionBean> map=new HashMap<String, permissionBean>();
+			roleBean rolebean = roleMaintenance.getInstance().getRoleBaseOnId(bean.getRoleId());
+			if(rolebean != null){
+				
+				for(permissionBean permissionObj : rolebean.getPermissions()){
+					 map.put(permissionObj.getPermissionName(), permissionObj);
+				}
+				
+			}
+			permissionBean bbb=(permissionBean)map.get("Administration");
+			System.out.println(bbb.getPermissionName());
+			request.getSession().setAttribute(contentPage.MAPOBJ, map);
 			request.getSession().setAttribute(contentPage.PERMISSIONNAME,getServletContext().getAttribute(contentPage.PERMISSIONNAME));
 			request.setAttribute(contentPage.CONTENT_PAGE, "/home.jsp");
 			
+			
+			
+			rd=request.getRequestDispatcher("/index.jsp");  
+			rd.forward(request, response); 
+			
+		}else{
+			//request.getSession().invalidate();
+			ErrorMsg error=new ErrorMsg(1,"Invalid Username or Password");
+			request.setAttribute("error", error);
+			rd=request.getRequestDispatcher("/login.jsp");  
+			rd.forward(request, response); 
+			//request.setAttribute(contentPage.CONTENT_PAGE, "/login.jsp");
 		}
+		/*if(request.getParameter("txtUserName").equals("admin") && request.getParameter("txtPsw").equals("admin")){
+			request.getSession().setAttribute(contentPage.PERMISSIONNAME,getServletContext().getAttribute(contentPage.PERMISSIONNAME));
+			request.setAttribute(contentPage.CONTENT_PAGE, "/home.jsp");
+			
+		}*/
 		
-		rd=request.getRequestDispatcher("/index.jsp");  
-		rd.forward(request, response); 
+		
 	}
 
 }
