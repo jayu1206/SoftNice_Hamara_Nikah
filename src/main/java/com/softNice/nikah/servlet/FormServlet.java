@@ -31,6 +31,7 @@ import java.util.List;
 import java.util.logging.ErrorManager;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -40,6 +41,7 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
+import com.softNice.nikah.beans.generalSettingBean;
 import com.softNice.nikah.beans.roleBean;
 import com.softNice.nikah.beans.settingBean;
 import com.softNice.nikah.constent.ErrorMsg;
@@ -83,6 +85,7 @@ public class FormServlet extends HttpServlet {
 			}
 			
 			if(key.equals("generalSetting")){
+				settingBean bean= settingMaintenance.getInstance().getSetting("general_setting", request);
 				request.setAttribute(contentPage.CONTENT_PAGE, "/setting/general.jsp");
 				
 			}
@@ -90,6 +93,22 @@ public class FormServlet extends HttpServlet {
 			if(key.equals("emailSetting")){
 				settingBean bean= settingMaintenance.getInstance().getSetting("email_setting", request);
 				request.setAttribute(contentPage.CONTENT_PAGE, "/setting/email.jsp");
+			}
+			
+			if(key.equals("addCountry")){
+				request.setAttribute(contentPage.CONTENT_PAGE, "/setting/addCountry.jsp");
+				
+			}
+			//
+			if(key.equals("addState")){
+				adminMaintenance.getInstance().getAllCountry(request);
+				request.setAttribute(contentPage.CONTENT_PAGE, "/setting/addState.jsp");
+				
+			}
+			
+			if(key.equals("addBasics")){
+				request.setAttribute(contentPage.CONTENT_PAGE, "/setting/addBasicDetails.jsp");
+				
 			}
 			
 		}
@@ -128,6 +147,27 @@ public class FormServlet extends HttpServlet {
 				
 			} //finish updateRole
 			
+			if(key.equals("addCountry")){
+				ErrorMsg obj=(ErrorMsg) adminMaintenance.getInstance().validationCountry(request);
+				request.setAttribute("error", obj);
+				if(obj.getErrorCode()!=0){
+					request.setAttribute(contentPage.CONTENT_PAGE, "/setting/addCountry.jsp");
+				}else{
+					request.setAttribute(contentPage.CONTENT_PAGE, "/setting/countryList.jsp");
+				}
+			}
+			
+			if(key.equals("addState")){
+				ErrorMsg obj=(ErrorMsg) adminMaintenance.getInstance().validationState(request);
+				request.setAttribute("error", obj);
+				if(obj.getErrorCode()!=0){
+					request.setAttribute(contentPage.CONTENT_PAGE, "/setting/addState.jsp");
+				}else{
+					request.setAttribute(contentPage.CONTENT_PAGE, "/setting/stateList.jsp");
+				}
+				
+			}
+			
 			if(key.equals("savePermission")){
 				
 				ErrorMsg obj=(ErrorMsg) roleMaintenance.getInstance().setPermission(request);
@@ -161,6 +201,8 @@ public class FormServlet extends HttpServlet {
 			}
 			
 			if(key.equals("updateSetting")){
+				generalSettingBean bean=new generalSettingBean();
+				ServletContext servletContext = this.getServletConfig().getServletContext();
 				 if(ServletFileUpload.isMultipartContent(request)){
 			            try {
 			                List<FileItem> multiparts = new ServletFileUpload(
@@ -168,21 +210,45 @@ public class FormServlet extends HttpServlet {
 			              
 			                for(FileItem item : multiparts){
 			                    if(!item.isFormField()){
-			                        String name = new File(item.getName()).getName();
-			                        //item.write( item.ge);
+			                    	if(new File(item.getName()).getName().length()>0){
+			                    		String name = new File(item.getName()).getName();
+				                        String tempDir = servletContext.getRealPath(File.separator)+  "image" ;
+				                       // String tempDir2 = servletContext.getResource(File.separator)+ "resources" + File.separator+ "image" ;
+				                        File uploadedFile1 = new File(tempDir);
+										 if(!uploadedFile1.exists())
+											 uploadedFile1.mkdirs();
+										 String withFile = tempDir  + File.separator+ name;
+										 File uploadedFile = new File(withFile);
+										 item.write(uploadedFile);
+										 bean.setLogo(withFile);
+			                    	}
+			                        
+									 
+			                    }
+			                    else{
+			                    	if(item.getFieldName().equals("txtAppName")){
+			                    		//System.out.println(item.getString());
+			                    		bean.setApp_name(item.getString());
+			                    	}
+			                    	if(item.getFieldName().equals("txtCopyRight")){
+			                    		bean.setCopyRight(item.getString());
+			                    	}
+			                    	
 			                    }
 			                }
 			           
-			               //File uploaded successfully
-			               request.setAttribute("message", "File Uploaded Successfully");
+			                ErrorMsg obj=(ErrorMsg) settingMaintenance.getInstance().updateGeneral(bean,request);
+			                request.setAttribute("error", obj);
+							request.setAttribute(contentPage.CONTENT_PAGE, "/setting/general.jsp");
 			            } catch (Exception ex) {
-			               request.setAttribute("message", "File Upload Failed due to " + ex);
+			            	ex.printStackTrace();
 			            }          
 			         
 			        }else{
 			            request.setAttribute("message",
 			                                 "Sorry this Servlet only handles file upload request");
 			        }
+				 
 				
 			}
 			 
@@ -192,6 +258,16 @@ public class FormServlet extends HttpServlet {
 				request.setAttribute(contentPage.CONTENT_PAGE, "/setting/email.jsp");
 				
 			}
+			if(key.equals("addBasics")){
+				ErrorMsg obj=(ErrorMsg) settingMaintenance.getInstance().validateMaster(request);
+				request.setAttribute("error", obj);
+				if(obj.getErrorCode()!=0){
+					request.setAttribute(contentPage.CONTENT_PAGE, "/setting/addBasicDetails.jsp");
+				}else{
+					request.setAttribute(contentPage.CONTENT_PAGE, "/setting/basicDetailsList.jsp");
+				}
+			}
+			
 			
 		}
 		rd=request.getRequestDispatcher("/index.jsp");  

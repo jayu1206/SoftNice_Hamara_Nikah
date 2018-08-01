@@ -34,10 +34,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.softNice.nikah.beans.countryBean;
 import com.softNice.nikah.beans.permissionnamesBean;
 import com.softNice.nikah.constent.contentPage;
+import com.softNice.nikah.dao.administratorDAO;
+import com.softNice.nikah.impl.administratorImpl;
 import com.softNice.nikah.maintenance.adminMaintenance;
 import com.softNice.nikah.maintenance.roleMaintenance;
+import com.softNice.nikah.maintenance.settingMaintenance;
 
 /**
  * Servlet implementation class ContentServlet
@@ -65,7 +69,7 @@ public class ContentServlet extends HttpServlet {
 				roleMaintenance.getInstance().getAllRole(request);
 				request.setAttribute(contentPage.CONTENT_PAGE, "/administrator/roleList.jsp");
 				
-			} // role
+			} 
 			
 			if(key.equals("updateRole")){
 				
@@ -113,6 +117,33 @@ public class ContentServlet extends HttpServlet {
 			}
 			
 			
+			if(key.equals("country")){
+				
+				adminMaintenance.getInstance().getAllCountry(request);
+				request.setAttribute(contentPage.CONTENT_PAGE, "/setting/countryList.jsp");
+				
+			} 
+			
+			if(key.equals("state")){
+				adminMaintenance.getInstance().getAllState(request);
+				request.setAttribute(contentPage.CONTENT_PAGE, "/setting/stateList.jsp");
+				
+			}
+			
+			if(key.equals("deleteCountry")){
+				//adminMaintenance.getInstance().deleteCountry
+				request.setAttribute(contentPage.CONTENT_PAGE, "/setting/countryList.jsp");
+			}
+			
+			if(key.equals("basics")){
+				settingMaintenance.getInstance().getAllMaster(request);
+				request.setAttribute(contentPage.CONTENT_PAGE, "/setting/basicDetailsList.jsp");
+			}
+			
+			if(key.equals("deleteBasic")){
+				settingMaintenance.getInstance().deleteMaster(request);
+				request.setAttribute(contentPage.CONTENT_PAGE, "/setting/basicDetailsList.jsp");
+			}
 		}
 		rd=request.getRequestDispatcher("/index.jsp");  
 		rd.forward(request, response); 

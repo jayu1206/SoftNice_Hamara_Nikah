@@ -143,6 +143,42 @@
 								<b class="arrow"></b>
 							</li>
 							
+							<li class="">
+								<a href="ContentServlet?key=country">
+									<i class="menu-icon fa fa-caret-right"></i>
+									Country
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+							
+								<li class="">
+									<a href="ContentServlet?key=state">
+										<i class="menu-icon fa fa-caret-right"></i>
+										State
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+							
+							<li class="">
+									<a href="#">
+										<i class="menu-icon fa fa-caret-right"></i>
+										City
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+							
+							<li class="">
+									<a href="ContentServlet?key=basics">
+										<i class="menu-icon fa fa-caret-right"></i>
+										Basic Details
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+							
 						</ul>
 					</li>
 

@@ -5,6 +5,7 @@ public class statesBean {
 	private String name;
 	private int countryId;
 	private boolean status;
+	private String countryName;
 	
 	
 	public int getId() {
@@ -30,6 +31,12 @@ public class statesBean {
 	}
 	public void setStatus(boolean status) {
 		this.status = status;
+	}
+	public String getCountryName() {
+		return countryName;
+	}
+	public void setCountryName(String countryName) {
+		this.countryName = countryName;
 	}
 	
 	

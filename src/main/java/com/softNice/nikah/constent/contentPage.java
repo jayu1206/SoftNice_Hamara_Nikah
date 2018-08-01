@@ -39,5 +39,9 @@ public class contentPage {
 	public static String USERSOBJ="userObj";
 	public static String MAPOBJ="mapObj";
 	public static String SETTING="settingObj";
+	public static String STATEOBJ="stateObj";
+	public static String CITYOBJ="cityObj";
+	public static String MASTERMAPOBJ="masterMapObj";
+	
 
 }

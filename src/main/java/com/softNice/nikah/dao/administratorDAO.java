@@ -29,10 +29,12 @@ import java.util.ArrayList;
 
 import com.softNice.nikah.beans.UserBean;
 import com.softNice.nikah.beans.countryBean;
+import com.softNice.nikah.beans.masterBean;
 import com.softNice.nikah.beans.permissionBean;
 import com.softNice.nikah.beans.permissionnamesBean;
 import com.softNice.nikah.beans.roleBean;
 import com.softNice.nikah.beans.settingBean;
+import com.softNice.nikah.beans.statesBean;
 
 
 
@@ -80,6 +82,24 @@ public interface administratorDAO {
 	public abstract settingBean getSetting(String string);
 
 	public abstract int updateSetting(settingBean bean);
+
+	public abstract ArrayList<statesBean> getAllState();
+
+	public abstract int insertCountry(countryBean bean);
+
+	public abstract int insertMaster(masterBean bean);
+
+	public abstract ArrayList<masterBean> getAllMasters();
+
+	public abstract masterBean getMasterBaseonID(int parseInt);
+
+	public abstract int deleteMaster(masterBean bean);
+
+	public abstract boolean checkDublicateCountry(String fiels, String str);
+
+	public abstract boolean checkDublicateState(int countryId, String state);
+
+	public abstract int insertState(statesBean bean);
 
 
 }

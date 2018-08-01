@@ -34,10 +34,12 @@ import org.hibernate.Session;
 
 import com.softNice.nikah.beans.UserBean;
 import com.softNice.nikah.beans.countryBean;
+import com.softNice.nikah.beans.masterBean;
 import com.softNice.nikah.beans.permissionBean;
 import com.softNice.nikah.beans.permissionnamesBean;
 import com.softNice.nikah.beans.roleBean;
 import com.softNice.nikah.beans.settingBean;
+import com.softNice.nikah.beans.statesBean;
 import com.softNice.nikah.dao.administratorDAO;
 import com.softNice.nikah.database.HibernateFactory;
 import com.softNice.nikah.utility.EncrypitDecrypit;
@@ -365,6 +367,29 @@ public class administratorImpl implements administratorDAO{
 
 		return arrActivity;
 	}
+	
+	@Override
+	public ArrayList<statesBean> getAllState() {
+		// TODO Auto-generated method stub
+		Session session = null;
+
+		ArrayList<statesBean> arrActivity = new ArrayList<statesBean>();
+		try {
+
+			session = HibernateFactory.openSession();
+
+			Query query = session.createQuery(" from statesBean where status=1");
+			arrActivity = (ArrayList<statesBean>) query.list();
+
+		} catch (Exception e) {
+			log.log(Level.SEVERE, e.getMessage());
+			 e.printStackTrace();
+		} finally {
+			HibernateFactory.close(session);
+		}
+
+		return arrActivity;
+	}
 
 	@Override
 	public boolean checkDublicateUserName(String str,int id) {
@@ -636,6 +661,262 @@ public class administratorImpl implements administratorDAO{
 		try {
 			session=HibernateFactory.openSession();
 			session.update(bean);
+			session.flush();
+			return 0;
+
+		} catch (Exception e) {
+			log.log(Level.SEVERE, e.getMessage());
+			e.printStackTrace();
+			return 2;
+			  
+		} finally {
+			try {
+				HibernateFactory.close(session);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	@Override
+	public int insertCountry(countryBean bean) {
+		// TODO Auto-generated method stub
+		Session session=null;
+		try {
+			session=HibernateFactory.openSession();
+			session.save(bean);
+			session.flush();
+			return 0;
+
+		} catch (Exception e) {
+			log.log(Level.SEVERE, e.getMessage());
+			e.printStackTrace();
+			return 2;
+			  
+		} finally {
+			try {
+				HibernateFactory.close(session);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	@Override
+	public int insertMaster(masterBean bean) {
+		// TODO Auto-generated method stub
+		Session session=null;
+		try {
+			session=HibernateFactory.openSession();
+			session.save(bean);
+			session.flush();
+			return 0;
+
+		} catch (Exception e) {
+			log.log(Level.SEVERE, e.getMessage());
+			e.printStackTrace();
+			return 2;
+			  
+		} finally {
+			try {
+				HibernateFactory.close(session);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	@Override
+	public ArrayList<masterBean> getAllMasters() {
+		// TODO Auto-generated method stub
+		Session session = null;
+
+		ArrayList<masterBean> arrActivity = new ArrayList<masterBean>();
+		try {
+
+			session = HibernateFactory.openSession();
+
+			Query query = session.createQuery(" from masterBean where status=1");
+			arrActivity = (ArrayList<masterBean>) query.list();
+
+		} catch (Exception e) {
+			log.log(Level.SEVERE, e.getMessage());
+			 e.printStackTrace();
+		} finally {
+			HibernateFactory.close(session);
+		}
+
+		return arrActivity;
+	}
+
+	@Override
+	public masterBean getMasterBaseonID(int parseInt) {
+		// TODO Auto-generated method stub
+		Session session = null;
+
+		masterBean arrActivity = new masterBean();
+		try {
+
+			session = HibernateFactory.openSession();
+
+			Query query = session.createQuery(" from masterBean where status=1 and id=:id");
+			query.setParameter("id", parseInt);
+			arrActivity = (masterBean) query.list().get(0);
+
+		} catch (Exception e) {
+			log.log(Level.SEVERE, e.getMessage());
+			 e.printStackTrace();
+		} finally {
+			HibernateFactory.close(session);
+		}
+
+		return arrActivity;
+	}
+
+	@Override
+	public int deleteMaster(masterBean bean) {
+		// TODO Auto-generated method stub
+		Session session=null;
+		try {
+			session=HibernateFactory.openSession();
+			session.update(bean);
+			session.flush();
+			return 0;
+
+		} catch (Exception e) {
+			log.log(Level.SEVERE, e.getMessage());
+			e.printStackTrace();
+			return 2;
+			  
+		} finally {
+			try {
+				HibernateFactory.close(session);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	@Override
+	public boolean checkDublicateCountry(String field, String str) {
+		// TODO Auto-generated method stub
+		boolean flag= false;
+		long count = 0;
+		Session session = null;
+		try {
+			session = HibernateFactory.openSession();
+			String paramString="";
+			if(field.equals("sortname")){
+				paramString = "sortname=:sortname";
+			}
+			
+			if(field.equals("name")){
+				paramString = "name=:name";
+			}
+			
+			if(field.equals("phonecode")){
+				paramString = "phonecode=:phonecode";
+			}
+			Query query = session
+					.createQuery("select count(*) from countryBean where  "+paramString+" and status=1");
+			
+			if(field.equals("sortname")){
+				query.setParameter("sortname", str);
+			}
+			
+			if(field.equals("name")){
+				query.setParameter("name", str);
+			}
+			
+			if(field.equals("phonecode")){
+				query.setParameter("phonecode", Integer.parseInt(str));
+			}
+			
+			
+			count = (Long) query.uniqueResult();
+
+			
+			session.flush();
+			
+			if(count>0){
+				flag = false;
+			}else{
+				flag = true;
+			}
+		
+
+		} catch (Exception e) {
+			log.log(Level.SEVERE, e.getMessage());
+			e.printStackTrace();
+			flag = false;
+			  
+		} finally {
+			try {
+				HibernateFactory.close(session);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return flag;
+	}
+
+	@Override
+	public boolean checkDublicateState(int countryId, String state) {
+		// TODO Auto-generated method stub
+		boolean flag= false;
+		long count = 0;
+		Session session = null;
+		try {
+			session = HibernateFactory.openSession();
+			
+			Query query = session
+					.createQuery("select count(*) from statesBean where countryId=:countryId and name=:name  and status=1");
+			query.setParameter("countryId", countryId);
+			query.setParameter("name", state);
+			
+			
+			count = (Long) query.uniqueResult();
+
+			
+			session.flush();
+			
+			if(count>0){
+				flag = false;
+			}else{
+				flag = true;
+			}
+		
+
+		} catch (Exception e) {
+			log.log(Level.SEVERE, e.getMessage());
+			e.printStackTrace();
+			flag = false;
+			  
+		} finally {
+			try {
+				HibernateFactory.close(session);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return flag;
+	}
+
+	@Override
+	public int insertState(statesBean bean) {
+		// TODO Auto-generated method stub
+		Session session=null;
+		try {
+			session=HibernateFactory.openSession();
+			session.save(bean);
 			session.flush();
 			return 0;
 

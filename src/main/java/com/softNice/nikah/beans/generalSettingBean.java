@@ -5,6 +5,12 @@ public class generalSettingBean {
 	private String logo;
 	private String copyRight;
 	
+	public generalSettingBean(){
+		app_name = "";
+		copyRight="";
+		logo = "";
+	}
+	
 	public String getApp_name() {
 		return app_name;
 	}

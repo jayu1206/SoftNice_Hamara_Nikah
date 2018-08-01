@@ -1,11 +1,35 @@
 
 
+<%@page import="com.google.gson.Gson"%>
+<%@page import="org.codehaus.jackson.map.ObjectMapper"%>
+<%@page import="com.softNice.nikah.constent.contentPage"%>
+<%@page import="com.softNice.nikah.beans.generalSettingBean"%>
+<%@page import="com.softNice.nikah.beans.settingBean"%>
+<%@page import="com.softNice.nikah.constent.ErrorMsg"%>
+
 <div class="main-content">
 						
 				<div class="main-content-inner">
 					
 					<div class="page-content">
-						
+						<%
+								settingBean bean= null;
+								generalSettingBean mailbean= new generalSettingBean();
+								if(request.getAttribute(contentPage.SETTING)!=null){
+									bean = (settingBean) request.getAttribute(contentPage.SETTING);
+									
+									ObjectMapper mapperObj = new ObjectMapper();
+									if(bean.getValue()!=null){
+										mailbean = new Gson().fromJson(bean.getValue(),generalSettingBean.class);
+									}
+									
+								}
+								
+								
+								if(request.getAttribute(contentPage.ERROR)!=null){
+									
+								}
+						%>
 
 						<div class="page-header">
 						
@@ -30,7 +54,7 @@
 										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> App Name </label>
 
 										<div class="col-sm-9">
-											<input type="text" id="txtAppName" name="txtAppName" value="" class="col-xs-10 col-sm-5" />
+											<input type="text" id="txtAppName" name="txtAppName" value="<%=mailbean.getApp_name() %>" class="col-xs-10 col-sm-5" />
 										</div>
 								</div>
 								
@@ -38,7 +62,7 @@
 										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Footer Copy Right </label>
 
 										<div class="col-sm-9">
-											<input type="text" id="txtAppName" name="txtAppName" value="" class="col-xs-10 col-sm-5" />
+											<input type="text" id="txtCopyRight" name="txtCopyRight" value="<%=mailbean.getCopyRight() %>" class="col-xs-10 col-sm-5" />
 										</div>
 								</div>
 								
@@ -67,7 +91,7 @@
 									</div>
 								
 								</form>
-								<%-- <div align="center" style="color: red">
+								 <div align="center" style="color: red">
 												<%
 												 String str="";
 												if(request.getAttribute(contentPage.ERROR)!=null){ 
@@ -77,7 +101,7 @@
 												
 												<label><%=str %> </label>
 									
-								</div> --%>
+								</div>
 								<!-- PAGE CONTENT ENDS -->
 							</div><!-- /.col -->
 						</div><!-- /.row -->
@@ -88,15 +112,8 @@
 	
 	$( document ).ready(function() {
 
-	    $('#btnSubmit').click(function(){                   
-	        if( $("#updateGeneral").val().lenght == 0) {
-	            $("#updateGeneral").focus();
-	            return false;
-	        }else{
-	        	//alert("submit");
-	        //	$("#addRole").submit();
-	        	
-	        }
+	    $('#btnSubmit').click(function(){   
+	    	$("#updateGeneral").submit();
 	        
 	    });
 	    

@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 import com.softNice.nikah.beans.UserBean;
 import com.softNice.nikah.beans.countryBean;
+import com.softNice.nikah.beans.masterBean;
 import com.softNice.nikah.beans.roleBean;
+import com.softNice.nikah.beans.statesBean;
 import com.softNice.nikah.constent.ErrorMsg;
 import com.softNice.nikah.constent.contentPage;
 import com.softNice.nikah.dao.administratorDAO;
@@ -50,6 +52,15 @@ public class adminMaintenance {
 		
 	}
 
+	public void getAllState(HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		administratorDAO dao=new administratorImpl();
+		ArrayList<statesBean> list =dao.getAllState();
+		request.setAttribute("stateObj", list);
+		
+	}
+	
+	
 	public boolean checkDublicateUserName(String str,int action){
 		administratorDAO dao=new administratorImpl();
 		boolean flag = dao.checkDublicateUserName(str,action);
@@ -345,4 +356,91 @@ public class adminMaintenance {
 		UserBean bean=dao.loginUserAuth(userName,password);
 		return bean;
 	}
+
+	public ErrorMsg validationCountry(HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		adminMaintenance.getInstance().getAllCountry(request);
+		countryBean bean=new countryBean();
+		
+		if (request.getParameter("txtCountryName")  == null || request.getParameter("txtCountryName").trim().length() == 0){
+			return new ErrorMsg(1, "Country name field is required");
+		}else if(!checkDubplicateCountry(request.getParameter("txtCountryName"),"name")){
+			return new ErrorMsg(1, "Country is already exist");
+		}
+		bean.setName(request.getParameter("txtCountryName"));
+		
+		if (request.getParameter("txtShortName")  == null || request.getParameter("txtShortName").trim().length() == 0){
+			return new ErrorMsg(1, "Short name field is required");
+		}else if(!checkDubplicateCountry(request.getParameter("txtShortName"),"sortname")){
+			return new ErrorMsg(1, "Short is already exist");
+		}
+		bean.setSortname(request.getParameter("txtShortName"));
+		
+		if (request.getParameter("txtPhCode")  == null || request.getParameter("txtPhCode").trim().length() == 0){
+			return new ErrorMsg(1, "Phone code field is required");
+		}else if(!checkDubplicateCountry(request.getParameter("txtPhCode"),"phonecode")){
+			return new ErrorMsg(1, "Phonecode is already exist");
+		}
+		bean.setPhonecode(Integer.parseInt(request.getParameter("txtPhCode")));
+		bean.setStatus(true);
+		
+		
+		
+		administratorDAO dao= new administratorImpl();
+		int flag=dao.insertCountry(bean);
+		
+		if(flag!=0){
+			return new ErrorMsg(2, "Internal Error");
+		}
+		
+		getAllCountry(request);
+		return new ErrorMsg(0, "Country created sucessfully");
+		
+		
+	}
+
+	private boolean checkDubplicateCountry(String str,String field) {
+		// TODO Auto-generated method stub
+		administratorDAO dao= new administratorImpl();
+		boolean falg = dao.checkDublicateCountry(field,str);
+		return falg;
+	}
+
+	public ErrorMsg validationState(HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		adminMaintenance.getInstance().getAllCountry(request);
+		statesBean bean = new statesBean();
+		if (request.getParameter("country").equals("0")){
+			return new ErrorMsg(1, "Country field is required");
+		}
+		bean.setCountryId(Integer.parseInt(request.getParameter("country")));
+		
+		if (request.getParameter("txtStateName")  == null || request.getParameter("txtStateName").trim().length() == 0){
+			return new ErrorMsg(1, "State field is required");
+		}
+		bean.setName(request.getParameter("txtStateName"));
+		if(!checkDublicateState(Integer.parseInt(request.getParameter("country")),request.getParameter("txtStateName"))){
+			return new ErrorMsg(1, "State is already exist");
+		}
+		bean.setStatus(true);
+		
+		administratorDAO dao= new administratorImpl();
+		int flag=dao.insertState(bean);
+		
+		if(flag!=0){
+			return new ErrorMsg(2, "Internal Error");
+		}
+		
+		getAllState(request);
+		 return new ErrorMsg(0, "State created sucessfully");
+	}
+
+	private boolean checkDublicateState(int countryId, String state) {
+		// TODO Auto-generated method stub
+		administratorDAO dao= new administratorImpl();
+		boolean flag = dao.checkDublicateState(countryId,state);
+		return flag;
+	}
+
+	
 }

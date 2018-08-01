@@ -26,6 +26,7 @@
 package com.softNice.nikah.listner;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -56,6 +57,23 @@ public class listenerClass implements ServletContextListener{
 		administratorDAO dao=new administratorImpl();
 		ArrayList<permissionnamesBean> permissionNameList= dao.getAllPermissionName();
 		context.setAttribute(contentPage.PERMISSIONNAME, permissionNameList);
+		
+		HashMap<Integer, String> map = new HashMap<Integer, String>();
+		map.put(1,"Religion");
+		map.put(2,"Culture");
+		map.put(3,"Education");
+		map.put(4,"Profession");
+		map.put(5,"Income");
+		map.put(6,"Height");
+		map.put(7,"Weight");
+		map.put(8,"Built");
+		map.put(9,"Complexion");
+		map.put(10,"Diet");
+		map.put(11,"Drink");
+		map.put(12,"Smoke");
+		
+		context.setAttribute(contentPage.MASTERMAPOBJ, map);
+		
 		
 	}
 

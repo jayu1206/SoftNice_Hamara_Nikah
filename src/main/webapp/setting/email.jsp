@@ -20,6 +20,15 @@
 									}
 									
 								}
+								
+								if(request.getAttribute(contentPage.ERROR)!=null){ 
+									mailbean.setEmail_type(request.getParameter("txtEmailType"));
+									mailbean.setServer_name(request.getParameter("txtServerName"));
+									mailbean.setUserName(request.getParameter("txtUserName"));
+									mailbean.setPassword(request.getParameter("txtPassword"));
+									mailbean.setPort(request.getParameter("txtPort"));
+									
+								}
 						%>
 				<div class="main-content-inner">
 					

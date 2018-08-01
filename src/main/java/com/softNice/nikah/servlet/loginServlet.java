@@ -96,10 +96,11 @@ public class loginServlet extends HttpServlet {
 				}
 				
 			}
-			permissionBean bbb=(permissionBean)map.get("Administration");
-			System.out.println(bbb.getPermissionName());
+			
+			
 			request.getSession().setAttribute(contentPage.MAPOBJ, map);
 			request.getSession().setAttribute(contentPage.PERMISSIONNAME,getServletContext().getAttribute(contentPage.PERMISSIONNAME));
+			request.getSession().setAttribute(contentPage.MASTERMAPOBJ, getServletContext().getAttribute(contentPage.MASTERMAPOBJ));
 			request.setAttribute(contentPage.CONTENT_PAGE, "/home.jsp");
 			
 			

@@ -9,6 +9,12 @@ public class countryBean {
 	private boolean status;
 	
 	
+	public countryBean(){
+		sortname = "";
+		name = "";
+		
+	}
+	
 	public int getId() {
 		return id;
 	}
