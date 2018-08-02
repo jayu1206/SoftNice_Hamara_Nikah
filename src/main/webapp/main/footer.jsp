@@ -1,9 +1,28 @@
+
+<%@page import="com.google.gson.Gson"%>
+<%@page import="org.codehaus.jackson.map.ObjectMapper"%>
+<%@page import="com.softNice.nikah.beans.generalSettingBean"%>
+<%@page import="com.softNice.nikah.beans.settingBean"%>
+<%@page import="com.softNice.nikah.constent.contentPage"%>
+<%
+settingBean settingbean= null;
+			generalSettingBean mailbean= new generalSettingBean();
+			if(request.getSession().getAttribute(contentPage.SETTING)!=null){
+				settingbean = (settingBean) request.getSession().getAttribute(contentPage.SETTING);
+				
+				ObjectMapper mapperObj = new ObjectMapper();
+				if(settingbean.getValue()!=null){
+					mailbean = new Gson().fromJson(settingbean.getValue(),generalSettingBean.class);
+				}
+				
+			}
+	%>		
 <div class="footer">
 				<div class="footer-inner">
 					<div class="footer-content">
 						<span class="bigger-120">
-							<span class="blue bolder">Ace</span>
-							Application &copy; 2013-2014
+							<span class="blue bolder"><%=mailbean.getApp_name() %></span>
+							 <!-- &copy; --> <%=mailbean.getCopyRight() %>
 						</span>
 
 						&nbsp; &nbsp;

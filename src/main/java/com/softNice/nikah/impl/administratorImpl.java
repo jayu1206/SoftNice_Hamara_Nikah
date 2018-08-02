@@ -33,6 +33,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 
 import com.softNice.nikah.beans.UserBean;
+import com.softNice.nikah.beans.citiesBean;
 import com.softNice.nikah.beans.countryBean;
 import com.softNice.nikah.beans.masterBean;
 import com.softNice.nikah.beans.permissionBean;
@@ -933,6 +934,222 @@ public class administratorImpl implements administratorDAO{
 				e.printStackTrace();
 			}
 		}
+	}
+
+	@Override
+	public statesBean getStateById(int parseInt) {
+		// TODO Auto-generated method stub
+		Session session = null;
+
+		statesBean arrActivity = new statesBean();
+		try {
+
+			session = HibernateFactory.openSession();
+
+			Query query = session.createQuery(" from statesBean where status=1 and id=:id");
+			query.setParameter("id", parseInt);
+			arrActivity = (statesBean) query.list().get(0);
+
+		} catch (Exception e) {
+			log.log(Level.SEVERE, e.getMessage());
+			 e.printStackTrace();
+		} finally {
+			HibernateFactory.close(session);
+		}
+
+		return arrActivity;
+	}
+
+	@Override
+	public int deleteState(statesBean bean) {
+		// TODO Auto-generated method stub
+		Session session=null;
+		try {
+			session=HibernateFactory.openSession();
+			session.update(bean);
+			session.flush();
+			return 0;
+
+		} catch (Exception e) {
+			log.log(Level.SEVERE, e.getMessage());
+			e.printStackTrace();
+			return 2;
+			  
+		} finally {
+			try {
+				HibernateFactory.close(session);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	@Override
+	public countryBean getCountryById(int parseInt) {
+		// TODO Auto-generated method stub
+		Session session = null;
+
+		countryBean arrActivity = new countryBean();
+		try {
+
+			session = HibernateFactory.openSession();
+
+			Query query = session.createQuery(" from countryBean where status=1 and id=:id");
+			query.setParameter("id", parseInt);
+			arrActivity = (countryBean) query.list().get(0);
+
+		} catch (Exception e) {
+			log.log(Level.SEVERE, e.getMessage());
+			 e.printStackTrace();
+		} finally {
+			HibernateFactory.close(session);
+		}
+
+		return arrActivity;
+	}
+
+	@Override
+	public int deleteCountry(countryBean bean) {
+		// TODO Auto-generated method stub
+		Session session=null;
+		try {
+			session=HibernateFactory.openSession();
+			session.update(bean);
+			session.flush();
+			return 0;
+
+		} catch (Exception e) {
+			log.log(Level.SEVERE, e.getMessage());
+			e.printStackTrace();
+			return 2;
+			  
+		} finally {
+			try {
+				HibernateFactory.close(session);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	@Override
+	public ArrayList<citiesBean> getAllCity() {
+		// TODO Auto-generated method stub
+		Session session=null;
+		ArrayList<citiesBean> arrActivity = new ArrayList<citiesBean>();
+		try {
+
+			session = HibernateFactory.openSession();
+
+			Query query = session.createQuery(" from citiesBean where status=1");
+			arrActivity = (ArrayList<citiesBean>) query.list();
+
+		} catch (Exception e) {
+			log.log(Level.SEVERE, e.getMessage());
+			 e.printStackTrace();
+		} finally {
+			HibernateFactory.close(session);
+		}
+
+		return arrActivity;
+	}
+
+	@Override
+	public boolean checkDublicateCity(int stateId, String city) {
+		// TODO Auto-generated method stub
+		boolean flag= false;
+		long count = 0;
+		Session session = null;
+		try {
+			session = HibernateFactory.openSession();
+			
+			Query query = session
+					.createQuery("select count(*) from citiesBean where stateId=:stateId and name=:name  and status=1");
+			query.setParameter("stateId", stateId);
+			query.setParameter("name", city);
+			
+			
+			count = (Long) query.uniqueResult();
+
+			
+			session.flush();
+			
+			if(count>0){
+				flag = false;
+			}else{
+				flag = true;
+			}
+		
+
+		} catch (Exception e) {
+			log.log(Level.SEVERE, e.getMessage());
+			e.printStackTrace();
+			flag = false;
+			  
+		} finally {
+			try {
+				HibernateFactory.close(session);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return flag;
+	}
+
+	@Override
+	public int insertCity(citiesBean bean) {
+		// TODO Auto-generated method stub
+		Session session=null;
+		try {
+			session=HibernateFactory.openSession();
+			session.save(bean);
+			session.flush();
+			return 0;
+
+		} catch (Exception e) {
+			log.log(Level.SEVERE, e.getMessage());
+			e.printStackTrace();
+			return 2;
+			  
+		} finally {
+			try {
+				HibernateFactory.close(session);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	@Override
+	public  ArrayList<masterBean> getMasterBaseOnMasterID(int key) {
+		// TODO Auto-generated method stub
+		Session session = null;
+
+		ArrayList<masterBean> arrActivity = new ArrayList<masterBean>();
+		try {
+
+			session = HibernateFactory.openSession();
+
+			Query query = session.createQuery(" from masterBean where status=1 and masterId=:masterId");
+			query.setParameter("masterId", key);
+			if( query.list()!=null){
+				arrActivity = (ArrayList<masterBean>) query.list();
+			}
+			
+
+		} catch (Exception e) {
+			log.log(Level.SEVERE, e.getMessage());
+			 e.printStackTrace();
+		} finally {
+			HibernateFactory.close(session);
+		}
+
+		return arrActivity;
 	}
 
 }

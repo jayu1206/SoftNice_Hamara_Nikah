@@ -1,3 +1,5 @@
+<%@page import="com.softNice.nikah.beans.permissionBean"%>
+<%@page import="java.util.HashMap"%>
 <%@page import="com.softNice.nikah.beans.statesBean"%>
 <%@page import="com.softNice.nikah.beans.countryBean"%>
 <%@page import="com.softNice.nikah.beans.roleBean"%>
@@ -10,6 +12,12 @@ ArrayList<statesBean> list=new ArrayList<statesBean>();
 	if(request.getAttribute(contentPage.STATEOBJ)!=null){
 		list = (ArrayList<statesBean>)request.getAttribute(contentPage.STATEOBJ);
 	}
+	
+	HashMap<String, permissionBean> map= null;
+	if(request.getSession().getAttribute(contentPage.MAPOBJ)!=null){
+		new HashMap<String, permissionBean>();
+		map = (HashMap) request.getSession().getAttribute(contentPage.MAPOBJ);
+	}
 
 %>
 <div class="main-content">
@@ -19,14 +27,17 @@ ArrayList<statesBean> list=new ArrayList<statesBean>();
 						
 
 						<div class="page-header">
-						
-						<table width="100%">
-							<tr>
-								<th><h1> State List  </h1></th>
-								<th align="right"><a href="FormServlet?key=addState" class="btn btn-info"  style="margin-left: 82%;" >Add New</a></th>
-							</tr>
-						</table>
-							
+						<%
+							permissionBean Perbean=(permissionBean) map.get("Setting");
+							if(Perbean.isView() && Perbean.isAdd()){
+						%>
+							<table width="100%">
+								<tr>
+									<th><h1> State List  </h1></th>
+									<th align="right"><a href="FormServlet?key=addState" class="btn btn-info"  style="margin-left: 82%;" >Add New</a></th>
+								</tr>
+							</table>
+						<%} %>	
 						</div><!-- /.page-header -->
 
 						<div class="row">
@@ -61,11 +72,11 @@ ArrayList<statesBean> list=new ArrayList<statesBean>();
 
 														<td>
 															<div class="hidden-sm hidden-xs action-buttons">
-
+														<% if(Perbean.isView() && Perbean.isDelete()){ %>
 																<a class="red" href="#" onclick="deleteDilog('<%=state.getId() %>')">
 																	<i class="ace-icon fa fa-trash-o bigger-130"></i>
 																</a>
-															
+														<%} %>
 															</div>
 
 															<div class="hidden-md hidden-lg">
@@ -145,9 +156,9 @@ ArrayList<statesBean> list=new ArrayList<statesBean>();
 	});
 	
 			function deleteDilog(id){
-				var result = confirm("Are you sure to delete country?");
+				var result = confirm("Are you sure to delete State?");
 				if (result) {
-					window.location.href = 'ContentServlet?key=deleteCountry&id='+id;
+					window.location.href = 'ContentServlet?key=deleteState&id='+id;
 				}
 				
 			}		

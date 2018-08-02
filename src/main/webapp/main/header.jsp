@@ -1,9 +1,27 @@
-	<%@page import="com.softNice.nikah.beans.UserBean"%>
+<%@page import="com.google.gson.Gson"%>
+<%@page import="org.codehaus.jackson.map.ObjectMapper"%>
+<%@page import="com.softNice.nikah.beans.generalSettingBean"%>
+<%@page import="com.softNice.nikah.beans.settingBean"%>
+<%@page import="com.softNice.nikah.beans.UserBean"%>
 <%@page import="com.softNice.nikah.constent.contentPage"%>
 <%
 			UserBean bean=new UserBean();
 			if(request.getSession().getAttribute(contentPage.USERSOBJ)!=null){
 				bean = (UserBean)request.getSession().getAttribute(contentPage.USERSOBJ);
+			}
+			
+			
+			settingBean settingbean= null;
+			generalSettingBean mailbean= new generalSettingBean();
+			if(request.getSession().getAttribute(contentPage.SETTING)!=null){
+				settingbean = (settingBean) request.getSession().getAttribute(contentPage.SETTING);
+				System.out.println("value : "+settingbean.getValue());
+				
+				ObjectMapper mapperObj = new ObjectMapper();
+				if(settingbean.getValue()!=null){
+					mailbean = new Gson().fromJson(settingbean.getValue(),generalSettingBean.class);
+				}
+				
 			}
 	
 	%>
@@ -25,7 +43,7 @@
 					<a href="index.html" class="navbar-brand">
 						<small>
 							<i class="fa fa-leaf"></i>
-							Ace Admin
+							<%=mailbean.getApp_name() %>
 						</small>
 					</a>
 				</div>

@@ -6,6 +6,7 @@ public class citiesBean {
 	private String name;
 	private int stateId;
 	private boolean status;
+	private String stateName;
 	
 	
 	public int getId() {
@@ -32,6 +33,13 @@ public class citiesBean {
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
+	public String getStateName() {
+		return stateName;
+	}
+	public void setStateName(String stateName) {
+		this.stateName = stateName;
+	}
+	
 	
 	
 

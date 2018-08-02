@@ -101,6 +101,7 @@ public class loginServlet extends HttpServlet {
 			request.getSession().setAttribute(contentPage.MAPOBJ, map);
 			request.getSession().setAttribute(contentPage.PERMISSIONNAME,getServletContext().getAttribute(contentPage.PERMISSIONNAME));
 			request.getSession().setAttribute(contentPage.MASTERMAPOBJ, getServletContext().getAttribute(contentPage.MASTERMAPOBJ));
+			request.getSession().setAttribute(contentPage.SETTING, getServletContext().getAttribute(contentPage.SETTING));
 			request.setAttribute(contentPage.CONTENT_PAGE, "/home.jsp");
 			
 			

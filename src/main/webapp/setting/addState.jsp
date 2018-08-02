@@ -91,7 +91,7 @@
 											
 
 											&nbsp; &nbsp; &nbsp;
-											<a href="ContentServlet?key=country" class="btn" type="reset" id="btnBack" name="btnBack">
+											<a href="ContentServlet?key=state" class="btn" type="reset" id="btnBack" name="btnBack">
 												<i class="ace-icon fa fa-undo bigger-110"></i>
 												Back
 											</a>

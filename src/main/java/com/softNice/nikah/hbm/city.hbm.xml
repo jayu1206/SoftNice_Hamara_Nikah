@@ -16,7 +16,7 @@
             <column name="name"  />
         </property>
         
-         <property  name="stateId" type="java.lang.String">
+         <property  name="stateId" type="java.lang.Integer">
             <column name="state_id"  />
         </property>
         
@@ -24,6 +24,7 @@
             <column name="status"  />
         </property>
         
+        <property name="stateName" formula="(SELECT b.name FROM states b WHERE b.id=state_id AND b.status=1 ) " update="false"></property>
        
     </class>
 </hibernate-mapping>

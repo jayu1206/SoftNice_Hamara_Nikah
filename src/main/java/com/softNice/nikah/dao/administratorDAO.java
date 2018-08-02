@@ -28,6 +28,7 @@ package com.softNice.nikah.dao;
 import java.util.ArrayList;
 
 import com.softNice.nikah.beans.UserBean;
+import com.softNice.nikah.beans.citiesBean;
 import com.softNice.nikah.beans.countryBean;
 import com.softNice.nikah.beans.masterBean;
 import com.softNice.nikah.beans.permissionBean;
@@ -100,6 +101,22 @@ public interface administratorDAO {
 	public abstract boolean checkDublicateState(int countryId, String state);
 
 	public abstract int insertState(statesBean bean);
+
+	public abstract statesBean getStateById(int parseInt);
+
+	public abstract int deleteState(statesBean bean);
+
+	public abstract countryBean getCountryById(int parseInt);
+
+	public abstract int deleteCountry(countryBean bean);
+
+	public abstract ArrayList<citiesBean> getAllCity();
+
+	public abstract boolean checkDublicateCity(int stateId, String city);
+
+	public abstract int insertCity(citiesBean bean);
+
+	public abstract ArrayList<masterBean> getMasterBaseOnMasterID(int key);
 
 
 }

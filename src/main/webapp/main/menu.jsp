@@ -102,6 +102,10 @@
 					<%} %>
 
 
+					<%
+						Perbean=(permissionBean) map.get("Setting");
+						if(Perbean.isView()){
+					%>
 					<li class="">
 						<a href="#" class="dropdown-toggle">
 							<i class="menu-icon fa fa-list"></i>
@@ -162,7 +166,7 @@
 							</li>
 							
 							<li class="">
-									<a href="#">
+									<a href="ContentServlet?key=city">
 										<i class="menu-icon fa fa-caret-right"></i>
 										City
 								</a>
@@ -182,7 +186,7 @@
 						</ul>
 					</li>
 
-
+				<%} %>
 
 
 

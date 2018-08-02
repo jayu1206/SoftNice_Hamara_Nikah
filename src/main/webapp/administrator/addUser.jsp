@@ -1,4 +1,5 @@
 
+<%@page import="com.softNice.nikah.beans.masterBean"%>
 <%@page import="com.softNice.nikah.utility.validation"%>
 <%@page import="com.softNice.nikah.beans.roleBean"%>
 <%@page import="java.util.ArrayList"%>
@@ -101,12 +102,19 @@
 															</a>
 														</li>
 
-													<!-- 	<li>
+														<li>
 															<a data-toggle="tab" href="#edit-settings">
 																<i class="purple ace-icon fa fa-cog bigger-125"></i>
-																Settings
+																Other Details
 															</a>
-														</li> -->
+														</li> 
+														
+														<li>
+															<a data-toggle="tab" href="#edit-education">
+																<i class="red ace-icon fa fa-book bigger-125"></i>
+																Education & Career
+															</a>
+														</li> 
 
 														<li>
 															<a data-toggle="tab" href="#edit-password">
@@ -317,46 +325,445 @@
 															
 														</div>
 
-													<!-- 
-															//  setting tab pane content
+													
+														<!-- 	  setting tab pane content -->
 															
 														<div id="edit-settings" class="tab-pane">
 															<div class="space-10"></div>
+													<h4 class="header blue bolder smaller">Family Status:</h4>
+														<div class="row">
+															
 
-															<div>
-																<label class="inline">
-																	<input type="checkbox" name="form-field-checkbox" class="ace" />
-																	<span class="lbl"> Make my profile public</span>
-																</label>
+																<div class="vspace-12-sm"></div>
+
+																<div class="col-xs-12 col-sm-8">
+																	
+																	<div class="form-group">
+																		
+
+																		<div class="col-sm-8">
+																			<input name="rblFamilyStatus" id="rich" type="radio" class="ace" value="female"/>
+																			<span class="lbl"> Rich / Affluent</span>
+																			&nbsp;&nbsp;&nbsp;
+																			<input name="rblFamilyStatus" id="upperMiddle" type="radio" class="ace" value="female"/>
+																			<span class="lbl"> Upper Middle Class</span>
+																			&nbsp;&nbsp;&nbsp;
+																			
+																			<input name="rblFamilyStatus" id="middle" type="radio" class="ace" value="female"/>
+																			<span class="lbl"> Middle Class</span>
+																			
+																		</div>
+																	</div>
+																</div>
 															</div>
+															
+															<%
+																
+															ArrayList<masterBean> list = null;
+																if(request.getAttribute(contentPage.CULTURE)!=null){
+																	list = (ArrayList<masterBean>) request.getAttribute(contentPage.CULTURE);
+																}
+															
+															%>
+															
+													<h4 class="header blue bolder smaller">Culture</h4>
+													<div class="row">
+															
+																<div class="vspace-12-sm"></div>
 
-															<div class="space-8"></div>
+																<div class="col-xs-12 col-sm-8">
+																	
+																<div class="form-group">
+																
 
-															<div>
-																<label class="inline">
-																	<input type="checkbox" name="form-field-checkbox" class="ace" />
-																	<span class="lbl"> Email me new updates</span>
-																</label>
+																	<div class="col-sm-9">
+																		<select class="col-sm-7" id="culture" name="culture" >
+																		<option value="0">Select</option>
+																		<%for(masterBean mstbean : list){ %>
+																				<option value="<%=mstbean.getId() %>"><%=mstbean.getValue() %></option>
+																		<% }%>
+																		
+																		</select>
+																	</div>
+																</div>
+																</div>
+													</div>
+													
+													<%
+															list=null;
+															if(request.getAttribute(contentPage.HEIGHT)!=null){
+																list = (ArrayList<masterBean>) request.getAttribute(contentPage.HEIGHT);
+															}
+													%>
+																
+																
+													<h4 class="header blue bolder smaller">Height</h4>
+													<div class="row">
+															
+																<div class="vspace-12-sm"></div>
+
+																<div class="col-xs-12 col-sm-8">
+																	
+																<div class="form-group">
+																
+
+																	<div class="col-sm-9">
+																		<select class="col-sm-7" id="height" name="height" >
+																		<option value="0">Select</option>
+																		<%for(masterBean mstbean : list){ %>
+																				<option value="<%=mstbean.getId() %>"><%=mstbean.getValue() %></option>
+																		<% }%>
+																		
+																		</select>
+																	</div>
+																</div>
+																</div>
+													</div>
+													
+													
+													<h4 class="header blue bolder smaller">Weight</h4>
+													<div class="row">
+															
+
+																<div class="vspace-12-sm"></div>
+
+																<div class="col-xs-12 col-sm-8">
+																	
+																<div class="form-group">
+																<%
+																	list=null;
+																	if(request.getAttribute(contentPage.WEIGHT)!=null){
+																		list = (ArrayList<masterBean>) request.getAttribute(contentPage.WEIGHT);
+																	}
+																%>
+
+																	<div class="col-sm-9">
+																		<select class="col-sm-7" id="weight" name="weight" >
+																			<option value="0">Select</option>
+																			<%for(masterBean mstbean : list){ %>
+																					<option value="<%=mstbean.getId() %>"><%=mstbean.getValue() %></option>
+																			<% }%>
+																		</select>
+																	</div>
+																</div>
+																</div>
+													</div>
+													
+													
+													
+													<h4 class="header blue bolder smaller">Built</h4>
+													<div class="row">
+															
+
+																<div class="vspace-12-sm"></div>
+
+																<div class="col-xs-12 col-sm-8">
+																	
+																<div class="form-group">
+																<%
+																	list=null;
+																	if(request.getAttribute(contentPage.BUILT)!=null){
+																		list = (ArrayList<masterBean>) request.getAttribute(contentPage.BUILT);
+																	}
+																%>
+
+																	<div class="col-sm-9">
+																		<select class="col-sm-7" id="built" name="built" >
+																			<option value="0">Select</option>
+																			<%for(masterBean mstbean : list){ %>
+																					<option value="<%=mstbean.getId() %>"><%=mstbean.getValue() %></option>
+																			<% }%>
+																		</select>
+																	</div>
+																</div>
+																</div>
+													</div>
+													
+													
+													<h4 class="header blue bolder smaller">Complexion</h4>
+													<div class="row">
+															
+
+																<div class="vspace-12-sm"></div>
+
+																<div class="col-xs-12 col-sm-8">
+																	
+																<div class="form-group">
+																<%
+																	list=null;
+																	if(request.getAttribute(contentPage.COMPLEXION)!=null){
+																		list = (ArrayList<masterBean>) request.getAttribute(contentPage.COMPLEXION);
+																	}
+																%>
+
+																	<div class="col-sm-9">
+																		<select class="col-sm-7" id="complexion" name="complexion" >
+																			<option value="0">Select</option>
+																			<%for(masterBean mstbean : list){ %>
+																						<option value="<%=mstbean.getId() %>"><%=mstbean.getValue() %></option>
+																			<% }%>
+																		</select>
+																	</div>
+																</div>
+																</div>
+													</div>
+													
+													
+													<h4 class="header blue bolder smaller">Diet</h4>
+													<div class="row">
+															
+
+																<div class="vspace-12-sm"></div>
+
+																<div class="col-xs-12 col-sm-8">
+																	
+																<div class="form-group">
+																<%
+																	list=null;
+																	if(request.getAttribute(contentPage.DIET)!=null){
+																		list = (ArrayList<masterBean>) request.getAttribute(contentPage.DIET);
+																	}
+																%>
+
+																	<div class="col-sm-9">
+																		<select class="col-sm-7" id="diet" name="diet" >
+																			<option value="0">Select</option>
+																			<%for(masterBean mstbean : list){ %>
+																						<option value="<%=mstbean.getId() %>"><%=mstbean.getValue() %></option>
+																			<% }%>
+																		</select>
+																	</div>
+																</div>
+																</div>
+													</div>
+													
+													
+													<h4 class="header blue bolder smaller">Drink</h4>
+													<div class="row">
+															
+
+																<div class="vspace-12-sm"></div>
+
+																<div class="col-xs-12 col-sm-8">
+																	
+																<div class="form-group">
+																<%
+																	list=null;
+																	if(request.getAttribute(contentPage.DRINK)!=null){
+																		list = (ArrayList<masterBean>) request.getAttribute(contentPage.DRINK);
+																	}
+																%>
+
+																	<div class="col-sm-9">
+																		<select class="col-sm-7" id="drink" name="drink" >
+																		<option value="0">Select</option>
+																			<%for(masterBean mstbean : list){ %>
+																						<option value="<%=mstbean.getId() %>"><%=mstbean.getValue() %></option>
+																			<% }%>
+																		</select>
+																	</div>
+																</div>
+																</div>
+													</div>
+													
+													
+													<h4 class="header blue bolder smaller">Smoke</h4>
+													<div class="row">
+															
+
+																<div class="vspace-12-sm"></div>
+
+																<div class="col-xs-12 col-sm-8">
+																	
+																<div class="form-group">
+																<%
+																	list=null;
+																	if(request.getAttribute(contentPage.SMOKE)!=null){
+																		list = (ArrayList<masterBean>) request.getAttribute(contentPage.SMOKE);
+																	}
+																%>
+
+																	<div class="col-sm-9">
+																		<select class="col-sm-7" id="smoke" name="smoke" >
+																			<option value="0">Select</option>
+																				<%for(masterBean mstbean : list){ %>
+																						<option value="<%=mstbean.getId() %>"><%=mstbean.getValue() %></option>
+																			<% }%>
+																		</select>
+																	</div>
+																</div>
+																</div>
+													</div>
+													
+													
+													
+														<h4 class="header blue bolder smaller">About myself</h4>
+														<div class="row">
+															
+
+																<div class="vspace-12-sm"></div>
+
+																<div class="col-xs-12 col-sm-8">
+																	
+																<div class="form-group">
+																
+
+																	<div class="col-sm-9">
+																		<textarea rows="5" cols="100"></textarea>
+																		
+																	</div>
+																</div>
+																</div>
+													</div>
+
+													
+											</div> 
+											<!-- setting tab finish -->
+											
+											<!-- eduction tab content -->
+											<div id="edit-education" class="tab-pane">
+															<div class="space-10"></div>
+													
+														
+													
+													<h4 class="header blue bolder smaller">Education</h4>
+													<div class="row">
+															
+
+																<div class="vspace-12-sm"></div>
+
+																<div class="col-xs-12 col-sm-8">
+																	
+																<div class="form-group">
+																<%
+																	list=null;
+																	if(request.getAttribute(contentPage.EDUCATION)!=null){
+																		list = (ArrayList<masterBean>) request.getAttribute(contentPage.EDUCATION);
+																	}
+																%>
+
+																	<div class="col-sm-9">
+																		<select class="col-sm-7" id="education" name="education" >
+																			<option value="0">Select</option>
+																			<%for(masterBean mstbean : list){ %>
+																					<option value="<%=mstbean.getId() %>"><%=mstbean.getValue() %></option>
+																			<% }%>
+																		</select>
+																	</div>
+																</div>
+																</div>
+													</div>
+													
+													
+													<h4 class="header blue bolder smaller">Profession</h4>
+													<div class="row">
+															
+
+																<div class="vspace-12-sm"></div>
+
+																<div class="col-xs-12 col-sm-8">
+																	
+																<div class="form-group">
+																<%
+																	list=null;
+																	if(request.getAttribute(contentPage.PROFESSION)!=null){
+																		list = (ArrayList<masterBean>) request.getAttribute(contentPage.PROFESSION);
+																	}
+																%>
+
+																	<div class="col-sm-9">
+																		<select class="col-sm-7" id="profession" name="profession" >
+																			<option value="0">Select</option>
+																			<%for(masterBean mstbean : list){ %>
+																					<option value="<%=mstbean.getId() %>"><%=mstbean.getValue() %></option>
+																			<% }%>
+																		</select>
+																	</div>
+																</div>
+																</div>
+													</div>
+													
+													
+													<h4 class="header blue bolder smaller">Income</h4>
+													<div class="row">
+															
+
+																<div class="vspace-12-sm"></div>
+
+																<div class="col-xs-12 col-sm-8">
+																	
+																<div class="form-group">
+																<%
+																	list=null;
+																	if(request.getAttribute(contentPage.INCOME)!=null){
+																		list = (ArrayList<masterBean>) request.getAttribute(contentPage.INCOME);
+																	}
+																%>
+
+																	<div class="col-sm-9">
+																		<select class="col-sm-7" id="income" name="income" >
+																			<option value="0">Select</option>
+																			<%for(masterBean mstbean : list){ %>
+																					<option value="<%=mstbean.getId() %>"><%=mstbean.getValue() %></option>
+																			<% }%>
+																		</select>
+																	</div>
+																</div>
+																</div>
+													</div>
+													
+													
+													<h4 class="header blue bolder smaller">Your visa status:</h4>
+														<div class="row">
+															
+
+																<div class="vspace-12-sm"></div>
+
+																<div class="col-xs-12 col-sm-8">
+																	
+																	<div class="form-group">
+																		
+
+																		<div class="col-sm-12">
+																			<input name="visa" id="Citizenship" type="radio" class="ace" value="female"/>
+																			<span class="lbl"> Citizenship</span>
+																			&nbsp;&nbsp;&nbsp;
+																			
+																			<input name="visa" id="Legal" type="radio" class="ace" value="female"/>
+																			<span class="lbl"> Legal Permanent Residence</span>
+																			&nbsp;&nbsp;&nbsp;
+																			
+																			<input name="visa" id="Work" type="radio" class="ace" value="female"/>
+																			<span class="lbl"> Work Visa</span>
+																			&nbsp;&nbsp;&nbsp;
+																			
+																			<input name="visa" id="Bussiness" type="radio" class="ace" value="female"/>
+																			<span class="lbl"> Bussiness Visa</span>
+																			&nbsp;&nbsp;&nbsp;
+																			
+																			<input name="visa" id="Student" type="radio" class="ace" value="female"/>
+																			<span class="lbl"> Student Visa</span>
+																			&nbsp;&nbsp;&nbsp;
+																			
+																			<input name="visa" id="Tourist" type="radio" class="ace" value="female"/>
+																			<span class="lbl"> Tourist Visa</span>
+																			&nbsp;&nbsp;&nbsp;
+																			
+																			
+																			
+																		</div>
+																	</div>
+																</div>
 															</div>
-
-															<div class="space-8"></div>
-
-															<div>
-																<label>
-																	<input type="checkbox" name="form-field-checkbox" class="ace" />
-																	<span class="lbl"> Keep a history of my conversations</span>
-																</label>
-
-																<label>
-																	<span class="space-2 block"></span>
-
-																	for
-																	<input type="text" class="input-mini" maxlength="3" />
-																	days
-																</label>
-															</div>
-														</div> -->
-
+													
+											
+											</div> 
+											
+											<!-- education tab finished -->
+											
+											
+											
+											
 														<div id="edit-password" class="tab-pane">
 															<div class="space-10"></div>
 

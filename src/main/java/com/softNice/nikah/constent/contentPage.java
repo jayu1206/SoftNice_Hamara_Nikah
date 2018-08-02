@@ -43,5 +43,18 @@ public class contentPage {
 	public static String CITYOBJ="cityObj";
 	public static String MASTERMAPOBJ="masterMapObj";
 	
-
+	public static String RELIGION="Religion";
+	public static String  CULTURE="Culture";
+	public static String EDUCATION="Education";
+	public static String PROFESSION="Profession";
+	public static String INCOME="Income";
+	public static String HEIGHT="Height";
+	public static String WEIGHT="Weight";
+	public static String BUILT="Built";
+	public static String COMPLEXION="Complexion";
+	public static String DIET="Diet";
+	public static String DRINK="Drink";
+	public static String SMOKE="Smoke";
+	
+	
 }

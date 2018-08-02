@@ -1,36 +1,26 @@
 <%@page import="com.softNice.nikah.beans.permissionBean"%>
-<%@page import="com.softNice.nikah.beans.masterBean"%>
-<%@page import="java.util.Map"%>
-<%@page import="com.itextpdf.text.pdf.hyphenation.TernaryTree.Iterator"%>
 <%@page import="java.util.HashMap"%>
+<%@page import="com.softNice.nikah.beans.citiesBean"%>
+<%@page import="com.softNice.nikah.beans.statesBean"%>
 <%@page import="com.softNice.nikah.beans.countryBean"%>
 <%@page import="com.softNice.nikah.beans.roleBean"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.softNice.nikah.constent.ErrorMsg"%>
 <%@page import="com.softNice.nikah.constent.contentPage"%>
-
 <%
-			 HashMap<Integer, String> map = new HashMap<Integer, String>();
-			if(request.getSession().getAttribute(contentPage.MASTERMAPOBJ)!=null){
-				map = (HashMap<Integer, String>)  request.getSession().getAttribute(contentPage.MASTERMAPOBJ);
-			} 
-			
-			ArrayList<masterBean> list=new ArrayList<masterBean>();
-			if(request.getAttribute(contentPage.MASTERMAPOBJ)!=null){
-				list = (ArrayList<masterBean>) request.getAttribute(contentPage.MASTERMAPOBJ);
-			}
-			
-			
-			HashMap<String, permissionBean> mapPer= null;
-			if(request.getSession().getAttribute(contentPage.MAPOBJ)!=null){
-				new HashMap<String, permissionBean>();
-				mapPer = (HashMap) request.getSession().getAttribute(contentPage.MAPOBJ);
-			}
-			
+
+ArrayList<citiesBean> list=new ArrayList<citiesBean>();
+	if(request.getAttribute(contentPage.CITYOBJ)!=null){
+		list = (ArrayList<citiesBean>)request.getAttribute(contentPage.CITYOBJ);
+	}
+	
+	HashMap<String, permissionBean> map= null;
+	if(request.getSession().getAttribute(contentPage.MAPOBJ)!=null){
+		new HashMap<String, permissionBean>();
+		map = (HashMap) request.getSession().getAttribute(contentPage.MAPOBJ);
+	}
+
 %>
-
-
-
 <div class="main-content">
 				<div class="main-content-inner">
 					
@@ -39,16 +29,16 @@
 
 						<div class="page-header">
 						<%
-						permissionBean Perbean=(permissionBean) mapPer.get("Setting");
-						if(Perbean.isView() && Perbean.isAdd()){
+							permissionBean Perbean=(permissionBean) map.get("Setting");
+							if(Perbean.isView() && Perbean.isAdd()){
 						%>
-						<table width="100%">
-							<tr>
-								<th><h1> Basic Details List  </h1></th>
-								<th align="right"><a href="FormServlet?key=addBasics" class="btn btn-info"  style="margin-left: 82%;" >Add New</a></th>
-							</tr>
-						</table>
-						<%} %>	
+							<table width="100%">
+								<tr>
+									<th><h1> City List  </h1></th>
+									<th align="right"><a href="FormServlet?key=addCity" class="btn btn-info"  style="margin-left: 82%;" >Add New</a></th>
+								</tr>
+							</table>
+							<%} %>
 						</div><!-- /.page-header -->
 
 						<div class="row">
@@ -59,13 +49,12 @@
 									<div class="col-xs-12">
 										
 										<div>
-										 <% if(list.size()>0){%> 
+										<% if(list.size()>0){%>
 											<table id="dynamic-table" class="table table-striped table-bordered table-hover">
 												<thead>
 													<tr>
-														<th>Id</th>
-														<th>Detail Name</th>
-														<th>Value</th>
+														<th>City Name</th>
+														<th>State Name</th>
 														<th class="hidden-480">Status</th>
 
 														<th></th>
@@ -73,22 +62,22 @@
 												</thead>
 
 												<tbody>
-											 	<% for(masterBean master: list){ %> 
-											 		<tr>
-														<td><%=master.getMasterId() %></td>
-														<td ><%=map.get(master.getMasterId()) %></td>
-														<td><%=master.getValue() %></td>
+												<% for(citiesBean city: list){ %>
+													<tr>
+														<td><%=city.getName() %></td>
+														<td class="hidden-780"><%=city.getStateName() %></td>
+														
 														<td class="hidden-480">
-															<span class="label label-sm label-warning"><%=master.isStatus() %></span>
+															<span class="label label-sm label-warning"><%=city.isStatus() %></span>
 														</td>
 
 														<td>
 															<div class="hidden-sm hidden-xs action-buttons">
-													<% if(Perbean.isView() && Perbean.isDelete()){ %>
-																<a class="red" href="#" onclick="deleteDilog('<%=master.getId() %>')">
+												<% if(Perbean.isView() && Perbean.isDelete()){ %>
+																<a class="red" href="#" onclick="deleteDilog('<%=city.getId() %>')">
 																	<i class="ace-icon fa fa-trash-o bigger-130"></i>
 																</a>
-														<%} %>	
+													<%} %>		
 															</div>
 
 															<div class="hidden-md hidden-lg">
@@ -125,12 +114,12 @@
 																</div>
 															</div>
 														</td>
-													</tr> 
-								 	<%}%> 
+													</tr>
+									<%}%>
 									
 												</tbody>
 											</table>
-										 <%}else{ %> 
+										<%}else{ %>
 										<table id="dynamic-table" class="table table-striped table-bordered table-hover">
 												<thead>
 													 <tr>
@@ -138,11 +127,11 @@
 													</tr> 
 												</thead>
 										</table>
-										 <%} %> 
+										<%} %>
 										</div>
 									</div>
 								</div>						
-									<<div align="center" style="color: red">
+									<div align="center" style="color: red">
 												<%
 												 String str="";
 												if(request.getAttribute(contentPage.ERROR)!=null){ 
@@ -152,7 +141,7 @@
 												
 												<label><%=str %> </label>
 									
-								</div> 
+								</div>
 								<!-- PAGE CONTENT ENDS -->
 							</div><!-- /.col -->
 						</div><!-- /.row -->
@@ -168,9 +157,9 @@
 	});
 	
 			function deleteDilog(id){
-				var result = confirm("Are you sure to delete ?");
+				var result = confirm("Are you sure to delete State?");
 				if (result) {
-					window.location.href = 'ContentServlet?key=deleteBasic&id='+id;
+					window.location.href = 'ContentServlet?key=deleteState&id='+id;
 				}
 				
 			}		

@@ -27,7 +27,9 @@ package com.softNice.nikah.servlet;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.ErrorManager;
 
 import javax.servlet.RequestDispatcher;
@@ -79,6 +81,19 @@ public class FormServlet extends HttpServlet {
 				
 			}
 			if(key.equals("addUser")){
+				
+				HashMap<Integer, String> map = new HashMap<Integer, String>();
+				if(request.getSession().getAttribute(contentPage.MASTERMAPOBJ)!=null){
+					map = (HashMap<Integer, String>)  request.getSession().getAttribute(contentPage.MASTERMAPOBJ);
+					for(Map.Entry m:map.entrySet()){
+						adminMaintenance.getInstance().getMasterBaseOnId((int)m.getKey(),m.getValue().toString(),request);
+						
+					}
+				}
+				
+				
+				
+				
 				adminMaintenance.getInstance().getAllCountry(request);
 				roleMaintenance.getInstance().getAllRole(request);
 				request.setAttribute(contentPage.CONTENT_PAGE, "/administrator/addUser.jsp");
@@ -109,6 +124,11 @@ public class FormServlet extends HttpServlet {
 			if(key.equals("addBasics")){
 				request.setAttribute(contentPage.CONTENT_PAGE, "/setting/addBasicDetails.jsp");
 				
+			}
+			
+			if(key.equals("addCity")){
+				adminMaintenance.getInstance().getAllCountry(request);
+				request.setAttribute(contentPage.CONTENT_PAGE, "/setting/addCity.jsp");
 			}
 			
 		}
@@ -265,6 +285,24 @@ public class FormServlet extends HttpServlet {
 					request.setAttribute(contentPage.CONTENT_PAGE, "/setting/addBasicDetails.jsp");
 				}else{
 					request.setAttribute(contentPage.CONTENT_PAGE, "/setting/basicDetailsList.jsp");
+				}
+			}
+			
+			if(key.equals("addCity")){
+				/*ErrorMsg obj=(ErrorMsg) adminMaintenance.getInstance().validationState(request);
+				request.setAttribute("error", obj);
+				if(obj.getErrorCode()!=0){
+					request.setAttribute(contentPage.CONTENT_PAGE, "/setting/addState.jsp");
+				}else{
+					request.setAttribute(contentPage.CONTENT_PAGE, "/setting/stateList.jsp");
+				}*/
+				
+				ErrorMsg obj=(ErrorMsg) adminMaintenance.getInstance().validationCity(request);
+				request.setAttribute("error", obj);
+				if(obj.getErrorCode()!=0){
+					request.setAttribute(contentPage.CONTENT_PAGE, "/setting/addCity.jsp");
+				}else{
+					request.setAttribute(contentPage.CONTENT_PAGE, "/setting/cityList.jsp");
 				}
 			}
 			

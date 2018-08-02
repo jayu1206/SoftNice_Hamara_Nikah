@@ -1,3 +1,5 @@
+<%@page import="com.softNice.nikah.beans.permissionBean"%>
+<%@page import="java.util.HashMap"%>
 <%@page import="com.softNice.nikah.beans.countryBean"%>
 <%@page import="com.softNice.nikah.beans.roleBean"%>
 <%@page import="java.util.ArrayList"%>
@@ -10,6 +12,13 @@ ArrayList<countryBean> list=new ArrayList<countryBean>();
 		list = (ArrayList<countryBean>)request.getAttribute(contentPage.COUNTRYOBJ);
 	}
 
+	HashMap<String, permissionBean> map= null;
+	if(request.getSession().getAttribute(contentPage.MAPOBJ)!=null){
+		new HashMap<String, permissionBean>();
+		map = (HashMap) request.getSession().getAttribute(contentPage.MAPOBJ);
+	}
+	
+	
 %>
 <div class="main-content">
 				<div class="main-content-inner">
@@ -18,14 +27,17 @@ ArrayList<countryBean> list=new ArrayList<countryBean>();
 						
 
 						<div class="page-header">
-						
+						<%
+							permissionBean Perbean=(permissionBean) map.get("Setting");
+							if(Perbean.isView() && Perbean.isAdd()){
+						%>
 						<table width="100%">
 							<tr>
 								<th><h1> Country List  </h1></th>
 								<th align="right"><a href="FormServlet?key=addCountry" class="btn btn-info"  style="margin-left: 82%;" >Add New</a></th>
 							</tr>
 						</table>
-							
+							<%} %>		
 						</div><!-- /.page-header -->
 
 						<div class="row">
@@ -61,11 +73,11 @@ ArrayList<countryBean> list=new ArrayList<countryBean>();
 
 														<td>
 															<div class="hidden-sm hidden-xs action-buttons">
-
+														<% if(Perbean.isView() && Perbean.isDelete()){ %>
 																<a class="red" href="#" onclick="deleteDilog('<%=country.getId() %>')">
 																	<i class="ace-icon fa fa-trash-o bigger-130"></i>
 																</a>
-															
+															<%} %>
 															</div>
 
 															<div class="hidden-md hidden-lg">

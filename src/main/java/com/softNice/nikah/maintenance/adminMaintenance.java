@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 import com.softNice.nikah.beans.UserBean;
+import com.softNice.nikah.beans.citiesBean;
 import com.softNice.nikah.beans.countryBean;
 import com.softNice.nikah.beans.masterBean;
 import com.softNice.nikah.beans.roleBean;
@@ -440,6 +441,110 @@ public class adminMaintenance {
 		administratorDAO dao= new administratorImpl();
 		boolean flag = dao.checkDublicateState(countryId,state);
 		return flag;
+	}
+
+	public ErrorMsg deleteState(HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		administratorDAO dao=new administratorImpl();
+		statesBean bean = dao.getStateById(Integer.parseInt(request.getParameter("id")));
+		bean.setStatus(false);
+		
+		int flag = dao.deleteState(bean);
+		if(flag!=0){
+			return new ErrorMsg(2, "Internal Error");
+		}
+		getAllState(request);
+		return new ErrorMsg(0, "State deleted successfully");
+		
+	}
+
+	public ErrorMsg deleteCountry(HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		administratorDAO dao=new administratorImpl();
+		countryBean bean = dao.getCountryById(Integer.parseInt(request.getParameter("id")));
+		bean.setStatus(false);
+		
+		int flag = dao.deleteCountry(bean);
+		if(flag!=0){
+			return new ErrorMsg(2, "Internal Error");
+		}
+		getAllState(request);
+		return new ErrorMsg(0, "Country deleted successfully");
+	}
+
+	public void getAllCity(HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		administratorDAO dao=new administratorImpl();
+		ArrayList<citiesBean> list =dao.getAllCity();
+		request.setAttribute("cityObj", list);
+	}
+
+	private boolean checkDublicateCity(int stateId, String city) {
+		// TODO Auto-generated method stub
+		administratorDAO dao= new administratorImpl();
+		boolean flag = dao.checkDublicateCity(stateId,city);
+		return flag;
+	}
+	
+	public ErrorMsg validationCity(HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		adminMaintenance.getInstance().getAllCountry(request);
+		citiesBean bean=new citiesBean();
+		
+		if (request.getParameter("country").equals("0")){
+			return new ErrorMsg(1, "Country field is required");
+		}
+		
+		if (request.getParameter("state").equals("0")){
+			return new ErrorMsg(1, "State field is required");
+		}
+		bean.setStateId(Integer.parseInt(request.getParameter("state")));
+		
+		
+		if (request.getParameter("txtCity")  == null || request.getParameter("txtCity").trim().length() == 0){
+			return new ErrorMsg(1, "City name field is required");
+		}
+		if(!checkDublicateCity(bean.getStateId(),request.getParameter("txtCity"))){
+			return new ErrorMsg(1, "City name already Exist");
+		}
+		bean.setName(request.getParameter("txtCity"));
+		
+		bean.setStatus(true);
+		
+		administratorDAO dao= new administratorImpl();
+		int flag=dao.insertCity(bean);
+		
+		if(flag!=0){
+			return new ErrorMsg(2, "Internal Error");
+		}
+		
+		request.setAttribute("cityObj", null);
+		getAllCity(request);
+		 return new ErrorMsg(0, "City created sucessfully");
+		
+	}
+
+	public void getMasterBaseOnId(int key, String value, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		administratorDAO dao= new administratorImpl();
+		ArrayList<masterBean>   list=dao.getMasterBaseOnMasterID(key);
+		request.setAttribute(value, list);
+		/*map.put(1,"Religion");
+		map.put(2,"Culture");
+		map.put(3,"Education"); 
+		map.put(4,"Profession");
+		map.put(5,"Income"); 
+		map.put(6,"Height");
+		map.put(7,"Weight"); 
+		map.put(8,"Built"); 
+		map.put(9,"Complexion");
+		map.put(10,"Diet");
+		map.put(11,"Drink"); 
+		map.put(12,"Smoke"); */
+		
+		
+		
+		
 	}
 
 	

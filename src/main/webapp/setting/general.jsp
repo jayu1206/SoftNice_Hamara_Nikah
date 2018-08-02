@@ -1,5 +1,7 @@
 
 
+<%@page import="com.softNice.nikah.beans.permissionBean"%>
+<%@page import="java.util.HashMap"%>
 <%@page import="com.google.gson.Gson"%>
 <%@page import="org.codehaus.jackson.map.ObjectMapper"%>
 <%@page import="com.softNice.nikah.constent.contentPage"%>
@@ -25,6 +27,11 @@
 									
 								}
 								
+								HashMap<String, permissionBean> map= null;
+								if(request.getSession().getAttribute(contentPage.MAPOBJ)!=null){
+									new HashMap<String, permissionBean>();
+									map = (HashMap) request.getSession().getAttribute(contentPage.MAPOBJ);
+								}
 								
 								if(request.getAttribute(contentPage.ERROR)!=null){
 									
@@ -74,6 +81,12 @@
 										</div>
 								</div>
 								
+								
+								<%
+									permissionBean Perbean=(permissionBean) map.get("Setting");
+									if(Perbean.isView() && Perbean.isUpdate()){
+								%>
+								
 								<div class="clearfix form-actions" >
 										<div class="col-md-offset-3 col-md-9">
 										<button class="btn btn-info" type="button" id="btnSubmit" name="btnSubmit">
@@ -89,7 +102,7 @@
 											</a> -->
 										</div>
 									</div>
-								
+								<%} %>
 								</form>
 								 <div align="center" style="color: red">
 												<%

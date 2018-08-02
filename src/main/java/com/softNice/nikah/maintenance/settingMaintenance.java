@@ -41,7 +41,10 @@ public class settingMaintenance {
 	 public settingBean getSetting(String type,HttpServletRequest request){
 		 administratorDAO dao= new administratorImpl();
 		 settingBean bean = dao.getSetting(type);
-		 request.setAttribute("settingObj", bean);
+		 if(request!=null){
+			 request.setAttribute("settingObj", bean);
+		 }
+		 
 		 return bean;
 	 }
 	 

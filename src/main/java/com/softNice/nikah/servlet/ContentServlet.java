@@ -130,8 +130,20 @@ public class ContentServlet extends HttpServlet {
 				
 			}
 			
+			if(key.equals("city")){
+				adminMaintenance.getInstance().getAllCity(request);
+				request.setAttribute(contentPage.CONTENT_PAGE, "/setting/cityList.jsp");
+				
+			}
+			
+			if(key.equals("deleteState")){
+				adminMaintenance.getInstance().deleteState(request);
+				request.setAttribute(contentPage.CONTENT_PAGE, "/setting/stateList.jsp");
+				
+			}
+			
 			if(key.equals("deleteCountry")){
-				//adminMaintenance.getInstance().deleteCountry
+				adminMaintenance.getInstance().deleteCountry(request);
 				request.setAttribute(contentPage.CONTENT_PAGE, "/setting/countryList.jsp");
 			}
 			
