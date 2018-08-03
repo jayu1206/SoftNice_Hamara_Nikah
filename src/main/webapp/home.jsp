@@ -1,3 +1,8 @@
+<%@page import="org.codehaus.jackson.map.ObjectMapper"%>
+<%@page import="com.softNice.nikah.constent.contentPage"%>
+<%@page import="com.google.gson.Gson"%>
+<%@page import="com.softNice.nikah.beans.generalSettingBean"%>
+<%@page import="com.softNice.nikah.beans.settingBean"%>
 <div class="main-content">
 				<div class="main-content-inner">
 					<div class="breadcrumbs ace-save-state" id="breadcrumbs">
@@ -100,7 +105,7 @@
 						<div class="row">
 							<div class="col-xs-12">
 								<!-- PAGE CONTENT BEGINS -->
-								<div class="alert alert-block alert-success">
+								<!-- <div class="alert alert-block alert-success">
 									<button type="button" class="close" data-dismiss="alert">
 										<i class="ace-icon fa fa-times"></i>
 									</button>
@@ -112,7 +117,7 @@
 										Ace
 										<small>(v1.4)</small>
 									</strong>,	
-								</div>
+								</div> -->
 
 								<div class="row">
 									<div class="space-6"></div>
@@ -376,6 +381,22 @@
 															<div class="clearfix">
 																<div class="itemdiv memberdiv">
 																	<div class="user">
+																	
+																	<%
+																	
+																	settingBean bean= null;
+																	generalSettingBean mailbean= new generalSettingBean();
+																	if(request.getAttribute(contentPage.SETTING)!=null){
+																		bean = (settingBean) request.getAttribute(contentPage.SETTING);
+																		
+																		ObjectMapper mapperObj = new ObjectMapper();
+																		if(bean.getValue()!=null){
+																			mailbean = new Gson().fromJson(bean.getValue(),generalSettingBean.class);
+																		}
+																		
+																	}
+																	%>
+																	
 																		<img alt="Bob Doe's avatar" src="assets/images/avatars/user.jpg" />
 																	</div>
 

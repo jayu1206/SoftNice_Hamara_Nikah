@@ -1,3 +1,7 @@
+<%@page import="com.google.gson.Gson"%>
+<%@page import="org.codehaus.jackson.map.ObjectMapper"%>
+<%@page import="com.softNice.nikah.beans.generalSettingBean"%>
+<%@page import="com.softNice.nikah.beans.settingBean"%>
 <%@page import="com.softNice.nikah.constent.contentPage"%>
 <%@page import="com.softNice.nikah.constent.ErrorMsg"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -30,7 +34,23 @@
 	
 	
 	</head>
-
+	 
+	<%
+	
+	
+				settingBean settingbean= null;
+				generalSettingBean mailbean= new generalSettingBean();
+				if(getServletContext().getAttribute(contentPage.SETTING)!=null){
+					settingbean = (settingBean) getServletContext().getAttribute(contentPage.SETTING);
+					
+					ObjectMapper mapperObj = new ObjectMapper();
+					if(settingbean.getValue()!=null){
+						mailbean = new Gson().fromJson(settingbean.getValue(),generalSettingBean.class);
+					}
+					
+				}
+		%>
+	
 	<body class="login-layout">
 		<div class="main-container">
 			<div class="main-content">
@@ -40,10 +60,10 @@
 							<div class="center">
 								<h1>
 									<i class="ace-icon fa fa-leaf green"></i>
-									<span class="red">Ace</span>
+									<span class="red"><%=mailbean.getApp_name() %></span>
 									<span class="white" id="id-text2">Application</span>
 								</h1>
-								<h4 class="blue" id="id-company-text">&copy; Company Name</h4>
+								<h4 class="blue" id="id-company-text">&copy; <%=mailbean.getCmpName() %></h4>
 							</div>
 
 							<div class="space-6"></div>

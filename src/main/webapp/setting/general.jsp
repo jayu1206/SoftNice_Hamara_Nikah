@@ -74,6 +74,14 @@
 								</div>
 								
 								<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Company name </label>
+
+										<div class="col-sm-9">
+											<input type="text" id="txtCmpName" name="txtCmpName" value="<%=mailbean.getCmpName() %>" class="col-xs-10 col-sm-5" />
+										</div>
+								</div>
+								
+								<div class="form-group">
 										<label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Logo </label>
 
 										<div class="col-sm-9">

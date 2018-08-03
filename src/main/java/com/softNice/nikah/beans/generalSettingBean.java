@@ -4,11 +4,13 @@ public class generalSettingBean {
 	private String app_name;
 	private String logo;
 	private String copyRight;
+	private String cmpName;
 	
 	public generalSettingBean(){
 		app_name = "";
 		copyRight="";
 		logo = "";
+		cmpName="";
 	}
 	
 	public String getApp_name() {
@@ -31,6 +33,14 @@ public class generalSettingBean {
 
 	public void setCopyRight(String copyRight) {
 		this.copyRight = copyRight;
+	}
+
+	public String getCmpName() {
+		return cmpName;
+	}
+
+	public void setCmpName(String cmpName) {
+		this.cmpName = cmpName;
 	}
 	
 	

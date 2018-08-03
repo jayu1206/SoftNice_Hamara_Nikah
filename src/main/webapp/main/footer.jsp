@@ -21,7 +21,7 @@ settingBean settingbean= null;
 				<div class="footer-inner">
 					<div class="footer-content">
 						<span class="bigger-120">
-							<span class="blue bolder"><%=mailbean.getApp_name() %></span>
+							<span class="blue bolder"><%=mailbean.getCmpName() %></span>
 							 <!-- &copy; --> <%=mailbean.getCopyRight() %>
 						</span>
 

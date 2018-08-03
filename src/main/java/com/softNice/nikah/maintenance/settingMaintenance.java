@@ -131,6 +131,7 @@ public class settingMaintenance {
 		}
 		genSettingBean.setApp_name(requestbean.getApp_name());
 		genSettingBean.setCopyRight(requestbean.getCopyRight());
+		genSettingBean.setCmpName(requestbean.getCmpName());
 		if(requestbean.getLogo().length()>0){
 			genSettingBean.setLogo(requestbean.getLogo());
 		}

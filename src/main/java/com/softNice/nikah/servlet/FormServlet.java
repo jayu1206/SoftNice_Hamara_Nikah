@@ -232,13 +232,29 @@ public class FormServlet extends HttpServlet {
 			                    if(!item.isFormField()){
 			                    	if(new File(item.getName()).getName().length()>0){
 			                    		String name = new File(item.getName()).getName();
-				                        String tempDir = servletContext.getRealPath(File.separator)+  "image" ;
+			                    		
+			                    		final String IMAGE_RESOURCE_PATH = "/webapp/images";
+			                    		
+			                    		String directoryPath = 
+			                    		        getServletContext().getRealPath(IMAGE_RESOURCE_PATH);
+			                    		//String temp = getServletContext().getContextPath()+IMAGE_RESOURCE_PATH + File.separator ;
+			                    		//String temp2 = request.getServletContext().getRealPath("")+IMAGE_RESOURCE_PATH + File.separator;
+			                    		File directory = new File(directoryPath);
+
+			                    		if(!directory.exists()) {
+			                    		    directory.mkdirs();
+			                    		}
+			                    		
+			                    		
+				                        /*String tempDir = servletContext.getRealPath(File.separator)+  "image" ;
 				                       // String tempDir2 = servletContext.getResource(File.separator)+ "resources" + File.separator+ "image" ;
 				                        File uploadedFile1 = new File(tempDir);
 										 if(!uploadedFile1.exists())
-											 uploadedFile1.mkdirs();
-										 String withFile = tempDir  + File.separator+ name;
+											 uploadedFile1.mkdirs();*/
+										 String withFile = directoryPath  + File.separator+ name;
 										 File uploadedFile = new File(withFile);
+										 if(!uploadedFile.exists())
+											 uploadedFile.createNewFile();
 										 item.write(uploadedFile);
 										 bean.setLogo(withFile);
 			                    	}
@@ -252,6 +268,9 @@ public class FormServlet extends HttpServlet {
 			                    	}
 			                    	if(item.getFieldName().equals("txtCopyRight")){
 			                    		bean.setCopyRight(item.getString());
+			                    	}
+			                    	if(item.getFieldName().equals("txtCmpName")){
+			                    		bean.setCmpName(item.getString());
 			                    	}
 			                    	
 			                    }
