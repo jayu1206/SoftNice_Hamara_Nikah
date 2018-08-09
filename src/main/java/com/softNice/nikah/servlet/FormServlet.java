@@ -49,6 +49,7 @@ import com.softNice.nikah.beans.settingBean;
 import com.softNice.nikah.constent.ErrorMsg;
 import com.softNice.nikah.constent.contentPage;
 import com.softNice.nikah.maintenance.adminMaintenance;
+import com.softNice.nikah.maintenance.memberMaintenance;
 import com.softNice.nikah.maintenance.roleMaintenance;
 import com.softNice.nikah.maintenance.settingMaintenance;
 
@@ -91,9 +92,6 @@ public class FormServlet extends HttpServlet {
 					}
 				}
 				
-				
-				
-				
 				adminMaintenance.getInstance().getAllCountry(request);
 				roleMaintenance.getInstance().getAllRole(request);
 				request.setAttribute(contentPage.CONTENT_PAGE, "/administrator/addUser.jsp");
@@ -130,6 +128,12 @@ public class FormServlet extends HttpServlet {
 				adminMaintenance.getInstance().getAllCountry(request);
 				request.setAttribute(contentPage.CONTENT_PAGE, "/setting/addCity.jsp");
 			}
+			
+			if(key.equals("addMemberPlan")){
+				request.setAttribute(contentPage.CONTENT_PAGE, "/member/addMemberPlan.jsp");
+			}
+			
+			
 			
 		}
 		rd=request.getRequestDispatcher("/index.jsp");  
@@ -308,14 +312,6 @@ public class FormServlet extends HttpServlet {
 			}
 			
 			if(key.equals("addCity")){
-				/*ErrorMsg obj=(ErrorMsg) adminMaintenance.getInstance().validationState(request);
-				request.setAttribute("error", obj);
-				if(obj.getErrorCode()!=0){
-					request.setAttribute(contentPage.CONTENT_PAGE, "/setting/addState.jsp");
-				}else{
-					request.setAttribute(contentPage.CONTENT_PAGE, "/setting/stateList.jsp");
-				}*/
-				
 				ErrorMsg obj=(ErrorMsg) adminMaintenance.getInstance().validationCity(request);
 				request.setAttribute("error", obj);
 				if(obj.getErrorCode()!=0){
@@ -324,6 +320,18 @@ public class FormServlet extends HttpServlet {
 					request.setAttribute(contentPage.CONTENT_PAGE, "/setting/cityList.jsp");
 				}
 			}
+			
+			if(key.equals("addMemberPlan")){
+				
+				ErrorMsg obj=(ErrorMsg) memberMaintenance.getInstance().validationMemberPlan(request);
+				request.setAttribute("error", obj);
+				if(obj.getErrorCode()!=0){
+					request.setAttribute(contentPage.CONTENT_PAGE, "/member/addMemberPlan.jsp");
+				}else{
+					request.setAttribute(contentPage.CONTENT_PAGE, "/member/memberPlanList.jsp");
+				}
+			}
+			
 			
 			
 		}

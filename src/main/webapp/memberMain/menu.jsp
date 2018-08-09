@@ -9,12 +9,12 @@
 <div id="sidebar" class="sidebar                  responsive                    ace-save-state">
 				
 				<%
-						HashMap<String, permissionBean> map= null;
+						/* HashMap<String, permissionBean> map= null;
 						if(request.getSession().getAttribute(contentPage.MAPOBJ)!=null){
 							new HashMap<String, permissionBean>();
 							map = (HashMap) request.getSession().getAttribute(contentPage.MAPOBJ);
 						}		
-							
+							 */
 	
 				%>
 				
@@ -62,14 +62,14 @@
 						<b class="arrow"></b>
 					</li>
 					<%
-						permissionBean Perbean=(permissionBean) map.get("Administration");
-						if(Perbean.isView()){
+						/* permissionBean Perbean=(permissionBean) map.get("Administration");
+						if(Perbean.isView()){ */
 					%>
-					<li class="">
+				<%-- 	<li class="">
 						<a href="#" class="dropdown-toggle">
 							<i class="menu-icon fa fa-desktop"></i>
 							<span class="menu-text">
-								Administration
+								Members
 							</span>
 
 							<b class="arrow fa fa-angle-down"></b>
@@ -80,7 +80,7 @@
 						<ul class="submenu">
 							
 							<li class="">
-								<a href="ContentServlet?key=user">
+								<a href="#">
 									<i class="menu-icon fa fa-caret-right"></i>
 									Administrators
 								</a>
@@ -99,11 +99,11 @@
 							
 						</ul>
 					</li>
-					<%} %>
+					<%//} %> --%>
 
 							<!-- Members menu  -->
 
-	<li class="">
+	<!-- <li class="">
 						<a href="#" class="dropdown-toggle">
 							<i class="menu-icon fa fa-users"></i>
 							<span class="menu-text">
@@ -127,7 +127,7 @@
 							</li> 
 
 							<li class="">
-								<a href="ContentServlet?key=membersList">
+								<a href="#">
 									<i class="menu-icon fa fa-caret-right"></i>
 									Members
 								</a>
@@ -165,7 +165,7 @@
 							
 						</ul>
 					</li>
-					
+					 -->
 					<!-- Members menu finished -->
 
 
@@ -183,10 +183,10 @@
 
 
 					<%
-						Perbean=(permissionBean) map.get("Setting");
-						if(Perbean.isView()){
+						/* Perbean=(permissionBean) map.get("Setting");
+						if(Perbean.isView()){ */
 					%>
-					<li class="">
+					<!-- <li class="">
 						<a href="#" class="dropdown-toggle">
 							<i class="menu-icon fa fa-list"></i>
 							<span class="menu-text">
@@ -265,8 +265,8 @@
 							
 						</ul>
 					</li>
-
-				<%} %>
+ -->
+				<%//} %>
 
 
 

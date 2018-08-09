@@ -44,12 +44,23 @@
       <param-name>activeReverseAjaxEnabled</param-name>
       <param-value>true</param-value>
     </init-param> 
+  </servlet>
+  <servlet>
+  	<description>
+  	</description>
+  	<display-name>memberServlet</display-name>
+  	<servlet-name>memberServlet</servlet-name>
+  	<servlet-class>com.softNice.nikah.servlet.memberServlet</servlet-class>
   </servlet> 
   
     <servlet-mapping>
     <servlet-name>dwr-invoker</servlet-name>
     <url-pattern>/dwr/*</url-pattern>
   </servlet-mapping>
+    <servlet-mapping>
+    	<servlet-name>memberServlet</servlet-name>
+    	<url-pattern>/memberServlet</url-pattern>
+    </servlet-mapping>
   
   
   <error-page>
@@ -71,7 +82,7 @@
   
   
    <welcome-file-list>
-    <welcome-file>login.jsp</welcome-file>
+    <welcome-file>MemberLogin.jsp</welcome-file>
   </welcome-file-list>
   
 </web-app>

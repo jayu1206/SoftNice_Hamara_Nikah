@@ -40,6 +40,7 @@ import com.softNice.nikah.constent.contentPage;
 import com.softNice.nikah.dao.administratorDAO;
 import com.softNice.nikah.impl.administratorImpl;
 import com.softNice.nikah.maintenance.adminMaintenance;
+import com.softNice.nikah.maintenance.memberMaintenance;
 import com.softNice.nikah.maintenance.roleMaintenance;
 import com.softNice.nikah.maintenance.settingMaintenance;
 
@@ -98,6 +99,7 @@ public class ContentServlet extends HttpServlet {
 			
 			if(key.equals("dashboard")){
 				//request.getSession().setAttribute(contentPage.PERMISSIONNAME,getServletContext().getAttribute(contentPage.PERMISSIONNAME));
+				memberMaintenance.getInstance().getAllMemberPlan(request);
 				request.setAttribute(contentPage.CONTENT_PAGE, "/home.jsp");
 				
 			}
@@ -156,6 +158,26 @@ public class ContentServlet extends HttpServlet {
 				settingMaintenance.getInstance().deleteMaster(request);
 				request.setAttribute(contentPage.CONTENT_PAGE, "/setting/basicDetailsList.jsp");
 			}
+			
+			
+			if(key.equals("memberPlan")){
+				memberMaintenance.getInstance().getAllMemberPlan(request);
+				request.setAttribute(contentPage.CONTENT_PAGE, "/member/memberPlanList.jsp");
+			}
+			
+			if(key.equals("deletePlan")){
+				memberMaintenance.getInstance().deleteMemberPlan(request);
+				request.setAttribute(contentPage.CONTENT_PAGE, "/member/memberPlanList.jsp");
+			}
+			
+			if(key.equals("membersList")){
+				memberMaintenance.getInstance().getAllMembers(request);
+				request.setAttribute(contentPage.CONTENT_PAGE, "/member/membersList.jsp");
+				
+			}
+			
+			
+			
 		}
 		rd=request.getRequestDispatcher("/index.jsp");  
 		rd.forward(request, response); 

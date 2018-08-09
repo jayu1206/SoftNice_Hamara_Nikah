@@ -7,6 +7,8 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
+
 
 public class validation {
 	
@@ -90,5 +92,17 @@ public class validation {
   		}
   		return "";
   	}
+    
+    public static boolean isNumberFormate(String str){
+    	try
+  		{
+  			int i = Integer.parseInt(str);
+  			return true;
+  		}
+  		catch(NumberFormatException e)
+  		{
+  			return false;
+  		}
+    }
 
 }

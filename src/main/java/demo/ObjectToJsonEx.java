@@ -1,6 +1,7 @@
 package demo;
 
 import java.io.IOException;
+import java.util.UUID;
 
 import org.codehaus.jackson.map.ObjectMapper;
 
@@ -10,7 +11,13 @@ public class ObjectToJsonEx {
 	
 	 public static void main(String[] a){
          
-	        Employee emp = new Employee();
+		 String uniqueID = UUID.randomUUID().toString();
+		 
+		 System.out.println(uniqueID.toUpperCase());
+		 String str[]=uniqueID.split("-");
+		 String userid=str[0];
+		 System.out.println(userid.toUpperCase());
+	      /*  Employee emp = new Employee();
 	        ObjectMapper mapperObj = new ObjectMapper();
 	         
 	        try {
@@ -30,7 +37,7 @@ public class ObjectToJsonEx {
 	        } catch (IOException e) {
 	            // TODO Auto-generated catch block
 	            e.printStackTrace();
-	        }
+	        }*/
 	    }
 
 }

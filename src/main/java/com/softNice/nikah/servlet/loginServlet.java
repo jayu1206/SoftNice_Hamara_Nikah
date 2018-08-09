@@ -36,11 +36,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.softNice.nikah.beans.UserBean;
+import com.softNice.nikah.beans.memberPlanBean;
 import com.softNice.nikah.beans.permissionBean;
 import com.softNice.nikah.beans.roleBean;
 import com.softNice.nikah.constent.ErrorMsg;
 import com.softNice.nikah.constent.contentPage;
 import com.softNice.nikah.maintenance.adminMaintenance;
+import com.softNice.nikah.maintenance.memberMaintenance;
 import com.softNice.nikah.maintenance.roleMaintenance;
 
 
@@ -104,24 +106,19 @@ public class loginServlet extends HttpServlet {
 			request.getSession().setAttribute(contentPage.SETTING, getServletContext().getAttribute(contentPage.SETTING));
 			request.setAttribute(contentPage.CONTENT_PAGE, "/home.jsp");
 			
+			memberMaintenance.getInstance().getAllMemberPlan(request);
 			
 			
 			rd=request.getRequestDispatcher("/index.jsp");  
 			rd.forward(request, response); 
 			
 		}else{
-			//request.getSession().invalidate();
+			
 			ErrorMsg error=new ErrorMsg(1,"Invalid Username or Password");
 			request.setAttribute("error", error);
 			rd=request.getRequestDispatcher("/login.jsp");  
 			rd.forward(request, response); 
-			//request.setAttribute(contentPage.CONTENT_PAGE, "/login.jsp");
 		}
-		/*if(request.getParameter("txtUserName").equals("admin") && request.getParameter("txtPsw").equals("admin")){
-			request.getSession().setAttribute(contentPage.PERMISSIONNAME,getServletContext().getAttribute(contentPage.PERMISSIONNAME));
-			request.setAttribute(contentPage.CONTENT_PAGE, "/home.jsp");
-			
-		}*/
 		
 		
 	}

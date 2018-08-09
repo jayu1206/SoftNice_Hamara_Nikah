@@ -1,4 +1,6 @@
 
+<%@page import="com.softNice.nikah.utility.EncrypitDecrypit"%>
+<%@page import="com.softNice.nikah.beans.memberBean"%>
 <%@page import="com.softNice.nikah.beans.masterBean"%>
 <%@page import="com.softNice.nikah.utility.validation"%>
 <%@page import="com.softNice.nikah.beans.roleBean"%>
@@ -27,18 +29,30 @@
 						
 						
 							boolean modifyFlag=false;
-							String key="addUser";
-							UserBean bean= new UserBean();
+							String key="addMember";
+							memberBean bean= new memberBean();
 							ArrayList<countryBean> countryList=new ArrayList<countryBean>();
-								if(request.getAttribute(contentPage.LOCALOBJ)!=null){
-									bean = (UserBean)request.getAttribute(contentPage.LOCALOBJ);
+								if(request.getSession().getAttribute(contentPage.USERSOBJ)!=null){
+									bean = (memberBean)request.getSession().getAttribute(contentPage.USERSOBJ);
+									 firstName=bean.getFirstName();
+									 lastName=bean.getLastName();
+									 dob=bean.getDob()==null?"":validation.convertDateToString(bean.getDob());
+									 gender=bean.getGender()==null?"":bean.getGender();
+									 country=bean.getCountry();
+									 state=bean.getState();
+									 city=bean.getCity();
+									 //System.out.println("city code : "+city);
+									 email=bean.getEmail();
+									 phno=bean.getPhno()==null?"":bean.getPhno();
+									 psw=EncrypitDecrypit.decrypt(bean.getPassword(), "password"); 
+									 confPsw=psw;
 								}
 								if(request.getAttribute(contentPage.MODIFYOBJ)!=null){
-									bean = (UserBean)request.getAttribute(contentPage.MODIFYOBJ);
-									key="updateUser";
+									bean = (memberBean)request.getAttribute(contentPage.MODIFYOBJ);
+									key="updateMember";
 									modifyFlag=true;
 									
-									 userName=bean.getUserName();
+									/*  userName=bean.getUserName(); */
 									 firstName=bean.getFirstName();
 									 lastName=bean.getLastName();
 									 dob=bean.getDob()==null?"":validation.convertDateToString(bean.getDob());
@@ -48,7 +62,6 @@
 									 city=bean.getCity();
 									 email=bean.getEmail();
 									 phno=bean.getPhno();
-									 role=bean.getRoleId();
 									 psw=bean.getPassword();
 									 confPsw=bean.getPassword();
 									
@@ -74,7 +87,7 @@
 						
 						<table width="100%">
 							<tr>
-								<th><h1><%if(modifyFlag==false){ %>Add User <%}else{ %>Edit User  <%} %>  </h1></th>
+								<th><h1><%if(modifyFlag==false){ %>Member Profile <%}else{ %>Member Profile  <%} %>  </h1></th>
 							</tr>
 						</table>
 							
@@ -89,10 +102,10 @@
 									<div id="user-profile-3" class="user-profile row">
 										<div class="col-sm-offset-1 col-sm-10">
 
-											<form class="form-horizontal" id="addUser" name="addUser" action="FormServlet?key=<%=key %>" method="post">
-											<%if(modifyFlag){ %>
+											<form class="form-horizontal" id="addUser" name="addUser" action="memberServlet?key=<%=key %>" method="post">
+											
 													<input type="hidden" id="txtId" name="txtId" value="<%=bean.getId() %>" />
-											<%} %>
+											
 												<div class="tabbable">
 													<ul class="nav nav-tabs padding-16">
 														<li class="active">
@@ -130,7 +143,7 @@
 												if(request.getAttribute(contentPage.ERROR)!=null){ 
 													str=((ErrorMsg)request.getAttribute(contentPage.ERROR)).getError();
 													try{
-														 userName=request.getParameter("txtUserName");
+														// userName=request.getParameter("txtUserName");
 														 firstName=request.getParameter("txtFirstName");
 														 lastName=request.getParameter("txtLastName");
 														 dob=request.getParameter("txtDob")==null?"":request.getParameter("txtDob");
@@ -140,7 +153,7 @@
 														 city=request.getParameter("city")!=null?Integer.parseInt(request.getParameter("city")):0;
 														 email=request.getParameter("txtEmail");
 														 phno=request.getParameter("txtPhno");
-														 role=Integer.parseInt(request.getParameter("role"));
+														// role=Integer.parseInt(request.getParameter("role"));
 														 psw=request.getParameter("txtPsw");
 														 confPsw=request.getParameter("txtConfPsw");
 													}catch(Exception e){
@@ -165,7 +178,7 @@
 																<div class="vspace-12-sm"></div>
 
 																<div class="col-xs-12 col-sm-8">
-																	<div class="form-group">
+																	<%-- <div class="form-group">
 																		<label class="col-sm-4 control-label no-padding-right" for="form-field-username">User name</label>
 
 																		<div class="col-sm-8">
@@ -174,7 +187,7 @@
 																	</div>
 
 																	<div class="space-4"></div>
-
+ --%>
 																	<div class="form-group">
 																		<label class="col-sm-4 control-label no-padding-right" for="form-field-first">Name</label>
 
@@ -301,10 +314,10 @@
 																</div>
 															</div>
 
-															<div class="space"></div>
+														<!-- 	<div class="space"></div> -->
 															
 
-															<h4 class="header blue bolder smaller">Role</h4>
+															<%-- <h4 class="header blue bolder smaller">Role</h4>
 															<div class="form-group">
 																<label class="col-sm-3 control-label no-padding-right" for="form-field-comment">Role</label>
 
@@ -320,7 +333,7 @@
 																		<%} }%>
 																	</select>
 																</div>
-															</div>
+															</div> --%>
 															
 															
 														</div>
@@ -377,7 +390,7 @@
 																
 
 																	<div class="col-sm-9">
-																		<select class="col-sm-7" id="culture" name="culture" >
+																		<select class="col-sm-7" id="culture" name="culture"  >
 																		<option value="0">Select</option>
 																		<%for(masterBean mstbean : list){ %>
 																				<option value="<%=mstbean.getId() %>"><%=mstbean.getValue() %></option>
@@ -609,7 +622,7 @@
 																
 
 																	<div class="col-sm-9">
-																		<textarea rows="5" cols="100"></textarea>
+																		<textarea rows="5" cols="100" id ="about" name="about"></textarea>
 																		
 																	</div>
 																</div>
