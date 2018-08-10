@@ -44,6 +44,7 @@ public class contentPage {
 	public static String MASTERMAPOBJ="masterMapObj";
 	public static String MEMBERPLANOBJ="memberPlanObj";
 	public static String MEMBERS="members";
+	public static String DASHBOARD="dashboard";
 	
 	public static String RELIGION="Religion";
 	public static String  CULTURE="Culture";

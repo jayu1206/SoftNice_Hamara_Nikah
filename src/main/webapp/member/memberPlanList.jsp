@@ -1,3 +1,5 @@
+<%@page import="java.util.HashMap"%>
+<%@page import="com.softNice.nikah.beans.permissionBean"%>
 <%@page import="com.softNice.nikah.beans.memberPlanBean"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.softNice.nikah.constent.ErrorMsg"%>
@@ -8,6 +10,12 @@ ArrayList<memberPlanBean> list=new ArrayList<memberPlanBean>();
 	if(request.getAttribute(contentPage.MEMBERPLANOBJ)!=null){
 		list = (ArrayList<memberPlanBean>)request.getAttribute(contentPage.MEMBERPLANOBJ);
 	}
+	
+	HashMap<String, permissionBean> map= null;
+	if(request.getSession().getAttribute(contentPage.MAPOBJ)!=null){
+		new HashMap<String, permissionBean>();
+		map = (HashMap) request.getSession().getAttribute(contentPage.MAPOBJ);
+	}
 
 %>
 <div class="main-content">
@@ -17,14 +25,17 @@ ArrayList<memberPlanBean> list=new ArrayList<memberPlanBean>();
 						
 
 						<div class="page-header">
-						
+					<%
+						permissionBean Perbean=(permissionBean) map.get("Members");
+						if(Perbean.isView() && Perbean.isAdd()){
+					%>
 						<table width="100%">
 							<tr>
 								<th><h1> Membership Plan List  </h1></th>
 								<th align="right"><a href="FormServlet?key=addMemberPlan" class="btn btn-info"  style="margin-left: 70%;" >Add New</a></th>
 							</tr>
 						</table>
-							
+					<%} %>
 						</div><!-- /.page-header -->
 
 						<div class="row">
@@ -134,10 +145,12 @@ ArrayList<memberPlanBean> list=new ArrayList<memberPlanBean>();
 																<%-- <a class="green" href="ContentServlet?key=updateRole&id=<%=plan.getPlanId() %>">
 																	<i class="ace-icon fa fa-pencil bigger-130"></i>
 																</a> --%>
-
+															<%if(Perbean.isView() && Perbean.isDelete()){ %>
 																<a class="red" href="#" onclick="deleteDilog('<%=plan.getPlanId() %>')">
 																	<i class="ace-icon fa fa-trash-o bigger-130"></i>
 																</a>
+																
+															<%} %>	
 																<%-- 
 																<a class="blue" href="ContentServlet?key=permission&id=<%=plan.getPlanId() %>">
 																	<i class="ace-icon fa fa-search-plus bigger-100">Permission</i>

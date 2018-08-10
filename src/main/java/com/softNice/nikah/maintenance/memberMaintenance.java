@@ -345,21 +345,88 @@ public class memberMaintenance {
 		memberDAO dao=new memberImpl();
 		
 		memberBean bean=dao.getMemberBaseOnId( Integer.parseInt(request.getParameter("txtId")));
+		
+		if (request.getParameter("txtPhno")  == null || request.getParameter("txtPhno").trim().length() == 0){
+			return new ErrorMsg(1, "Phone field is required");
+		}else if(!validation.checkPhno(request.getParameter("txtPhno"))){
+			return new ErrorMsg(1, "Phone is invalid");
+		}else if(!checkDublicatePhone(request.getParameter("txtPhno"),bean.getId())){
+			return new ErrorMsg(1, "Phone is already exist");
+		}
+		bean.setPhno(request.getParameter("txtPhno"));
+		
 		memberDetailsBean details = new memberDetailsBean();
+		
+		if (request.getParameter("rblFamilyStatus") == null	|| request.getParameter("rblFamilyStatus").trim().length() == 0){
+			return new ErrorMsg(1, "Family status is required");
+		}
 		details.setFamilyStatus(request.getParameter("rblFamilyStatus"));
+		
+		if (request.getParameter("culture").equals("0") || request.getParameter("culture").trim().length() == 0){
+			return new ErrorMsg(1, "Please select culture");
+		}
 		details.setCulture(Integer.parseInt(request.getParameter("culture")));
+		
+		if (request.getParameter("height").equals("0") || request.getParameter("height").trim().length() == 0){
+			return new ErrorMsg(1, "Please select height");
+		}
 		details.setHeight(Integer.parseInt(request.getParameter("height")));
+		
+		if (request.getParameter("weight").equals("0") || request.getParameter("weight").trim().length() == 0){
+			return new ErrorMsg(1, "Please select weight");
+		}
 		details.setWeight(Integer.parseInt(request.getParameter("weight")));
+		
+		if (request.getParameter("built").equals("0") || request.getParameter("built").trim().length() == 0){
+			return new ErrorMsg(1, "Please select built");
+		}
 		details.setBuilt(Integer.parseInt(request.getParameter("built")));
+		
+		if (request.getParameter("complexion").equals("0") || request.getParameter("complexion").trim().length() == 0){
+			return new ErrorMsg(1, "Please select complexion");
+		}
 		details.setComplexion(Integer.parseInt(request.getParameter("complexion")));
+		
+		
+		if (request.getParameter("diet").equals("0") || request.getParameter("diet").trim().length() == 0){
+			return new ErrorMsg(1, "Please select diet");
+		}
 		details.setDiet(Integer.parseInt(request.getParameter("diet")));
+		
+		if (request.getParameter("drink").equals("0") || request.getParameter("drink").trim().length() == 0){
+			return new ErrorMsg(1, "Please select drink");
+		}
 		details.setDrink(Integer.parseInt(request.getParameter("drink")));
+		
+		if (request.getParameter("smoke").equals("0") || request.getParameter("smoke").trim().length() == 0){
+			return new ErrorMsg(1, "Please select smoke");
+		}
 		details.setSmoke(Integer.parseInt(request.getParameter("smoke")));
+		
+		
 		details.setAbout(request.getParameter("about"));
+		
+		if (request.getParameter("education").equals("0") || request.getParameter("education").trim().length() == 0){
+			return new ErrorMsg(1, "Please select education");
+		}
 		details.setEducation(Integer.parseInt(request.getParameter("education")));
+		
+		if (request.getParameter("profession").equals("0") || request.getParameter("profession").trim().length() == 0){
+			return new ErrorMsg(1, "Please select profession");
+		}
 		details.setProfession(Integer.parseInt(request.getParameter("profession")));
+		
+		if (request.getParameter("income").equals("0") || request.getParameter("income").trim().length() == 0){
+			return new ErrorMsg(1, "Please select income");
+		}
 		details.setIncome(Integer.parseInt(request.getParameter("income")));
+		
+		if (request.getParameter("visa") == null	|| request.getParameter("visa").trim().length() == 0){
+			return new ErrorMsg(1, "visa status is required");
+		}
 		details.setVisaStatus(request.getParameter("visa"));
+		
+		
 		details.setMemberId(bean.getId());
 		
 		Set<memberDetailsBean> setlist=new HashSet<memberDetailsBean>();
@@ -370,6 +437,8 @@ public class memberMaintenance {
 		
 		if(flag!=0){
 			return new ErrorMsg(2, "Internal Error");
+		}else{
+			flag = dao.updateMember(bean);
 		}
 		
 		return new ErrorMsg(0, "Done");
@@ -382,6 +451,13 @@ public class memberMaintenance {
 		memberDAO dao=new memberImpl();
 		ArrayList<memberBean> list=dao.getAllMembers();
 		request.setAttribute("members", list);
+		
+	}
+	
+	public boolean checkDublicatePhone(String str,int id){
+		memberDAO dao=new memberImpl();
+		boolean flag = dao.checkDublicatePhone(str,id);
+		return flag;
 		
 	}
 

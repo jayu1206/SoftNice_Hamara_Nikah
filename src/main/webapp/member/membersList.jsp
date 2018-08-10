@@ -1,3 +1,5 @@
+<%@page import="com.softNice.nikah.beans.permissionBean"%>
+<%@page import="java.util.HashMap"%>
 <%@page import="com.softNice.nikah.beans.memberBean"%>
 <%@page import="com.softNice.nikah.beans.roleBean"%>
 <%@page import="java.util.ArrayList"%>
@@ -8,6 +10,12 @@
 ArrayList<memberBean> list=new ArrayList<memberBean>();
 	if(request.getAttribute(contentPage.MEMBERS)!=null){
 		list = (ArrayList<memberBean>)request.getAttribute(contentPage.MEMBERS);
+	}
+	
+	HashMap<String, permissionBean> map= null;
+	if(request.getSession().getAttribute(contentPage.MAPOBJ)!=null){
+		new HashMap<String, permissionBean>();
+		map = (HashMap) request.getSession().getAttribute(contentPage.MAPOBJ);
 	}
 
 %>
@@ -77,10 +85,13 @@ ArrayList<memberBean> list=new ArrayList<memberBean>();
 																	<i class="ace-icon fa fa-pencil bigger-130"></i>
 																</a> --%>
 
+													<%
+														permissionBean Perbean=(permissionBean) map.get("Members");
+														if(Perbean.isView() && Perbean.isDelete()){ %>
 																<a class="red" href="#" onclick="deleteDilog('<%=bean.getId() %>')">
 																	<i class="ace-icon fa fa-trash-o bigger-130"></i>
 																</a>
-																
+													<%} %>
 																<%-- <a class="blue" href="ContentServlet?key=permission&id=<%=role.getRoleId() %>">
 																	<i class="ace-icon fa fa-search-plus bigger-100">Permission</i>
 																</a> --%>

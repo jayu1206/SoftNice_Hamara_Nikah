@@ -40,6 +40,7 @@ import com.softNice.nikah.constent.contentPage;
 import com.softNice.nikah.dao.administratorDAO;
 import com.softNice.nikah.impl.administratorImpl;
 import com.softNice.nikah.maintenance.adminMaintenance;
+import com.softNice.nikah.maintenance.dashboardMaintenance;
 import com.softNice.nikah.maintenance.memberMaintenance;
 import com.softNice.nikah.maintenance.roleMaintenance;
 import com.softNice.nikah.maintenance.settingMaintenance;
@@ -100,6 +101,7 @@ public class ContentServlet extends HttpServlet {
 			if(key.equals("dashboard")){
 				//request.getSession().setAttribute(contentPage.PERMISSIONNAME,getServletContext().getAttribute(contentPage.PERMISSIONNAME));
 				memberMaintenance.getInstance().getAllMemberPlan(request);
+				dashboardMaintenance.getInstance().getAllDashboardData(request);
 				request.setAttribute(contentPage.CONTENT_PAGE, "/home.jsp");
 				
 			}

@@ -1,3 +1,4 @@
+<%@page import="com.softNice.nikah.beans.dashboard"%>
 <%@page import="com.softNice.nikah.beans.memberPlanBean"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="org.codehaus.jackson.map.ObjectMapper"%>
@@ -12,6 +13,44 @@ ArrayList<memberPlanBean> list=new ArrayList<memberPlanBean>();
 if(request.getAttribute(contentPage.MEMBERPLANOBJ)!=null){
 	list = (ArrayList<memberPlanBean>)request.getAttribute(contentPage.MEMBERPLANOBJ);
 }
+
+ArrayList<dashboard> dashboardList =new ArrayList<dashboard>();
+if(request.getSession().getAttribute(contentPage.DASHBOARD)!=null){
+	dashboardList = (ArrayList<dashboard>) request.getSession().getAttribute(contentPage.DASHBOARD);
+	 
+}
+
+int totalMember=0;
+int active=0;
+int inactive=0;
+int toalGender=0;
+int male=0;
+int female=0;
+
+for(dashboard daBean : dashboardList){
+	
+		if(daBean.getName().equals("totalMembers"))
+			totalMember = daBean.getValue();
+		
+		if(daBean.getName().equals("active"))
+			active = daBean.getValue();
+		
+		if(daBean.getName().equals("inactive"))
+			inactive = daBean.getValue();
+		
+		if(daBean.getName().equals("totalGender"))
+			toalGender = daBean.getValue();
+		
+		if(daBean.getName().equals("male"))
+			male = daBean.getValue();
+		
+		if(daBean.getName().equals("female"))
+			female = daBean.getValue();
+				
+	
+}
+
+
 %>
 
 <div class="main-content">
@@ -158,19 +197,20 @@ if(request.getAttribute(contentPage.MEMBERPLANOBJ)!=null){
 														</tr>
 													</thead>
 													<tbody>
+													<%%>
 														<tr>
 															<td>Total</td>
-															<td>50 Members</td>
+															<td><%=totalMember %> Members</td>
 															<td><a href="#">View </a></td>
 														</tr>
 														<tr>
 															<td>Active</td>
-															<td>49 Members</td>
+															<td><%=active %>  Members</td>
 															<td><a href="#">View </a></td>
 														</tr>
 														<tr>
 															<td>Inactive</td>
-															<td>1 Members</td>
+															<td><%=inactive %> Members</td>
 															<td><a href="#">View </a></td>
 														</tr>
 													</tbody>
@@ -250,17 +290,17 @@ if(request.getAttribute(contentPage.MEMBERPLANOBJ)!=null){
 													<tbody>
 														<tr>
 															<td>Total</td>
-															<td>50 Members</td>
+															<td><%=toalGender %> Members</td>
 															<td><a href="#">View </a></td>
 														</tr>
 														<tr>
 															<td>Groom (Male)</td>
-															<td>30 Members</td>
+															<td><%=male %> Members</td>
 															<td><a href="#">View </a></td>
 														</tr>
 														<tr>
 															<td>Bride (Female)</td>
-															<td>20 Members</td>
+															<td><%=female %> Members</td>
 															<td><a href="#">View </a></td>
 														</tr>
 													</tbody>

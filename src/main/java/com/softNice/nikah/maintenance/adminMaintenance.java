@@ -528,7 +528,7 @@ public class adminMaintenance {
 		// TODO Auto-generated method stub
 		administratorDAO dao= new administratorImpl();
 		ArrayList<masterBean>   list=dao.getMasterBaseOnMasterID(key);
-		request.setAttribute(value, list);
+		request.getSession().setAttribute(value, list);
 		/*map.put(1,"Religion");
 		map.put(2,"Culture");
 		map.put(3,"Education"); 

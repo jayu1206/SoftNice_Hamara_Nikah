@@ -42,6 +42,7 @@ import com.softNice.nikah.beans.roleBean;
 import com.softNice.nikah.constent.ErrorMsg;
 import com.softNice.nikah.constent.contentPage;
 import com.softNice.nikah.maintenance.adminMaintenance;
+import com.softNice.nikah.maintenance.dashboardMaintenance;
 import com.softNice.nikah.maintenance.memberMaintenance;
 import com.softNice.nikah.maintenance.roleMaintenance;
 
@@ -107,6 +108,9 @@ public class loginServlet extends HttpServlet {
 			request.setAttribute(contentPage.CONTENT_PAGE, "/home.jsp");
 			
 			memberMaintenance.getInstance().getAllMemberPlan(request);
+			
+			dashboardMaintenance.getInstance().getAllDashboardData(request);
+			
 			
 			
 			rd=request.getRequestDispatcher("/index.jsp");  

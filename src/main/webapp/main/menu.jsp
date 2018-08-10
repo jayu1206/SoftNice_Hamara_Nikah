@@ -102,6 +102,11 @@
 					<%} %>
 
 							<!-- Members menu  -->
+							
+							<%
+						 Perbean=(permissionBean) map.get("Members");
+						if(Perbean.isView()){
+					%>
 
 	<li class="">
 						<a href="#" class="dropdown-toggle">
@@ -168,7 +173,7 @@
 					
 					<!-- Members menu finished -->
 
-
+<%} %>
 
 
 

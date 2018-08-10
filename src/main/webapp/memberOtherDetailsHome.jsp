@@ -26,6 +26,20 @@
 						int role=0;
 						String psw="";
 						String confPsw="";
+						String familyStatus="";
+						int culture = 0;
+						int height = 0;
+						int weight = 0;
+						int built = 0;
+						int complexion = 0;
+						int diet= 0;
+						int drink = 0 ;
+						int smoke = 0;
+						String about = "";
+						int education = 0;
+						int profession = 0;
+						int income = 0;
+						String visa = "";
 						
 						
 							boolean modifyFlag=false;
@@ -143,7 +157,6 @@
 												if(request.getAttribute(contentPage.ERROR)!=null){ 
 													str=((ErrorMsg)request.getAttribute(contentPage.ERROR)).getError();
 													try{
-														// userName=request.getParameter("txtUserName");
 														 firstName=request.getParameter("txtFirstName");
 														 lastName=request.getParameter("txtLastName");
 														 dob=request.getParameter("txtDob")==null?"":request.getParameter("txtDob");
@@ -153,9 +166,25 @@
 														 city=request.getParameter("city")!=null?Integer.parseInt(request.getParameter("city")):0;
 														 email=request.getParameter("txtEmail");
 														 phno=request.getParameter("txtPhno");
-														// role=Integer.parseInt(request.getParameter("role"));
 														 psw=request.getParameter("txtPsw");
 														 confPsw=request.getParameter("txtConfPsw");
+														 
+													    familyStatus=request.getParameter("rblFamilyStatus")==null?"":request.getParameter("rblFamilyStatus");
+														culture = request.getParameter("culture")!=null?Integer.parseInt(request.getParameter("culture")):0;
+														height = request.getParameter("height")!=null?Integer.parseInt(request.getParameter("height")):0;
+														weight =request.getParameter("weight")!=null?Integer.parseInt(request.getParameter("weight")):0;
+														built = request.getParameter("built")!=null?Integer.parseInt(request.getParameter("built")):0;
+														complexion = request.getParameter("complexion")!=null?Integer.parseInt(request.getParameter("complexion")):0;
+														diet= request.getParameter("diet")!=null?Integer.parseInt(request.getParameter("diet")):0;
+														drink = request.getParameter("drink")!=null?Integer.parseInt(request.getParameter("drink")):0;
+														smoke = request.getParameter("smoke")!=null?Integer.parseInt(request.getParameter("smoke")):0;
+														about = request.getParameter("about")==null?"":request.getParameter("about");
+														education = request.getParameter("education")!=null?Integer.parseInt(request.getParameter("education")):0;
+														profession = request.getParameter("profession")!=null?Integer.parseInt(request.getParameter("profession")):0;
+														income = request.getParameter("income")!=null?Integer.parseInt(request.getParameter("income")):0;
+														visa = request.getParameter("visa")==null?"":request.getParameter("visa");
+														 
+														 
 													}catch(Exception e){
 														
 													}
@@ -355,14 +384,29 @@
 																		
 
 																		<div class="col-sm-8">
-																			<input name="rblFamilyStatus" id="rich" type="radio" class="ace" value="female"/>
+																		
+																		<%if(familyStatus.equals("Rich")){ %>
+																			<input name="rblFamilyStatus" id="rich" type="radio" class="ace" value="Rich" checked="checked"/>
+																		<%}else{ %>
+																			<input name="rblFamilyStatus" id="rich" type="radio" class="ace" value="Rich"/>
+																		<% }%>
 																			<span class="lbl"> Rich / Affluent</span>
 																			&nbsp;&nbsp;&nbsp;
-																			<input name="rblFamilyStatus" id="upperMiddle" type="radio" class="ace" value="female"/>
+																			
+																			
+																		<%if(familyStatus.equals("Upper")){ %>
+																			<input name="rblFamilyStatus" id="upperMiddle" type="radio" class="ace" value="Upper" checked="checked"/>
+																		<%}else{ %>
+																			<input name="rblFamilyStatus" id="upperMiddle" type="radio" class="ace" value="Upper"/>
+																		<% }%>
 																			<span class="lbl"> Upper Middle Class</span>
 																			&nbsp;&nbsp;&nbsp;
 																			
-																			<input name="rblFamilyStatus" id="middle" type="radio" class="ace" value="female"/>
+																		<%if(familyStatus.equals("Middle")){ %>
+																			<input name="rblFamilyStatus" id="middle" type="radio" class="ace" value="Middle" checked="checked"/>
+																		<%}else{ %>
+																			<input name="rblFamilyStatus" id="middle" type="radio" class="ace" value="Middle"/>
+																		<% }%>
 																			<span class="lbl"> Middle Class</span>
 																			
 																		</div>
@@ -373,8 +417,8 @@
 															<%
 																
 															ArrayList<masterBean> list = null;
-																if(request.getAttribute(contentPage.CULTURE)!=null){
-																	list = (ArrayList<masterBean>) request.getAttribute(contentPage.CULTURE);
+																if(request.getSession().getAttribute(contentPage.CULTURE)!=null){
+																	list = (ArrayList<masterBean>) request.getSession().getAttribute(contentPage.CULTURE);
 																}
 															
 															%>
@@ -392,9 +436,13 @@
 																	<div class="col-sm-9">
 																		<select class="col-sm-7" id="culture" name="culture"  >
 																		<option value="0">Select</option>
-																		<%for(masterBean mstbean : list){ %>
-																				<option value="<%=mstbean.getId() %>"><%=mstbean.getValue() %></option>
-																		<% }%>
+																		<%for(masterBean mstbean : list){
+																			if(culture == mstbean.getId() ){
+																			%>
+																				<option value="<%=mstbean.getId() %>" selected="selected" ><%=mstbean.getValue() %></option>
+																			<%}else{ %>
+																				<option value="<%=mstbean.getId() %>"  ><%=mstbean.getValue() %></option>
+																		<% }}%>
 																		
 																		</select>
 																	</div>
@@ -404,8 +452,8 @@
 													
 													<%
 															list=null;
-															if(request.getAttribute(contentPage.HEIGHT)!=null){
-																list = (ArrayList<masterBean>) request.getAttribute(contentPage.HEIGHT);
+															if(request.getSession().getAttribute(contentPage.HEIGHT)!=null){
+																list = (ArrayList<masterBean>) request.getSession().getAttribute(contentPage.HEIGHT);
 															}
 													%>
 																
@@ -423,9 +471,11 @@
 																	<div class="col-sm-9">
 																		<select class="col-sm-7" id="height" name="height" >
 																		<option value="0">Select</option>
-																		<%for(masterBean mstbean : list){ %>
+																		<%for(masterBean mstbean : list){ if(height ==  mstbean.getId()){ %>
+																				<option value="<%=mstbean.getId() %>"  selected="selected" ><%=mstbean.getValue() %></option>
+																			<%}else{ %>	
 																				<option value="<%=mstbean.getId() %>"><%=mstbean.getValue() %></option>
-																		<% }%>
+																		<% }}%>
 																		
 																		</select>
 																	</div>
@@ -445,17 +495,19 @@
 																<div class="form-group">
 																<%
 																	list=null;
-																	if(request.getAttribute(contentPage.WEIGHT)!=null){
-																		list = (ArrayList<masterBean>) request.getAttribute(contentPage.WEIGHT);
+																	if(request.getSession().getAttribute(contentPage.WEIGHT)!=null){
+																		list = (ArrayList<masterBean>) request.getSession().getAttribute(contentPage.WEIGHT);
 																	}
 																%>
 
 																	<div class="col-sm-9">
 																		<select class="col-sm-7" id="weight" name="weight" >
 																			<option value="0">Select</option>
-																			<%for(masterBean mstbean : list){ %>
-																					<option value="<%=mstbean.getId() %>"><%=mstbean.getValue() %></option>
-																			<% }%>
+																			<%for(masterBean mstbean : list){ if(weight ==  mstbean.getId()){ %>
+																				<option value="<%=mstbean.getId() %>"  selected="selected" ><%=mstbean.getValue() %></option>
+																			<%}else{ %>	
+																				<option value="<%=mstbean.getId() %>"><%=mstbean.getValue() %></option>
+																		<% }}%>
 																		</select>
 																	</div>
 																</div>
@@ -475,17 +527,19 @@
 																<div class="form-group">
 																<%
 																	list=null;
-																	if(request.getAttribute(contentPage.BUILT)!=null){
-																		list = (ArrayList<masterBean>) request.getAttribute(contentPage.BUILT);
+																	if(request.getSession().getAttribute(contentPage.BUILT)!=null){
+																		list = (ArrayList<masterBean>) request.getSession().getAttribute(contentPage.BUILT);
 																	}
 																%>
 
 																	<div class="col-sm-9">
 																		<select class="col-sm-7" id="built" name="built" >
 																			<option value="0">Select</option>
-																			<%for(masterBean mstbean : list){ %>
-																					<option value="<%=mstbean.getId() %>"><%=mstbean.getValue() %></option>
-																			<% }%>
+																			<%for(masterBean mstbean : list){ if(built ==  mstbean.getId()){ %>
+																				<option value="<%=mstbean.getId() %>"  selected="selected" ><%=mstbean.getValue() %></option>
+																			<%}else{ %>	
+																				<option value="<%=mstbean.getId() %>"><%=mstbean.getValue() %></option>
+																		<% }}%>
 																		</select>
 																	</div>
 																</div>
@@ -504,17 +558,19 @@
 																<div class="form-group">
 																<%
 																	list=null;
-																	if(request.getAttribute(contentPage.COMPLEXION)!=null){
-																		list = (ArrayList<masterBean>) request.getAttribute(contentPage.COMPLEXION);
+																	if(request.getSession().getAttribute(contentPage.COMPLEXION)!=null){
+																		list = (ArrayList<masterBean>) request.getSession().getAttribute(contentPage.COMPLEXION);
 																	}
 																%>
 
 																	<div class="col-sm-9">
 																		<select class="col-sm-7" id="complexion" name="complexion" >
 																			<option value="0">Select</option>
-																			<%for(masterBean mstbean : list){ %>
-																						<option value="<%=mstbean.getId() %>"><%=mstbean.getValue() %></option>
-																			<% }%>
+																			<%for(masterBean mstbean : list){ if(complexion ==  mstbean.getId()){ %>
+																				<option value="<%=mstbean.getId() %>"  selected="selected" ><%=mstbean.getValue() %></option>
+																			<%}else{ %>	
+																				<option value="<%=mstbean.getId() %>"><%=mstbean.getValue() %></option>
+																		<% }}%>
 																		</select>
 																	</div>
 																</div>
@@ -533,17 +589,19 @@
 																<div class="form-group">
 																<%
 																	list=null;
-																	if(request.getAttribute(contentPage.DIET)!=null){
-																		list = (ArrayList<masterBean>) request.getAttribute(contentPage.DIET);
+																	if(request.getSession().getAttribute(contentPage.DIET)!=null){
+																		list = (ArrayList<masterBean>) request.getSession().getAttribute(contentPage.DIET);
 																	}
 																%>
 
 																	<div class="col-sm-9">
 																		<select class="col-sm-7" id="diet" name="diet" >
 																			<option value="0">Select</option>
-																			<%for(masterBean mstbean : list){ %>
-																						<option value="<%=mstbean.getId() %>"><%=mstbean.getValue() %></option>
-																			<% }%>
+																			<%for(masterBean mstbean : list){ if(diet ==  mstbean.getId()){ %>
+																				<option value="<%=mstbean.getId() %>"  selected="selected" ><%=mstbean.getValue() %></option>
+																			<%}else{ %>	
+																				<option value="<%=mstbean.getId() %>"><%=mstbean.getValue() %></option>
+																			<% }}%>
 																		</select>
 																	</div>
 																</div>
@@ -562,17 +620,19 @@
 																<div class="form-group">
 																<%
 																	list=null;
-																	if(request.getAttribute(contentPage.DRINK)!=null){
-																		list = (ArrayList<masterBean>) request.getAttribute(contentPage.DRINK);
+																	if(request.getSession().getAttribute(contentPage.DRINK)!=null){
+																		list = (ArrayList<masterBean>) request.getSession().getAttribute(contentPage.DRINK);
 																	}
 																%>
 
 																	<div class="col-sm-9">
 																		<select class="col-sm-7" id="drink" name="drink" >
 																		<option value="0">Select</option>
-																			<%for(masterBean mstbean : list){ %>
-																						<option value="<%=mstbean.getId() %>"><%=mstbean.getValue() %></option>
-																			<% }%>
+																			<%for(masterBean mstbean : list){ if(drink ==  mstbean.getId()){ %>
+																				<option value="<%=mstbean.getId() %>"  selected="selected" ><%=mstbean.getValue() %></option>
+																			<%}else{ %>	
+																				<option value="<%=mstbean.getId() %>"><%=mstbean.getValue() %></option>
+																			<% }}%>
 																		</select>
 																	</div>
 																</div>
@@ -591,17 +651,19 @@
 																<div class="form-group">
 																<%
 																	list=null;
-																	if(request.getAttribute(contentPage.SMOKE)!=null){
-																		list = (ArrayList<masterBean>) request.getAttribute(contentPage.SMOKE);
+																	if(request.getSession().getAttribute(contentPage.SMOKE)!=null){
+																		list = (ArrayList<masterBean>) request.getSession().getAttribute(contentPage.SMOKE);
 																	}
 																%>
 
 																	<div class="col-sm-9">
 																		<select class="col-sm-7" id="smoke" name="smoke" >
 																			<option value="0">Select</option>
-																				<%for(masterBean mstbean : list){ %>
-																						<option value="<%=mstbean.getId() %>"><%=mstbean.getValue() %></option>
-																			<% }%>
+																			<%for(masterBean mstbean : list){ if(smoke ==  mstbean.getId()){ %>
+																				<option value="<%=mstbean.getId() %>"  selected="selected" ><%=mstbean.getValue() %></option>
+																			<%}else{ %>	
+																				<option value="<%=mstbean.getId() %>"><%=mstbean.getValue() %></option>
+																			<% }}%>
 																		</select>
 																	</div>
 																</div>
@@ -622,7 +684,7 @@
 																
 
 																	<div class="col-sm-9">
-																		<textarea rows="5" cols="100" id ="about" name="about"></textarea>
+																		<textarea rows="5" cols="100" id ="about" name="about"><%=about %> </textarea>
 																		
 																	</div>
 																</div>
@@ -650,17 +712,19 @@
 																<div class="form-group">
 																<%
 																	list=null;
-																	if(request.getAttribute(contentPage.EDUCATION)!=null){
-																		list = (ArrayList<masterBean>) request.getAttribute(contentPage.EDUCATION);
+																	if(request.getSession().getAttribute(contentPage.EDUCATION)!=null){
+																		list = (ArrayList<masterBean>) request.getSession().getAttribute(contentPage.EDUCATION);
 																	}
 																%>
 
 																	<div class="col-sm-9">
 																		<select class="col-sm-7" id="education" name="education" >
 																			<option value="0">Select</option>
-																			<%for(masterBean mstbean : list){ %>
-																					<option value="<%=mstbean.getId() %>"><%=mstbean.getValue() %></option>
-																			<% }%>
+																			<%for(masterBean mstbean : list){ if(education ==  mstbean.getId()){ %>
+																				<option value="<%=mstbean.getId() %>"  selected="selected" ><%=mstbean.getValue() %></option>
+																			<%}else{ %>	
+																				<option value="<%=mstbean.getId() %>"><%=mstbean.getValue() %></option>
+																			<% }}%>
 																		</select>
 																	</div>
 																</div>
@@ -679,17 +743,19 @@
 																<div class="form-group">
 																<%
 																	list=null;
-																	if(request.getAttribute(contentPage.PROFESSION)!=null){
-																		list = (ArrayList<masterBean>) request.getAttribute(contentPage.PROFESSION);
+																	if(request.getSession().getAttribute(contentPage.PROFESSION)!=null){
+																		list = (ArrayList<masterBean>) request.getSession().getAttribute(contentPage.PROFESSION);
 																	}
 																%>
 
 																	<div class="col-sm-9">
 																		<select class="col-sm-7" id="profession" name="profession" >
 																			<option value="0">Select</option>
-																			<%for(masterBean mstbean : list){ %>
-																					<option value="<%=mstbean.getId() %>"><%=mstbean.getValue() %></option>
-																			<% }%>
+																			<%for(masterBean mstbean : list){ if(profession ==  mstbean.getId()){ %>
+																				<option value="<%=mstbean.getId() %>"  selected="selected" ><%=mstbean.getValue() %></option>
+																			<%}else{ %>	
+																				<option value="<%=mstbean.getId() %>"><%=mstbean.getValue() %></option>
+																			<% }}%>
 																		</select>
 																	</div>
 																</div>
@@ -708,17 +774,19 @@
 																<div class="form-group">
 																<%
 																	list=null;
-																	if(request.getAttribute(contentPage.INCOME)!=null){
-																		list = (ArrayList<masterBean>) request.getAttribute(contentPage.INCOME);
+																	if(request.getSession().getAttribute(contentPage.INCOME)!=null){
+																		list = (ArrayList<masterBean>) request.getSession().getAttribute(contentPage.INCOME);
 																	}
 																%>
 
 																	<div class="col-sm-9">
 																		<select class="col-sm-7" id="income" name="income" >
 																			<option value="0">Select</option>
-																			<%for(masterBean mstbean : list){ %>
-																					<option value="<%=mstbean.getId() %>"><%=mstbean.getValue() %></option>
-																			<% }%>
+																			<%for(masterBean mstbean : list){ if(income ==  mstbean.getId()){ %>
+																				<option value="<%=mstbean.getId() %>"  selected="selected" ><%=mstbean.getValue() %></option>
+																			<%}else{ %>	
+																				<option value="<%=mstbean.getId() %>"><%=mstbean.getValue() %></option>
+																			<% }}%>
 																		</select>
 																	</div>
 																</div>
@@ -738,27 +806,57 @@
 																		
 
 																		<div class="col-sm-12">
-																			<input name="visa" id="Citizenship" type="radio" class="ace" value="female"/>
+																		
+																		<%if(visa.equals("Citizenship")){ %>
+																			<input name="visa" id="Citizenship" type="radio" class="ace" value="Citizenship"/>
+																		<%}else{ %>
+																			<input name="visa" id="Citizenship" type="radio" class="ace" value="Citizenship"/>
+																		<%} %>
 																			<span class="lbl"> Citizenship</span>
 																			&nbsp;&nbsp;&nbsp;
 																			
-																			<input name="visa" id="Legal" type="radio" class="ace" value="female"/>
+																			
+																		<%if(visa.equals("Legal")){ %>
+																			<input name="visa" id="Legal" type="radio" class="ace" value="Legal"/>
+																		<%}else{ %>
+																			<input name="visa" id="Legal" type="radio" class="ace" value="Legal"/>
+																		<%} %>
 																			<span class="lbl"> Legal Permanent Residence</span>
 																			&nbsp;&nbsp;&nbsp;
 																			
-																			<input name="visa" id="Work" type="radio" class="ace" value="female"/>
+																			
+																		<%if(visa.equals("Work")){ %>
+																			<input name="visa" id="Work" type="radio" class="ace" value="Work"/>
+																		<%}else{ %>
+																			<input name="visa" id="Work" type="radio" class="ace" value="Work"/>
+																		<%} %>
 																			<span class="lbl"> Work Visa</span>
 																			&nbsp;&nbsp;&nbsp;
 																			
-																			<input name="visa" id="Bussiness" type="radio" class="ace" value="female"/>
+																			
+																		<%if(visa.equals("Bussiness")){ %>
+																			<input name="visa" id="Bussiness" type="radio" class="ace" value="Bussiness"/>
+																		<%}else{ %>
+																			<input name="visa" id="Bussiness" type="radio" class="ace" value="Bussiness"/>
+																		<%} %>
 																			<span class="lbl"> Bussiness Visa</span>
 																			&nbsp;&nbsp;&nbsp;
 																			
-																			<input name="visa" id="Student" type="radio" class="ace" value="female"/>
+																			
+																		<%if(visa.equals("Student")){ %>
+																			<input name="visa" id="Student" type="radio" class="ace" value="Student"/>
+																		<%}else{ %>
+																			<input name="visa" id="Student" type="radio" class="ace" value="Student"/>
+																		<%} %>
 																			<span class="lbl"> Student Visa</span>
 																			&nbsp;&nbsp;&nbsp;
 																			
-																			<input name="visa" id="Tourist" type="radio" class="ace" value="female"/>
+																			
+																		<%if(visa.equals("Tourist")){ %>
+																			<input name="visa" id="Tourist" type="radio" class="ace" value="Tourist"/>
+																		<%}else{ %>
+																			<input name="visa" id="Tourist" type="radio" class="ace" value="Tourist"/>
+																		<%} %>
 																			<span class="lbl"> Tourist Visa</span>
 																			&nbsp;&nbsp;&nbsp;
 																			

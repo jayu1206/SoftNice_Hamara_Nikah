@@ -134,11 +134,9 @@ public class memberServlet extends HttpServlet {
 				if(obj.getErrorCode()!=0){
 					rd=request.getRequestDispatcher("/registration.jsp");  
 					rd.forward(request, response); 
-					//request.setAttribute(contentPage.CONTENT_PAGE, "/registration.jsp"); 
 				}else{
 					rd=request.getRequestDispatcher("/MemberLogin.jsp");  
 					rd.forward(request, response); 
-					//request.setAttribute(contentPage.CONTENT_PAGE, "/memberLogin.jsp");
 				}
 				
 				
@@ -146,13 +144,23 @@ public class memberServlet extends HttpServlet {
 			
 			if(request.getParameter("key").equals("addMember")){
 				
-				memberMaintenance.getInstance().addMemberOtherDetails(request);
-				request.setAttribute(contentPage.CONTENT_PAGE, "/memberHome.jsp");
+				ErrorMsg obj=(ErrorMsg) memberMaintenance.getInstance().addMemberOtherDetails(request);
+				request.setAttribute("error", obj);
+				if(obj.getErrorCode()!=0){
+					request.setAttribute(contentPage.CONTENT_PAGE, "/memberOtherDetailsHome.jsp");
+				}else{
+					request.setAttribute(contentPage.CONTENT_PAGE, "/memberHome.jsp");
+				}
+				
 				rd=request.getRequestDispatcher("/memberIndex.jsp");  
 				rd.forward(request, response); 
 				
 			}
 			
+		/*	if(!request.getParameter("key").equals("login") && !request.getParameter("key").equals("register")){
+				
+				
+			}*/
 			
 			
 			

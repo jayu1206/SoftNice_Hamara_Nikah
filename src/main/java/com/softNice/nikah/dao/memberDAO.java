@@ -30,4 +30,8 @@ public interface memberDAO {
 
 	public abstract ArrayList<memberBean> getAllMembers();
 
+	public abstract boolean checkDublicatePhone(String str, int id);
+
+	public abstract int updateMember(memberBean bean);
+
 }

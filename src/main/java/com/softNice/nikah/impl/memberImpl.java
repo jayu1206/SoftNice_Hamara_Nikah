@@ -321,5 +321,76 @@ public class memberImpl implements memberDAO {
 
 		return arrActivity;
 	}
+	
+	
+	@Override
+	public boolean checkDublicatePhone(String str,int id) {
+		// TODO Auto-generated method stub
+		boolean flag= true;
+		long count = 0;
+		Session session = null;
+		try {
+			session = HibernateFactory.openSession();
+			Query query= null;
+			
+			if(id != 0){
+				query = session
+						.createQuery("select count(*) from memberBean where  phno=:phno and status=1 and id!=:id");
+				query.setParameter("id", id);
+			}else{
+				 query = session
+						.createQuery("select count(*) from memberBean where  phno=:phno and status=1");
+			}
+			
+			query.setParameter("phno", str);
+			count = (Long) query.uniqueResult();
+			session.flush();
+			
+			if(count>0){
+				flag = false;
+			}
+		
+
+		} catch (Exception e) {
+			log.log(Level.SEVERE, e.getMessage());
+			e.printStackTrace();
+			flag = true;
+			  
+		} finally {
+			try {
+				HibernateFactory.close(session);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		return flag;
+	}
+
+	@Override
+	public int updateMember(memberBean bean) {
+		// TODO Auto-generated method stub
+		Session session=null;
+		try {
+			session=HibernateFactory.openSession();
+			session.update(bean);
+			session.flush();
+			return 0;
+
+		} catch (Exception e) {
+			log.log(Level.SEVERE, e.getMessage());
+			e.printStackTrace();
+			return 2;
+			  
+		} finally {
+			try {
+				HibernateFactory.close(session);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
 
 }

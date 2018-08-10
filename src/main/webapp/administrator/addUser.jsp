@@ -360,7 +360,7 @@
 															<%
 																
 															ArrayList<masterBean> list = null;
-																if(request.getAttribute(contentPage.CULTURE)!=null){
+																if(request.getSession().getAttribute(contentPage.CULTURE)!=null){
 																	list = (ArrayList<masterBean>) request.getAttribute(contentPage.CULTURE);
 																}
 															
@@ -391,7 +391,7 @@
 													
 													<%
 															list=null;
-															if(request.getAttribute(contentPage.HEIGHT)!=null){
+															if(request.getSession().getAttribute(contentPage.HEIGHT)!=null){
 																list = (ArrayList<masterBean>) request.getAttribute(contentPage.HEIGHT);
 															}
 													%>
@@ -432,7 +432,7 @@
 																<div class="form-group">
 																<%
 																	list=null;
-																	if(request.getAttribute(contentPage.WEIGHT)!=null){
+																	if(request.getSession().getAttribute(contentPage.WEIGHT)!=null){
 																		list = (ArrayList<masterBean>) request.getAttribute(contentPage.WEIGHT);
 																	}
 																%>
@@ -462,7 +462,7 @@
 																<div class="form-group">
 																<%
 																	list=null;
-																	if(request.getAttribute(contentPage.BUILT)!=null){
+																	if(request.getSession().getAttribute(contentPage.BUILT)!=null){
 																		list = (ArrayList<masterBean>) request.getAttribute(contentPage.BUILT);
 																	}
 																%>
@@ -491,7 +491,7 @@
 																<div class="form-group">
 																<%
 																	list=null;
-																	if(request.getAttribute(contentPage.COMPLEXION)!=null){
+																	if(request.getSession().getAttribute(contentPage.COMPLEXION)!=null){
 																		list = (ArrayList<masterBean>) request.getAttribute(contentPage.COMPLEXION);
 																	}
 																%>
@@ -520,7 +520,7 @@
 																<div class="form-group">
 																<%
 																	list=null;
-																	if(request.getAttribute(contentPage.DIET)!=null){
+																	if(request.getSession().getAttribute(contentPage.DIET)!=null){
 																		list = (ArrayList<masterBean>) request.getAttribute(contentPage.DIET);
 																	}
 																%>
@@ -549,7 +549,7 @@
 																<div class="form-group">
 																<%
 																	list=null;
-																	if(request.getAttribute(contentPage.DRINK)!=null){
+																	if(request.getSession().getAttribute(contentPage.DRINK)!=null){
 																		list = (ArrayList<masterBean>) request.getAttribute(contentPage.DRINK);
 																	}
 																%>
@@ -578,7 +578,7 @@
 																<div class="form-group">
 																<%
 																	list=null;
-																	if(request.getAttribute(contentPage.SMOKE)!=null){
+																	if(request.getSession().getAttribute(contentPage.SMOKE)!=null){
 																		list = (ArrayList<masterBean>) request.getAttribute(contentPage.SMOKE);
 																	}
 																%>
@@ -637,7 +637,7 @@
 																<div class="form-group">
 																<%
 																	list=null;
-																	if(request.getAttribute(contentPage.EDUCATION)!=null){
+																	if(request.getSession().getAttribute(contentPage.EDUCATION)!=null){
 																		list = (ArrayList<masterBean>) request.getAttribute(contentPage.EDUCATION);
 																	}
 																%>
@@ -666,7 +666,7 @@
 																<div class="form-group">
 																<%
 																	list=null;
-																	if(request.getAttribute(contentPage.PROFESSION)!=null){
+																	if(request.getSession().getAttribute(contentPage.PROFESSION)!=null){
 																		list = (ArrayList<masterBean>) request.getAttribute(contentPage.PROFESSION);
 																	}
 																%>
@@ -695,7 +695,7 @@
 																<div class="form-group">
 																<%
 																	list=null;
-																	if(request.getAttribute(contentPage.INCOME)!=null){
+																	if(request.getSession().getAttribute(contentPage.INCOME)!=null){
 																		list = (ArrayList<masterBean>) request.getAttribute(contentPage.INCOME);
 																	}
 																%>
