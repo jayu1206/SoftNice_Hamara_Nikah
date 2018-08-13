@@ -50,6 +50,9 @@
 		<script src="assets/js/jquery.flot.min.js"></script>
 		<script src="assets/js/jquery.flot.pie.min.js"></script>
 		<script src="assets/js/jquery.flot.resize.min.js"></script>
+		<!-- page specific plugin styles -->
+		<link rel="stylesheet" href="assets/css/dropzone.min.css" />
+		<script src="assets/js/dropzone.min.js"></script>
 		
 		
 		<!-- page specific plugin scripts -->

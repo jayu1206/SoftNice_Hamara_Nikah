@@ -149,6 +149,14 @@
 																Password
 															</a>
 														</li>
+														
+													<!-- 	<li>
+															<a data-toggle="tab" href="#edit-photos">
+																<i class="blue ace-icon fa fa-key bigger-125"></i>
+																Upload Photos
+															</a>
+														</li> -->
+														
 													</ul>
 											<div class="space-4"></div>
 											<div align="center" style="color: red">
@@ -896,6 +904,66 @@
 																</div>
 															</div>
 														</div>
+														
+														
+														
+												<!-- 		
+														<div id="edit-photos" class="tab-pane">
+															<div class="space-10"></div>
+														<div>
+																 <form action="./dummy.html" class="dropzone well" id="dropzone"> 
+																	<div class="fallback">
+																		<input name="file" type="file" multiple=""  />
+																	</div>
+																 </form>
+														</div>
+														
+																<div id="preview-template" class="hide">
+																<div class="dz-preview dz-file-preview">
+																	<div class="dz-image">
+																		<img data-dz-thumbnail="" />
+																	</div>
+							
+																	<div class="dz-details">
+																		<div class="dz-size">
+																			<span data-dz-size=""></span>
+																		</div>
+							
+																		<div class="dz-filename">
+																			<span data-dz-name=""></span>
+																		</div>
+																	</div>
+							
+																	<div class="dz-progress">
+																		<span class="dz-upload" data-dz-uploadprogress=""></span>
+																	</div>
+							
+																	<div class="dz-error-message">
+																		<span data-dz-errormessage=""></span>
+																	</div>
+							
+																	<div class="dz-success-mark">
+																		<span class="fa-stack fa-lg bigger-150">
+																			<i class="fa fa-circle fa-stack-2x white"></i>
+							
+																			<i class="fa fa-check fa-stack-1x fa-inverse green"></i>
+																		</span>
+																	</div>
+							
+																	<div class="dz-error-mark">
+																		<span class="fa-stack fa-lg bigger-150">
+																			<i class="fa fa-circle fa-stack-2x white"></i>
+							
+																			<i class="fa fa-remove fa-stack-1x fa-inverse red"></i>
+																		</span>
+																	</div>
+																</div>
+																</div>
+
+														</div> -->
+														
+														
+														
 													</div>
 												</div>
 
@@ -950,8 +1018,9 @@
 	    $('#btnSubmit').click(function(){                   
 	        	$("#addUser").submit();
 	    });
-	    
-	   
+	    	   
+	
 
 	});
 	</script>
+	

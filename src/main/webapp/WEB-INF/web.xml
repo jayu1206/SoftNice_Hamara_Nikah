@@ -51,6 +51,13 @@
   	<display-name>memberServlet</display-name>
   	<servlet-name>memberServlet</servlet-name>
   	<servlet-class>com.softNice.nikah.servlet.memberServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<description>
+  	</description>
+  	<display-name>UploadMaterial</display-name>
+  	<servlet-name>UploadMaterial</servlet-name>
+  	<servlet-class>com.softNice.nikah.servlet.UploadMaterial</servlet-class>
   </servlet> 
   
     <servlet-mapping>
@@ -60,6 +67,10 @@
     <servlet-mapping>
     	<servlet-name>memberServlet</servlet-name>
     	<url-pattern>/memberServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+    	<servlet-name>UploadMaterial</servlet-name>
+    	<url-pattern>/UploadMaterial</url-pattern>
     </servlet-mapping>
   
   

@@ -47,13 +47,20 @@ public class memberServlet extends HttpServlet {
 				rd.forward(request, response); 
 				
 			}
-				if(request.getParameter("key").equals("register")){
+			if(request.getParameter("key").equals("register")){
 				adminMaintenance.getInstance().getAllCountry(request);
 				request.getSession().setAttribute(contentPage.SETTING, getServletContext().getAttribute(contentPage.SETTING));
 				rd=request.getRequestDispatcher("/registration.jsp");  
 				rd.forward(request, response);
 				
 			}
+			if(request.getParameter("key").equals("uploadPhotos")){
+				
+				request.setAttribute(contentPage.CONTENT_PAGE, "/member/memberPhotos.jsp");
+				rd=request.getRequestDispatcher("/memberIndex.jsp");  
+				rd.forward(request, response); 
+			}
+			
 				
 		}else{
 			rd=request.getRequestDispatcher("/MemberLogin.jsp");  
@@ -96,7 +103,8 @@ public class memberServlet extends HttpServlet {
 						
 						//System.out.println("empty details page");
 					}else{
-						request.setAttribute(contentPage.CONTENT_PAGE, "/memberHome.jsp");
+						request.setAttribute(contentPage.CONTENT_PAGE, "/memberOtherDetailsHome.jsp");
+						//request.setAttribute(contentPage.CONTENT_PAGE, "/memberHome.jsp");
 					}
 					
 					

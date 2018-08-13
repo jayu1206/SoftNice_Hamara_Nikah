@@ -50,6 +50,9 @@
 		<script src="assets/js/jquery.flot.min.js"></script>
 		<script src="assets/js/jquery.flot.pie.min.js"></script>
 		<script src="assets/js/jquery.flot.resize.min.js"></script>
+		<!-- page specific plugin styles -->
+		<link rel="stylesheet" href="assets/css/dropzone.min.css" />
+		<script src="assets/js/dropzone.min.js"></script>
 		
 		
 		<!-- page specific plugin scripts -->
@@ -72,6 +75,10 @@
 		<script type='text/javascript' src='dwr/interface/softNiceUtilityData.js'></script>
 		<script type='text/javascript' src='dwr/util.js'></script>
 		<script src='js/softnice.js?v=" + Date.now() + "' type="text/javascript" charset="utf-8"></script>
+		
+		<script type="text/javascript">
+			if('ontouchstart' in document.documentElement) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
+		</script>
 		
 		
 </head>
