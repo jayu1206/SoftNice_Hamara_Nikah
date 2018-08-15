@@ -11,6 +11,13 @@
 <%@page import="com.softNice.nikah.constent.contentPage"%>
 
 <div class="main-content">
+
+<% 
+	memberBean bean= new memberBean();
+	if(request.getSession().getAttribute(contentPage.USERSOBJ)!=null){
+		bean = (memberBean)request.getSession().getAttribute(contentPage.USERSOBJ);
+	}
+%>
 						
 				<div class="main-content-inner">
 					
@@ -21,7 +28,7 @@
 						
 						<table width="100%">
 							<tr>
-								<th><h1>Upload Photos  </h1></th>
+								<th><h1>Upload Photos</h1></th>
 							</tr>
 						</table>
 							
@@ -32,9 +39,8 @@
 							<div class="col-md-12">
 								<!-- PAGE CONTENT BEGINS -->
 								
-						
 								<div>
-									<form action="memberServlet?key=uploadFile" class="dropzone well" id="dropzone" method="post">
+									<form action="UploadMaterial?memberID=<%=bean.getMemberId()%>" enctype="multipart/form-data"  class="dropzone well" id="dropzone" method="POST">
 										<div class="fallback">
 											<input name="file" type="file" multiple="" />
 										</div>
@@ -126,6 +132,7 @@
 						var thumbnailElement = this;
 						thumbnailElement.alt = file.name;
 						thumbnailElement.src = dataUrl;
+
 					});
 			        setTimeout(function() { $(file.previewElement).addClass("dz-image-preview"); }, 1);
 			      }
@@ -163,14 +170,24 @@
 			              self.emit("success", file, 'success', null);
 			              self.emit("complete", file);
 			              self.processQueue();
+
 			            }
 			          };
 			        }(file, totalSteps, step), duration);
 			      }
 			    }
 			   }
-			
-			   
+
+			  	 Dropzone.options.MyDropzone = {
+					  var FormActionURL;
+					    init : function() {
+					      myDropzone = this;
+					        this.on("drop", function(event) {
+
+					        });
+					    }
+					}; 
+			  
 			   //remove dropzone instance when leaving this page in ajax mode
 			   $(document).one('ajaxloadstart.page', function(e) {
 					try {

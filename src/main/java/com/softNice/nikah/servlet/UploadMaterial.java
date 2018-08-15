@@ -1,5 +1,6 @@
 package com.softNice.nikah.servlet;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
@@ -50,7 +51,8 @@ public class UploadMaterial extends HttpServlet {
 			String fileName = "";
 			//String requestFrom = "";
 			String fileUrl = "";
-			
+			String filePath = "uploadImages";
+			String memberId = request.getParameter("memberID");
 			
 			try{
 				
@@ -60,35 +62,57 @@ public class UploadMaterial extends HttpServlet {
 				ServletFileUpload upload = new ServletFileUpload(factory);
 			
 				List<FileItem> items = upload.parseRequest(request);
-
-
-				Iterator<FileItem> iter = items.iterator();
 				
-				while(iter.hasNext()){
-					FileItem item = iter.next();
-					if (item.isFormField()) {
+				filePath = getServletContext().getRealPath("/") + File.separator + filePath +"\\"+ memberId;/*save uploaded files to a 'Upload' directory in the web app*/
+		        if (!(new File(filePath)).exists()) {
+		            (new File(filePath)).mkdir();    // creates the directory if it does not exist        
+		        }
+		        if((new File(filePath)).exists()){		        	
+		        		for (FileItem item : items) {
+				             if (!item.isFormField()) {
+				                     File file = new File(filePath, item.getName());
+				                     item.write(file);		                     
+				                     System.out.println("File uploaded success");
+				             }
+				         }
+		        }
 
-						String name = item.getFieldName();
-						String value = item.getString();
-
-					}else {
-						
-						String fieldName = item.getFieldName();
-						fileName = item.getName();
-						
-						if(null != fileName && fileName.contains("\\")){
-							fileName = fileName.substring(fileName.lastIndexOf("\\")+1, fileName.length());
-							
-							
-						}
-						
-						
-					}
-					
-					
-				}
+//		         for (FileItem item : items) {
+//		             if (!item.isFormField()) {
+//		                     File file = new File(filePath, item.getName());
+//		                     item.write(file);		                     
+//		                     System.out.println("uploaded");
+//		             }
+//		         }
 				
-				response.getWriter().print(fileUrl);
+
+//				Iterator<FileItem> iter = items.iterator();
+//				
+//				while(iter.hasNext()){
+//					FileItem item = iter.next();
+//					if (item.isFormField()) {
+//
+//						String name = item.getFieldName();
+//						String value = item.getString();
+//
+//					}else {
+//						
+//						String fieldName = item.getFieldName();
+//						fileName = item.getName();
+//						
+//						if(null != fileName && fileName.contains("\\")){
+//							fileName = fileName.substring(fileName.lastIndexOf("\\")+1, fileName.length());
+//							
+//							
+//						}
+//						
+//						
+//					}
+//					
+//					
+//				}
+				
+//				response.getWriter().print(fileUrl);
 				
 			}catch(Exception e){
 				log.log(Level.SEVERE, e.getMessage());

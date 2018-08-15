@@ -1,5 +1,6 @@
 package com.softNice.nikah.servlet;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -54,8 +55,7 @@ public class memberServlet extends HttpServlet {
 				rd.forward(request, response);
 				
 			}
-			if(request.getParameter("key").equals("uploadPhotos")){
-				
+			if(request.getParameter("key").equals("uploadPhotos")){				
 				request.setAttribute(contentPage.CONTENT_PAGE, "/member/memberPhotos.jsp");
 				rd=request.getRequestDispatcher("/memberIndex.jsp");  
 				rd.forward(request, response); 
@@ -164,6 +164,7 @@ public class memberServlet extends HttpServlet {
 				rd.forward(request, response); 
 				
 			}
+			
 			
 		/*	if(!request.getParameter("key").equals("login") && !request.getParameter("key").equals("register")){
 				
