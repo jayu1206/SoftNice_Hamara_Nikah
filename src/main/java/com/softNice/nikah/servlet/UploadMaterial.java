@@ -51,7 +51,7 @@ public class UploadMaterial extends HttpServlet {
 			String fileName = "";
 			//String requestFrom = "";
 			String fileUrl = "";
-			String filePath = "uploadImages";
+			String filePath = "D:/Sahil/Project/SoftNice_Hamara_Nikah/SoftNice_Hamara_Nikah/src/main/webapp/galleryImage";
 			String memberId = request.getParameter("memberID");
 			
 			try{
@@ -62,8 +62,8 @@ public class UploadMaterial extends HttpServlet {
 				ServletFileUpload upload = new ServletFileUpload(factory);
 			
 				List<FileItem> items = upload.parseRequest(request);
-				
-				filePath = getServletContext().getRealPath("/") + File.separator + filePath +"\\"+ memberId;/*save uploaded files to a 'Upload' directory in the web app*/
+				filePath = filePath +"\\"+ memberId;
+				//filePath = getServletContext().getRealPath("/") + File.separator + filePath +"\\"+ memberId;/*save uploaded files to a 'Upload' directory in the web app*/
 		        if (!(new File(filePath)).exists()) {
 		            (new File(filePath)).mkdir();    // creates the directory if it does not exist        
 		        }

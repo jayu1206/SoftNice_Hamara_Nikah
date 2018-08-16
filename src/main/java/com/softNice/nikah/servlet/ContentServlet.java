@@ -25,8 +25,9 @@
 
 package com.softNice.nikah.servlet;
 
+import java.io.File;
+import java.io.FileFilter;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -34,11 +35,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.softNice.nikah.beans.countryBean;
-import com.softNice.nikah.beans.permissionnamesBean;
+import org.apache.commons.io.IOUtils;
+
 import com.softNice.nikah.constent.contentPage;
-import com.softNice.nikah.dao.administratorDAO;
-import com.softNice.nikah.impl.administratorImpl;
 import com.softNice.nikah.maintenance.adminMaintenance;
 import com.softNice.nikah.maintenance.dashboardMaintenance;
 import com.softNice.nikah.maintenance.memberMaintenance;
@@ -178,11 +177,52 @@ public class ContentServlet extends HttpServlet {
 				
 			}
 			
+			if(key.equals("galleryImage")){	
+				
+//				String relativeWebPath = "/images";
+//				String absoluteDiskPath = getServletContext().getRealPath(relativeWebPath);
+//				System.out.println(absoluteDiskPath);
+//				File[] directories = new File("D:/Sahil/Project/SoftNice_Hamara_Nikah/SoftNice_Hamara_Nikah/src/main/webapp/galleryImage").listFiles(File::isDirectory);
+//				System.out.println(directories);
+				
+				
+				File dir = new File("D:/Sahil/Project/SoftNice_Hamara_Nikah/SoftNice_Hamara_Nikah/src/main/webapp/galleryImage");
+//			    File[] files = dir.listFiles();
+//				FileFilter fileFilter = new FileFilter() {
+//			         public boolean accept(File file) {
+//			            return file.isDirectory();
+//			         }
+//			      };
+//			     files = dir.listFiles(fileFilter);
+//			     System.out.println(files.length);
+			     getFilePath(dir);
+			
+				request.setAttribute(contentPage.CONTENT_PAGE, "/member/memberGallery.jsp");
+				
+			}
+			
 			
 			
 		}
 		rd=request.getRequestDispatcher("/index.jsp");  
 		rd.forward(request, response); 
+	}
+
+	private void getFilePath(File dir) {
+		// TODO Auto-generated method stub
+		 try { 
+	         File[] files = dir.listFiles();
+	         for (File file : files) {
+	            if (file.isDirectory()) {
+	               System.out.println("directory:" + file.getCanonicalPath());
+	               getFilePath(file);
+	            } else {
+	               System.out.println("     file:" + file.getCanonicalPath());
+	            } 
+	         } 
+	      } catch (IOException e) {
+	         e.printStackTrace();
+	      } 
 	}
 
 	/**
