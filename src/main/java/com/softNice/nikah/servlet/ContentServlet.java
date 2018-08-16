@@ -201,6 +201,11 @@ public class ContentServlet extends HttpServlet {
 				
 			}
 			
+			if(request.getParameter("key").equals("searchMember")){
+				request.setAttribute(contentPage.CONTENT_PAGE, "/member/searchMember.jsp");
+				
+			}
+			
 			
 			
 		}

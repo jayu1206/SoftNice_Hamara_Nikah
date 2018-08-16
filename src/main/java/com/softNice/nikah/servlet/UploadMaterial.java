@@ -51,7 +51,7 @@ public class UploadMaterial extends HttpServlet {
 			String fileName = "";
 			//String requestFrom = "";
 			String fileUrl = "";
-			String filePath = "D:/Sahil/Project/SoftNice_Hamara_Nikah/SoftNice_Hamara_Nikah/src/main/webapp/galleryImage";
+			String filePath = "C:/Projects/SoftNice_Hamara_Nikah/src/main/webapp/galleryImage";
 			String memberId = request.getParameter("memberID");
 			
 			try{

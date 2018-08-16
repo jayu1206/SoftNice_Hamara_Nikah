@@ -90,15 +90,6 @@
 								<b class="arrow"></b>
 							</li> 
 
-							<li class="">
-								<a href="ContentServlet?key=role">
-									<i class="menu-icon fa fa-caret-right"></i>
-									Roles
-								</a>
-
-								<b class="arrow"></b>
-							</li> 
-							
 						</ul> 
 					</li>
 					
