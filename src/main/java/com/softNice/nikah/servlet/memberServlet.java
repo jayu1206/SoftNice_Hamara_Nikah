@@ -2,7 +2,9 @@ package com.softNice.nikah.servlet;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
@@ -55,11 +57,59 @@ public class memberServlet extends HttpServlet {
 				rd.forward(request, response);
 				
 			}
-			if(request.getParameter("key").equals("uploadPhotos")){				
+			if(request.getParameter("key").equals("uploadPhotos")){	
+				
+				memberBean bean= new memberBean();
+				if(request.getSession().getAttribute(contentPage.USERSOBJ)!=null){
+					bean = (memberBean)request.getSession().getAttribute(contentPage.USERSOBJ);
+				}
+				
+				List<String> results = new ArrayList<String>();
+				//File[] files = new File("D:/Sahil/Project/SoftNice_Hamara_Nikah/SoftNice_Hamara_Nikah/src/main/webapp/galleryImage").listFiles();
+				String path = getServletContext().getRealPath("/") + File.separator;
+//				File[] files = new File(path+"galleryImage").listFiles();
+				String mId = bean.getMemberId();
+				String finalUrl = path+"galleryImage\\"+mId;
+				File[] files = new File(finalUrl).listFiles();
+				//If this pathname does not denote a directory, then listFiles() returns null. 
+
+				for (File file : files) {
+				    if (file.isFile()) {
+				        results.add(file.getCanonicalPath());
+				    }else if(file.isDirectory()){
+				    	File[] infiles = new File(file.getCanonicalPath()).listFiles();
+				    	for (File infile : infiles) {
+				    		results.add(infile.getCanonicalPath());
+				    	}				    	
+				    }
+				}
+				request.getSession().setAttribute(contentPage.ImageList,results);
 				request.setAttribute(contentPage.CONTENT_PAGE, "/member/memberPhotos.jsp");
 				rd=request.getRequestDispatcher("/memberIndex.jsp");  
 				rd.forward(request, response); 
 			}
+			if(request.getParameter("key").equals("deleteImage")){	
+				
+				String imgDir = getServletContext().getRealPath("/") + File.separator + "galleryImage\\";
+				String path = request.getParameter("path");
+				String memberId= request.getParameter("memberId");
+				String url = imgDir + memberId+ "\\" + path;
+				//String url = "D:/Sahil/Project/SoftNice_Hamara_Nikah/SoftNice_Hamara_Nikah/src/main/webapp/galleryImage/03C1397C/IMG-20180119-WA0005.jpg";
+				File file = new File(url);
+				
+				if(file.delete())
+		        {
+		            System.out.println("File deleted successfully");
+		        }
+		        else
+		        {
+		            System.out.println("Failed to delete the file");
+		        }
+				request.setAttribute(contentPage.CONTENT_PAGE, "/member/memberPhotos.jsp");
+				rd=request.getRequestDispatcher("/memberIndex.jsp");  
+				rd.forward(request, response); 
+			}
+			
 			
 				
 		}else{
@@ -68,6 +118,10 @@ public class memberServlet extends HttpServlet {
 		}
 		
 	}
+
+	
+
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -164,6 +218,7 @@ public class memberServlet extends HttpServlet {
 				rd.forward(request, response); 
 				
 			}
+			
 			
 			
 		/*	if(!request.getParameter("key").equals("login") && !request.getParameter("key").equals("register")){

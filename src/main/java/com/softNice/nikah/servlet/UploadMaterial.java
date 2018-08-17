@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,6 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+
+import com.softNice.nikah.constent.contentPage;
 
 
 /**
@@ -47,11 +50,9 @@ public class UploadMaterial extends HttpServlet {
 		
 		 Logger log = Logger.getLogger(UploadMaterial.class.getName());
 			ServletContext servletContext = this.getServletConfig().getServletContext();
-			//User user = (User) request.getSession().getAttribute(SessionAttributes.CURR_USER_OBJ);
-			String fileName = "";
-			//String requestFrom = "";
-			String fileUrl = "";
-			String filePath = "D:/Sahil/Project/SoftNice_Hamara_Nikah/SoftNice_Hamara_Nikah/src/main/webapp/galleryImage";
+			RequestDispatcher rd = null;
+			//String filePath = "D:/Sahil/Project/SoftNice_Hamara_Nikah/SoftNice_Hamara_Nikah/src/main/webapp/galleryImage";
+			String filePath = "galleryImage";
 			String memberId = request.getParameter("memberID");
 			
 			try{
@@ -62,8 +63,8 @@ public class UploadMaterial extends HttpServlet {
 				ServletFileUpload upload = new ServletFileUpload(factory);
 			
 				List<FileItem> items = upload.parseRequest(request);
-				filePath = filePath +"\\"+ memberId;
-				//filePath = getServletContext().getRealPath("/") + File.separator + filePath +"\\"+ memberId;/*save uploaded files to a 'Upload' directory in the web app*/
+				//filePath = filePath +"\\"+ memberId;
+				filePath = getServletContext().getRealPath("/") + File.separator + filePath +"\\"+ memberId;/*save uploaded files to a 'Upload' directory in the web app*/
 		        if (!(new File(filePath)).exists()) {
 		            (new File(filePath)).mkdir();    // creates the directory if it does not exist        
 		        }
@@ -113,6 +114,9 @@ public class UploadMaterial extends HttpServlet {
 //				}
 				
 //				response.getWriter().print(fileUrl);
+		        request.setAttribute(contentPage.CONTENT_PAGE, "/member/memberPhotos.jsp");
+				rd=request.getRequestDispatcher("/memberIndex.jsp");  
+				rd.forward(request, response); 
 				
 			}catch(Exception e){
 				log.log(Level.SEVERE, e.getMessage());

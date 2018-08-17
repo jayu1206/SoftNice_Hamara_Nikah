@@ -5,6 +5,7 @@
 <%@page import="com.softNice.nikah.utility.validation"%>
 <%@page import="com.softNice.nikah.beans.roleBean"%>
 <%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
 <%@page import="com.softNice.nikah.beans.countryBean"%>
 <%@page import="com.softNice.nikah.beans.UserBean"%>
 <%@page import="com.softNice.nikah.constent.ErrorMsg"%>
@@ -16,6 +17,10 @@
 	memberBean bean= new memberBean();
 	if(request.getSession().getAttribute(contentPage.USERSOBJ)!=null){
 		bean = (memberBean)request.getSession().getAttribute(contentPage.USERSOBJ);
+	}
+	List<String> imageSrc = new ArrayList<String>();
+	if(request.getSession().getAttribute(contentPage.ImageList)!=null){
+		imageSrc = (List)request.getSession().getAttribute(contentPage.ImageList);
 	}
 %>
 						
@@ -91,13 +96,83 @@
 								</div><!-- PAGE CONTENT ENDS -->
 							</div><!-- /.col -->
 						</div><!-- /.row -->
+						
+						
+						<div class="row">
+							<div class="col-xs-12">
+								<!-- PAGE CONTENT BEGINS -->
+								<div>
+									<ul class="ace-thumbnails clearfix">
+									<%int count = 0; %>
+									<% for (Object src : imageSrc.toArray()){ 
+										
+										String path[] = src.toString().split("galleryImage");
+										String finalPath = path[1];
+										
+										String imgName[] = src.toString().split("galleryImage");
+										String fileName = finalPath.substring(finalPath.lastIndexOf("\\")+1);
+										
+									%>
+									
+																		
+										<li id="li<%=count %>" >
+											<a href="<%="galleryImage/"+finalPath %>" title="Photo Title" data-rel="colorbox">
+												<img width="150" height="150" alt="150x150" src="<%="galleryImage/"+finalPath %>" />
+											</a>
+
+											<div class="tags">
+												<span class="label-holder">
+													<span class="label label-info">breakfast</span>
+												</span>
+
+												<span class="label-holder">
+													<span class="label label-danger">fruits</span>
+												</span>
+
+												<span class="label-holder">
+													<span class="label label-success">toast</span>
+												</span>
+
+												<span class="label-holder">
+													<span class="label label-warning arrowed-in">diet</span>
+												</span>
+											</div>
+
+											<div class="tools">
+												<a href="#">
+													<i class="ace-icon fa fa-link"></i>
+												</a>
+
+												<a href="#">
+													<i class="ace-icon fa fa-paperclip"></i>
+												</a>
+
+												<a href="#">
+													<i class="ace-icon fa fa-pencil"></i>
+												</a>
+
+												<a href="#" onclick="deleteImageByPath('<%=bean.getMemberId()%>','<%=fileName%>','<%=count%>')">
+													<i class="ace-icon fa fa-times red"></i>
+												</a>
+											</div>
+										</li>
+										<%count++; %>
+										<%} %>
+										
+										
+									</ul>
+								</div><!-- PAGE CONTENT ENDS -->
+							</div><!-- /.col -->
+						</div><!-- /.row -->
+						
+						
+						
+						
+						
+						
+						
 					</div>
-								
-								
-								
-								
-								
-								
+					
 								<!-- PAGE CONTENT ENDS -->
 							</div><!-- /.col -->
 						</div><!-- /.row -->
@@ -179,7 +254,7 @@
 			   }
 
 			  	 Dropzone.options.MyDropzone = {
-					  var FormActionURL;
+					   var FormActionURL; 
 					    init : function() {
 					      myDropzone = this;
 					        this.on("drop", function(event) {
@@ -200,5 +275,69 @@
 			}
 			
 			});
+		</script>
+		
+				<!-- page specific plugin scripts -->
+		<script src="assets/js/jquery.colorbox.min.js"></script>
+		
+		<!-- inline scripts related to this page -->
+		<script type="text/javascript">
+			jQuery(function($) {
+	var $overflow = '';
+	var colorbox_params = {
+		rel: 'colorbox',
+		reposition:true,
+		scalePhotos:true,
+		scrolling:false,
+		previous:'<i class="ace-icon fa fa-arrow-left"></i>',
+		next:'<i class="ace-icon fa fa-arrow-right"></i>',
+		close:'&times;',
+		current:'{current} of {total}',
+		maxWidth:'100%',
+		maxHeight:'100%',
+		onOpen:function(){
+			$overflow = document.body.style.overflow;
+			document.body.style.overflow = 'hidden';
+		},
+		onClosed:function(){
+			document.body.style.overflow = $overflow;
+		},
+		onComplete:function(){
+			$.colorbox.resize();
+		}
+	};
+
+	$('.ace-thumbnails [data-rel="colorbox"]').colorbox(colorbox_params);
+	$("#cboxLoadingGraphic").html("<i class='ace-icon fa fa-spinner orange fa-spin'></i>");//let's add a custom loading icon
+	
+	
+	$(document).one('ajaxloadstart.page', function(e) {
+		$('#colorbox, #cboxOverlay').remove();
+   });
+})
+		</script>
+		
+		<script type="text/javascript">	
+
+			 function deleteImageByPath(mid, path, index){
+					var removeIndex = index; 
+					var result = confirm("Are you sure to delete Image?");
+					alert(mid);
+					//alert(path);
+					 if (result) {
+						//window.location.href = 'memberServlet?key=deleteImage&path='+path;
+							 $.ajax({
+									url : 'memberServlet?key=deleteImage&path='+path+'&memberId='+mid,							
+									success : function(responseText) {	
+										window.onload = function() {
+											$('ul li'+removeIndex).remove();
+									    }							
+										
+									}
+								});
+					} 
+					
+				}	
+		
 		</script>
 	
