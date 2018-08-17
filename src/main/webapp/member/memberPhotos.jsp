@@ -321,8 +321,7 @@
 
 			 function deleteImageByPath(mid, path, index){
 					var removeIndex = index; 
-					var result = confirm("Are you sure to delete Image?");
-					alert(mid);
+					var result = confirm("Are you sure to delete Image?");					
 					//alert(path);
 					 if (result) {
 						//window.location.href = 'memberServlet?key=deleteImage&path='+path;

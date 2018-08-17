@@ -72,17 +72,19 @@ public class memberServlet extends HttpServlet {
 				String finalUrl = path+"galleryImage\\"+mId;
 				File[] files = new File(finalUrl).listFiles();
 				//If this pathname does not denote a directory, then listFiles() returns null. 
-
-				for (File file : files) {
-				    if (file.isFile()) {
-				        results.add(file.getCanonicalPath());
-				    }else if(file.isDirectory()){
-				    	File[] infiles = new File(file.getCanonicalPath()).listFiles();
-				    	for (File infile : infiles) {
-				    		results.add(infile.getCanonicalPath());
-				    	}				    	
-				    }
+				if (files != null){
+					for (File file : files) {
+					    if (file.isFile()) {
+					        results.add(file.getCanonicalPath());
+					    }else if(file.isDirectory()){
+					    	File[] infiles = new File(file.getCanonicalPath()).listFiles();
+					    	for (File infile : infiles) {
+					    		results.add(infile.getCanonicalPath());
+					    	}				    	
+					    }
+					}
 				}
+				
 				request.getSession().setAttribute(contentPage.ImageList,results);
 				request.setAttribute(contentPage.CONTENT_PAGE, "/member/memberPhotos.jsp");
 				rd=request.getRequestDispatcher("/memberIndex.jsp");  

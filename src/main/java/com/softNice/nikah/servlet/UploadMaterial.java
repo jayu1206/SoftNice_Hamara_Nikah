@@ -64,11 +64,15 @@ public class UploadMaterial extends HttpServlet {
 			
 				List<FileItem> items = upload.parseRequest(request);
 				//filePath = filePath +"\\"+ memberId;
-				filePath = getServletContext().getRealPath("/") + File.separator + filePath +"\\"+ memberId;/*save uploaded files to a 'Upload' directory in the web app*/
+				filePath = getServletContext().getRealPath("/") + File.separator + filePath;/*save uploaded files to a 'Upload' directory in the web app*/
 		        if (!(new File(filePath)).exists()) {
 		            (new File(filePath)).mkdir();    // creates the directory if it does not exist        
 		        }
-		        if((new File(filePath)).exists()){		        	
+		        if((new File(filePath)).exists()){
+		        		filePath = filePath+"\\"+ memberId;
+		        		if (!(new File(filePath)).exists()) {
+		 		            (new File(filePath)).mkdir();    // creates the directory if it does not exist        
+		 		        }
 		        		for (FileItem item : items) {
 				             if (!item.isFormField()) {
 				                     File file = new File(filePath, item.getName());

@@ -158,14 +158,14 @@
 								<b class="arrow"></b>
 							</li>
 							
-							<li class="">
-									<a href="ContentServlet?key=state">
+							 <li class="">
+									<a href="ContentServlet?key=searchMember">
 										<i class="menu-icon fa fa-caret-right"></i>
-										Photos
+										Search
 								</a>
 
 								<b class="arrow"></b>
-							</li>
+							</li> 
 							<li class="">
 									<a href="ContentServlet?key=galleryImage">
 										<i class="menu-icon fa fa-caret-right"></i>
