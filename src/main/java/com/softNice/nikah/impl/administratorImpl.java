@@ -36,6 +36,7 @@ import com.softNice.nikah.beans.UserBean;
 import com.softNice.nikah.beans.citiesBean;
 import com.softNice.nikah.beans.countryBean;
 import com.softNice.nikah.beans.masterBean;
+import com.softNice.nikah.beans.memberBean;
 import com.softNice.nikah.beans.permissionBean;
 import com.softNice.nikah.beans.permissionnamesBean;
 import com.softNice.nikah.beans.roleBean;
@@ -1139,6 +1140,46 @@ public class administratorImpl implements administratorDAO{
 			query.setParameter("masterId", key);
 			if( query.list()!=null){
 				arrActivity = (ArrayList<masterBean>) query.list();
+			}
+			
+
+		} catch (Exception e) {
+			log.log(Level.SEVERE, e.getMessage());
+			 e.printStackTrace();
+		} finally {
+			HibernateFactory.close(session);
+		}
+
+		return arrActivity;
+	}
+
+	@Override
+	public ArrayList<memberBean> getSearchMember(int ageFrom, int ageTo, String gender) {
+		// TODO Auto-generated method stub
+		Session session = null;
+
+		ArrayList<memberBean> arrActivity = null;
+		try {
+			String str="";
+			
+			if(ageFrom!=0){
+				str = str + " and age >="+ageFrom+" ";
+			}
+			
+			if(ageTo!=0){
+				str = str + " and age <="+ageTo+" ";
+			}
+			
+			if(gender.length()>0){
+				str = str + " and gender ='"+gender+"' ";
+			}
+			
+			session = HibernateFactory.openSession();
+
+			Query query = session.createQuery(" from memberBean where status=1  "+str+" ");
+			if(query.list().size()>0){
+				arrActivity = new ArrayList<memberBean>();
+				arrActivity = (ArrayList<memberBean>) query.list();
 			}
 			
 

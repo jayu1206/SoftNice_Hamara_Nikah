@@ -68,6 +68,10 @@
             <column name="email"  />
         </property>
         
+        <property  name="age" type="java.lang.Integer">
+            <column name="age"  />
+        </property>
+        
         <set name="details" table="memberdetails"
 			inverse="true" lazy="false" fetch="select">
 			<key>

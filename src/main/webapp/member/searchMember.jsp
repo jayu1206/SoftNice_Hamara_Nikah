@@ -6,7 +6,10 @@
 <%@page import="com.softNice.nikah.constent.ErrorMsg"%>
 <%@page import="com.softNice.nikah.constent.contentPage"%>
 <%
-
+ArrayList<memberBean> list=new ArrayList<memberBean>();
+if(request.getAttribute(contentPage.MEMBERS)!=null){
+	list = (ArrayList<memberBean>)request.getAttribute(contentPage.MEMBERS);
+}
 
 
 %>
@@ -30,29 +33,14 @@
 						<div class="row">
 							<div class="col-xs-12">
 								<!-- PAGE CONTENT BEGINS -->
-								
+							<form action="ContentServlet?key=searchMember" method="post" name="memberForm" id="memberForm" >
 								<div class="row">
 									<div class="col-xs-12">
 											<div class="form-group">
-													<!--  <label class="col-sm-1 control-label " for="form-field-first">Age </label>  -->
-
-													<%-- <div class="col-sm-2">
-														<label class="inline">
-															
-															<select class="col-sm-3" id="ageFrom" name="ageFrom" >
-																<%for(int i = 0 ; i<=50 ; i++ ){ %>
-																	<option <%=i==1?"selected":"" %> value="<%=i %>"><%=i %></option>
-																<% }%>
-																
-															</select>
-															&nbsp;&nbsp;
-															<span class="lbl middle"> Age</span>
-														</label>
-													</div> --%>
+																								
 													
-													<div class="form-group">
 														<div class="col-sm-9">
-																<table  class="table table-striped table-bordered table-hover" cellspacing="0">
+																<table  class="table table-striped table-bordered table-hover" cellspacing="0"  style=""  >
 																	<thead>
 																		<tr align="center">
 																			<th >Age</th>
@@ -93,25 +81,25 @@
 																				</span>
 																			
 																			</th>
-																			<th>Mobile</th>
-																			<th>Email</th> 
+																			<th>
+																				<button type="button" id="btnSubmit"  name="btnSubmit" class="width-65 pull-right btn btn-sm btn-success">
+																					<span class="bigger-110">Search</span>
+																					<i class="ace-icon fa fa-arrow-right icon-on-right"></i>
+																				</button>
+																			
+																			</th>
+																			<!--  <th>Email</th>  -->
 																			
 																		</tr>
 																	</thead>
 				
 																</table>
 															</div>
-														</div>
+														
 												
 											</div>
 									</div>
 								</div>
-								
-								
-								
-								
-								
-								
 								
 								<div class="row">
 									<div class="col-xs-12">
@@ -127,13 +115,29 @@
 														<th>Package</th>
 														<th>Mobile</th>
 														<th>Email</th>
-														<th class="hidden-480">Status</th>
+														<th>Age</th>
 														<th></th>
+														
 													</tr>
 												</thead>
 
 												<tbody>
-												
+												<%if(list.size()>0){ %>
+													<% for(memberBean bean: list){ %>
+													<tr>
+														<td><%=bean.getMemberId() %></td>
+														<td><%=bean.getFirstName() + " " + bean.getLastName() %></td>
+														<td ><%=bean.getGender() %></td>
+														<td ><%=bean.getPlanName() %></td>
+														<td ><%=bean.getPhno()==null?"9898911795":bean.getPhno() %></td>
+														<td ><%=bean.getEmail() %></td>
+														<td ><%=bean.getAge() %></td>
+														<td></td>
+
+													</tr>
+									<%}%>
+														
+														<%} %>
 									
 												</tbody>
 											</table>
@@ -160,6 +164,7 @@
 												<label><%=str %> </label>
 									
 								</div>
+							</form>
 								<!-- PAGE CONTENT ENDS -->
 							</div><!-- /.col -->
 						</div><!-- /.row -->
@@ -172,6 +177,10 @@
 	$(document).ready(function(){
 	    $('#dynamic-table').dataTable();
 	   
+	});
+	
+	$('#btnSubmit').click(function(){ 
+    	$("#memberForm").submit();
 	});
 	
 			function deleteDilog(id){
