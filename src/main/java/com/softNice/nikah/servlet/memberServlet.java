@@ -146,6 +146,7 @@ public class memberServlet extends HttpServlet {
 				if(bean!=null){
 					
 					request.getSession().setAttribute(contentPage.USERSOBJ,bean);
+					request.setAttribute(contentPage.MEMBERS,bean);
 					HashMap<String, permissionBean> map=new HashMap<String, permissionBean>();
 					
 					

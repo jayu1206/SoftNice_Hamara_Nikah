@@ -322,17 +322,19 @@
 			 function deleteImageByPath(mid, path, index){
 					var removeIndex = index; 
 					var result = confirm("Are you sure to delete Image?");					
-					//alert(path);
-					 if (result) {
-						//window.location.href = 'memberServlet?key=deleteImage&path='+path;
+					 if (result) {						
 							 $.ajax({
-									url : 'memberServlet?key=deleteImage&path='+path+'&memberId='+mid,							
-									success : function(responseText) {	
-										window.onload = function() {
-											$('ul li'+removeIndex).remove();
-									    }							
-										
+									url : 'memberServlet?key=deleteImage&path='+path+'&memberId='+mid,		
+									async:false,
+									 type: "GET",
+								     data: null,
+								     processData: false,
+								     contentType: false,					
+									success : function(responseText) {															
+																		   	
 									}
+								}).done(function() {									
+									$('#li'+removeIndex).remove();										
 								});
 					} 
 					
