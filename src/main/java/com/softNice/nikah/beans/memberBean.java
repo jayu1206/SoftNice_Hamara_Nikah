@@ -25,6 +25,7 @@ public class memberBean {
 	private String email;
 	private Set<memberDetailsBean> details;
 	private String planName;
+	private int age;
 	
 	
 	public int getId() {
@@ -146,6 +147,12 @@ public class memberBean {
 	}
 	public void setPlanName(String planName) {
 		this.planName = planName;
+	}
+	public int getAge() {
+		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
 	}
 	
 	

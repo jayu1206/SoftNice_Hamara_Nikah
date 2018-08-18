@@ -11,6 +11,7 @@ import com.softNice.nikah.beans.UserBean;
 import com.softNice.nikah.beans.citiesBean;
 import com.softNice.nikah.beans.countryBean;
 import com.softNice.nikah.beans.masterBean;
+import com.softNice.nikah.beans.memberBean;
 import com.softNice.nikah.beans.roleBean;
 import com.softNice.nikah.beans.statesBean;
 import com.softNice.nikah.constent.ErrorMsg;
@@ -544,6 +545,32 @@ public class adminMaintenance {
 		
 		
 		
+		
+	}
+
+	public void seachMember(HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		
+		int ageFrom=0,ageTo=0;
+		String gender="";
+	
+		if(request.getParameter("ageFrom")!=null && request.getParameter("ageFrom").length()>0){
+			ageFrom = Integer.parseInt(request.getParameter("ageFrom"));
+		}
+		
+		if(request.getParameter("ageTo")!=null && request.getParameter("ageTo").length()>0){
+			ageTo = Integer.parseInt(request.getParameter("ageTo"));
+		}
+		
+		if(request.getParameter("gender")!=null && request.getParameter("gender").length()>0){
+			gender =request.getParameter("gender");
+		}
+			
+			
+		administratorDAO dao=new administratorImpl();
+		ArrayList<memberBean> list =  dao.getSearchMember(ageFrom,ageTo,gender);
+		request.setAttribute(contentPage.MEMBERS, list);
+		 
 		
 	}
 

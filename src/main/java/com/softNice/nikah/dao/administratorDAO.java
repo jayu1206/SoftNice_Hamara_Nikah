@@ -31,6 +31,7 @@ import com.softNice.nikah.beans.UserBean;
 import com.softNice.nikah.beans.citiesBean;
 import com.softNice.nikah.beans.countryBean;
 import com.softNice.nikah.beans.masterBean;
+import com.softNice.nikah.beans.memberBean;
 import com.softNice.nikah.beans.permissionBean;
 import com.softNice.nikah.beans.permissionnamesBean;
 import com.softNice.nikah.beans.roleBean;
@@ -117,6 +118,8 @@ public interface administratorDAO {
 	public abstract int insertCity(citiesBean bean);
 
 	public abstract ArrayList<masterBean> getMasterBaseOnMasterID(int key);
+
+	public abstract ArrayList<memberBean> getSearchMember(int ageFrom, int ageTo, String gender);
 
 
 }

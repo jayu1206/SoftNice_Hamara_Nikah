@@ -48915,21 +48915,23 @@ CREATE TABLE `member` (
   `state` int(10) unsigned NOT NULL,
   `city` int(10) unsigned NOT NULL,
   `email` varchar(45) NOT NULL,
+  `age` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `FK_member_1` (`planId`),
   CONSTRAINT `FK_member_1` FOREIGN KEY (`planId`) REFERENCES `member_plan` (`planId`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `member`
 --
 
 /*!40000 ALTER TABLE `member` DISABLE KEYS */;
-INSERT INTO `member` (`id`,`memberId`,`planId`,`password`,`firstName`,`lastName`,`phno`,`creationDate`,`status`,`gender`,`DOB`,`country`,`state`,`city`,`email`) VALUES 
- (1,'F0FA21E3',2,'NKNo+XID5fGQy/lc6Zhe+w==','jay','gagnani','9898977468','2018-08-08 22:21:53',1,'male','1998-07-27',101,12,791,'jayu.gagnani@gmail.com'),
- (2,'44E1BD4C',2,'NKNo+XID5fGQy/lc6Zhe+w==','iqbal','shaiyad','9647581236','2018-08-09 21:52:51',1,'male','1998-07-30',101,12,791,'iqbal@gmail.com'),
- (3,'545F4F64',2,'NKNo+XID5fGQy/lc6Zhe+w==','dev1','xyz',NULL,'2018-08-10 20:07:09',1,'male','1998-07-28',101,12,1068,'dev1@gmail.com'),
- (4,'255B1A9F',2,'NKNo+XID5fGQy/lc6Zhe+w==','dev2','gag','6745127963','2018-08-10 20:14:24',0,'male','1998-07-28',101,12,783,'dev2@gmail.com');
+INSERT INTO `member` (`id`,`memberId`,`planId`,`password`,`firstName`,`lastName`,`phno`,`creationDate`,`status`,`gender`,`DOB`,`country`,`state`,`city`,`email`,`age`) VALUES 
+ (1,'F0FA21E3',2,'NKNo+XID5fGQy/lc6Zhe+w==','jay','gagnani','9898977468','2018-08-08 22:21:53',1,'male','1998-07-27',101,12,791,'jayu.gagnani@gmail.com',20),
+ (2,'44E1BD4C',2,'NKNo+XID5fGQy/lc6Zhe+w==','iqbal','shaiyad','9647581236','2018-08-09 21:52:51',1,'male','1998-07-30',101,12,791,'iqbal@gmail.com',25),
+ (3,'545F4F64',2,'NKNo+XID5fGQy/lc6Zhe+w==','dev1','xyz',NULL,'2018-08-10 20:07:09',1,'female','1998-07-28',101,12,1068,'dev1@gmail.com',28),
+ (4,'255B1A9F',2,'NKNo+XID5fGQy/lc6Zhe+w==','dev2','gag','6745127963','2018-08-10 20:14:24',0,'male','1998-07-28',101,12,783,'dev2@gmail.com',30),
+ (5,'686C037C',2,'NKNo+XID5fGQy/lc6Zhe+w==','ragini','patel','8674127984','2018-08-16 19:41:38',1,'male','1998-07-28',101,12,1040,'ragini@gmail.com',35);
 /*!40000 ALTER TABLE `member` ENABLE KEYS */;
 
 
@@ -49005,7 +49007,7 @@ CREATE TABLE `memberdetails` (
   PRIMARY KEY (`id`),
   KEY `FK_memberdetails_1` (`memberId`),
   CONSTRAINT `FK_memberdetails_1` FOREIGN KEY (`memberId`) REFERENCES `member` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `memberdetails`
@@ -49016,7 +49018,8 @@ INSERT INTO `memberdetails` (`id`,`memberId`,`familyStatus`,`culture`,`height`,`
  (1,1,'Rich',4,130,152,208,213,230,0,0,'demo dsfdfdfd',43,121,'Citizenship',50),
  (3,2,'Rich',4,130,152,208,213,224,227,230,'             ',43,121,'Legal',50),
  (4,4,'Upper',6,131,165,208,214,225,227,230,'   ',43,122,'Citizenship',50),
- (5,1,'Upper',4,130,153,208,213,224,227,230,' sdfdf  ',43,121,'Legal',50);
+ (5,1,'Upper',4,130,153,208,213,224,227,230,' sdfdf  ',43,121,'Legal',50),
+ (6,5,'Rich',12,130,152,208,213,224,227,230,' lsjdflkjsdlkfjdslfjldskfjlds',45,122,'Legal',50);
 /*!40000 ALTER TABLE `memberdetails` ENABLE KEYS */;
 
 

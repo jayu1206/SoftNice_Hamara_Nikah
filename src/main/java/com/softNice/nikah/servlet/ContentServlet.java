@@ -235,6 +235,21 @@ public class ContentServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
+		String key=request.getParameter("key");
+		RequestDispatcher rd = null;
+		if(key!=null){
+			if(request.getParameter("key").equals("searchMember")){
+				
+				adminMaintenance.getInstance().seachMember(request);
+				request.setAttribute(contentPage.CONTENT_PAGE, "/member/searchMember.jsp");
+				
+			}
+		
+		}
+		
+		rd=request.getRequestDispatcher("/index.jsp");  
+		rd.forward(request, response); 
 	}
 
 }
