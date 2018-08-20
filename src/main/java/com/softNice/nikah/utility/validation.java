@@ -1,6 +1,9 @@
 package com.softNice.nikah.utility;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -104,5 +107,18 @@ public class validation {
   			return false;
   		}
     }
+
+	public static int countAge(Date dob) {
+		// TODO Auto-generated method stub
+		
+		String dobStr=convertDateToString(dob);
+		String strDate[] = dobStr.split("-");
+		int Dobyear = Integer.parseInt( strDate[2]);
+		int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+		
+		return (currentYear - Dobyear);
+	}
+    
+   
 
 }
