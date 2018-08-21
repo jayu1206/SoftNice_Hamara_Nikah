@@ -1,6 +1,8 @@
 package com.softNice.nikah.maintenance;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -305,8 +307,8 @@ public class memberMaintenance {
 		}
 		
 		bean.setStatus(true);
-		
-		 String str[]=UUID.randomUUID().toString().split("-");
+		bean.setAge( validation.countAge(bean.getDob())  );
+		String str[]=UUID.randomUUID().toString().split("-");
          bean.setMemberId(str[0].toUpperCase());
 		 bean.setCreationDate(new Date());
 		 
