@@ -473,6 +473,7 @@ public class memberMaintenance {
 		
 	}
 
+
 	public memberPlanBean getmemberPlanById(int planId) {
 		// TODO Auto-generated method stub
 		memberDAO dao = new memberImpl();
@@ -531,6 +532,16 @@ public class memberMaintenance {
 		}
 		
 		return new ErrorMsg(0, "Ordered successfully");
+	}
+	public void getMemberById(HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		memberDAO dao=new memberImpl();
+		String mid = request.getParameter("memberId");
+		int id = Integer.parseInt(mid);
+		memberBean memberBean=dao.getMemberBaseOnId(id);
+		request.getSession().setAttribute(contentPage.MEMBERS,memberBean);
+		
+
 	}
 
 

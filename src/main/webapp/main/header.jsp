@@ -326,7 +326,7 @@
 								</li>
 
 								<li>
-									<a href="profile.html">
+									<a href="memberServlet?key=memberProfile">
 										<i class="ace-icon fa fa-user"></i>
 										Profile
 									</a>
@@ -335,7 +335,7 @@
 								<li class="divider"></li>
 
 								<li>
-									<a href="loginServlet?key=logout">
+									<a href="#">
 										<i class="ace-icon fa fa-power-off"></i>
 										Logout
 									</a>

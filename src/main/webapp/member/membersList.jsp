@@ -96,6 +96,11 @@ ArrayList<memberBean> list=new ArrayList<memberBean>();
 																	<i class="ace-icon fa fa-search-plus bigger-100">Permission</i>
 																</a> --%>
 															</div>
+															<div class="hidden-sm hidden-xs action-buttons">
+																<a  href="ContentServlet?key=viewMember&memberId=<%=bean.getId() %>">
+																	View
+																</a>
+															</div>
 
 															<div class="hidden-md hidden-lg">
 																<div class="inline pos-rel">
@@ -180,4 +185,20 @@ ArrayList<memberBean> list=new ArrayList<memberBean>();
 				}
 				 */
 			}		
+
+			/* function viewMemberProfile(id){
+				$.ajax({
+					url : 'ContentServlet?key=viewMember&memberId='+id,		
+					async:false,
+					 type: "GET",
+				     data: null,
+				     processData: false,
+				     contentType: false,					
+					success : function(responseText) {															
+														   	
+					}
+				}).done(function() {									
+					$('#li'+removeIndex).remove();										
+				});
+			} */
 		</script>
