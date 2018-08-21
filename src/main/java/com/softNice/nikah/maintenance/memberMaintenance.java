@@ -15,10 +15,12 @@ import com.softNice.nikah.beans.UserBean;
 import com.softNice.nikah.beans.memberBean;
 import com.softNice.nikah.beans.memberDetailsBean;
 import com.softNice.nikah.beans.memberPlanBean;
+import com.softNice.nikah.beans.orderBean;
 import com.softNice.nikah.constent.ErrorMsg;
 import com.softNice.nikah.constent.contentPage;
 import com.softNice.nikah.dao.administratorDAO;
 import com.softNice.nikah.dao.memberDAO;
+import com.softNice.nikah.database.HibernateFactory;
 import com.softNice.nikah.impl.administratorImpl;
 import com.softNice.nikah.impl.memberImpl;
 import com.softNice.nikah.utility.EncrypitDecrypit;
@@ -456,11 +458,79 @@ public class memberMaintenance {
 		
 	}
 	
+	public void getAllActiveMembers(HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		memberDAO dao=new memberImpl();
+		ArrayList<memberBean> list=dao.getAllActiveMembers();
+		request.setAttribute("members", list);
+		
+	}
+	
 	public boolean checkDublicatePhone(String str,int id){
 		memberDAO dao=new memberImpl();
 		boolean flag = dao.checkDublicatePhone(str,id);
 		return flag;
 		
+	}
+
+	public memberPlanBean getmemberPlanById(int planId) {
+		// TODO Auto-generated method stub
+		memberDAO dao = new memberImpl();
+		memberPlanBean bean = dao.getAllPlanByID(planId);
+		return bean;
+	}
+
+	public ErrorMsg validationForOrder(HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		
+		UserBean loginUserbean=null;
+		if(request.getSession().getAttribute(contentPage.USERSOBJ)!=null){
+			loginUserbean = (UserBean) request.getSession().getAttribute(contentPage.USERSOBJ);
+		}
+		
+		
+		orderBean bean=new orderBean();
+		if (request.getParameter("memberId").equals("0") || request.getParameter("memberId").trim().length() == 0){
+			return new ErrorMsg(1, "Please select Member");
+		}
+		bean.setMemberId(request.getParameter("memberId"));
+		
+		if (request.getParameter("planId").equals("0") || request.getParameter("planId").trim().length() == 0){
+			return new ErrorMsg(1, "Please select Plan");
+		}
+		bean.setMemberPlanId( Integer.parseInt(request.getParameter("planId")));
+		
+		if (request.getParameter("txtStartDate") == null	|| request.getParameter("txtStartDate").trim().length() == 0){
+			return new ErrorMsg(1, "Please select start date");
+		}
+		bean.setStartDate(validation.convertStringToDate(request.getParameter("txtStartDate")));
+		
+		memberPlanBean memberPlanBean = memberMaintenance.getInstance().getmemberPlanById(bean.getMemberPlanId());
+		
+		Date date = validation.convertStringToDate(request.getParameter("txtStartDate"));
+		date.setDate(date.getDate()+memberPlanBean.getPlanValidity());
+		bean.setEndDate( validation.convertStringToDate(validation.convertDateToString(date))); 
+		bean.setCreatedBy(loginUserbean.getUserName());
+		bean.setCreationDate(new Date());
+		
+		memberDAO dao=new memberImpl();
+		memberBean memberbean=dao.getMemberBaseOnMemberId(bean.getMemberId());
+		memberbean.setPlanID(bean.getMemberPlanId());
+		
+		int flag = dao.updateMember(memberbean);
+		
+		if(flag!=0){
+			return new ErrorMsg(2, "Internal Error");
+		}else{
+			flag = dao.insertOrder(bean);
+			
+			if(flag!=0){
+				return new ErrorMsg(2, "Internal Error");
+					
+			}
+		}
+		
+		return new ErrorMsg(0, "Ordered successfully");
 	}
 
 

@@ -205,6 +205,12 @@ public class ContentServlet extends HttpServlet {
 				request.setAttribute(contentPage.CONTENT_PAGE, "/member/searchMember.jsp");
 				
 			}
+			if(request.getParameter("key").equals("order")){
+				memberMaintenance.getInstance().getAllMemberPlan(request);
+				memberMaintenance.getInstance().getAllActiveMembers(request);
+				request.setAttribute(contentPage.CONTENT_PAGE, "/administrator/orderMember.jsp");
+			}
+			
 			
 			
 			

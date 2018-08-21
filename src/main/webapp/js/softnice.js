@@ -55,3 +55,14 @@ function getCity(stateCode,cityCode){
          } 
     });
 }
+
+function getEndDate(startDate,planId){
+	softNiceUtilityData.getEndDate(startDate,planId,{
+		callback : function(str) 
+		{
+			$('#txtEndDate').val(str);
+	       
+         } 
+    });
+	
+}

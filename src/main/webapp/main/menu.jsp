@@ -150,9 +150,9 @@
 							</li>
 							
 							<li class="">
-								<a href="ContentServlet?key=country">
+								<a href="ContentServlet?key=order">
 									<i class="menu-icon fa fa-caret-right"></i>
-									Request
+									Order
 								</a>
 
 								<b class="arrow"></b>

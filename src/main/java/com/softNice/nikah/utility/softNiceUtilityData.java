@@ -3,6 +3,7 @@ package com.softNice.nikah.utility;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -10,10 +11,16 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.bouncycastle.ocsp.Req;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
+import com.softNice.nikah.beans.memberPlanBean;
 import com.softNice.nikah.database.HibernateFactory;
+import com.softNice.nikah.maintenance.adminMaintenance;
+import com.softNice.nikah.maintenance.memberMaintenance;
 
 
 
@@ -126,6 +133,20 @@ public class softNiceUtilityData {
 	    map.put("list",listData);
 	    
 	      return map;  
+	}
+	
+	public static String getEndDate(String dt,int planId){
+		
+		memberPlanBean bean = memberMaintenance.getInstance().getmemberPlanById(planId);
+		
+		Date date = validation.convertStringToDate(dt);
+		date.setDate(date.getDate()+bean.getPlanValidity());
+		dt = validation.convertDateToString(date);
+		
+		/*System.out.println("date :"+dt);
+		System.out.println("planId :"+planId);*/
+		
+		return dt;
 	}
 
 }
