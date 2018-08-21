@@ -104,6 +104,14 @@
 											</div>
 										</div>
 										
+										<div class="profile-info-row">
+											<div class="profile-info-name">Family Status</div>
+
+											<div class="profile-info-value">
+												<span class="editable" id="age"><%=bean.%></span>
+											</div>
+										</div>
+										
 									</div>
 								</div>
 							</div>
