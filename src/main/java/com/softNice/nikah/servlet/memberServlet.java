@@ -111,6 +111,14 @@ public class memberServlet extends HttpServlet {
 				rd=request.getRequestDispatcher("/memberIndex.jsp");  
 				rd.forward(request, response); 
 			}
+			if (request.getParameter("key").equals("memberProfile")){
+				
+				request.setAttribute(contentPage.CONTENT_PAGE, "/member/memberProfile.jsp");
+				rd=request.getRequestDispatcher("/memberIndex.jsp");  
+				rd.forward(request, response);
+				
+
+			}
 			
 			
 				
