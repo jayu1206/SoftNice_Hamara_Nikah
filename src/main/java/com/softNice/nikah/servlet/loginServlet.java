@@ -90,6 +90,7 @@ public class loginServlet extends HttpServlet {
 		UserBean bean=adminMaintenance.getInstance().authentication(request);
 		if(bean!=null){
 			request.getSession().setAttribute(contentPage.USERSOBJ,bean);
+			
 			HashMap<String, permissionBean> map=new HashMap<String, permissionBean>();
 			roleBean rolebean = roleMaintenance.getInstance().getRoleBaseOnId(bean.getRoleId());
 			if(rolebean != null){

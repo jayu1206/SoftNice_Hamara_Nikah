@@ -11,14 +11,17 @@
 <%@page import="com.softNice.nikah.constent.ErrorMsg"%>
 <%@page import="com.softNice.nikah.constent.contentPage"%>
 
+
 <div class="main-content">
 
 	<% 
-	memberBean bean= new memberBean();
-	if(request.getSession().getAttribute(contentPage.USERSOBJ)!=null){
-		bean = (memberBean)request.getSession().getAttribute(contentPage.USERSOBJ);
-	}
-%>
+		memberBean bean= new memberBean();
+		if(request.getSession().getAttribute(contentPage.MEMBERS)!=null){
+			bean = (memberBean)request.getSession().getAttribute(contentPage.MEMBERS);
+		}		
+		
+		
+	%>
 
 	<div class="main-content-inner">
 
@@ -55,21 +58,37 @@
 								</div>
 
 								<div class="col-xs-12 col-sm-9">
-
-
 									<div class="space-12"></div>
-
 									<div class="profile-user-info profile-user-info-striped">
 										<div class="profile-info-row">
-											<div class="profile-info-name">Username</div>
+											<div class="profile-info-name">Name</div>
 
 											<div class="profile-info-value">
-												<span class="editable" id="username"><%=bean.getFirstName() %></span>
+												<span class="editable" id="username"><%=bean.getFirstName() +' '+ bean.getLastName()%></span>
 											</div>
 										</div>
-
 										<div class="profile-info-row">
-											<div class="profile-info-name">Location</div>
+											<div class="profile-info-name">Email</div>
+
+											<div class="profile-info-value">
+												<span class="editable" id="username"><%=bean.getEmail()%></span>
+											</div>
+										</div>
+										
+										<div class="profile-info-row">
+											<div class="profile-info-name">City</div>
+											<div class="profile-info-value">
+												<span class="editable" id="username"><%=bean.getCityName()%></span>
+											</div>
+										</div>
+										<div class="profile-info-row">
+											<div class="profile-info-name">State</div>
+											<div class="profile-info-value">
+												<span class="editable" id="username"><%=bean.getStateName()%></span>
+											</div>
+										</div>
+										<div class="profile-info-row">
+											<div class="profile-info-name">Country</div>
 
 											<div class="profile-info-value">
 												<i class="fa fa-map-marker light-orange bigger-110"></i> <span

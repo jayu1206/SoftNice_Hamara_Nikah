@@ -151,6 +151,7 @@ ArrayList<memberPlanBean> list=new ArrayList<memberPlanBean>();
 																</a>
 																
 															<%} %>	
+															
 																<%-- 
 																<a class="blue" href="ContentServlet?key=permission&id=<%=plan.getPlanId() %>">
 																	<i class="ace-icon fa fa-search-plus bigger-100">Permission</i>
@@ -190,6 +191,7 @@ ArrayList<memberPlanBean> list=new ArrayList<memberPlanBean>();
 																	</ul>
 																</div>
 															</div>
+															
 														</td>
 													</tr>
 									<%}%>

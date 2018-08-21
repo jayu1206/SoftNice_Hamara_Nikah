@@ -117,8 +117,8 @@ public class memberServlet extends HttpServlet {
 				rd=request.getRequestDispatcher("/memberIndex.jsp");  
 				rd.forward(request, response);
 				
-
 			}
+			
 			
 			
 				
@@ -154,7 +154,8 @@ public class memberServlet extends HttpServlet {
 				if(bean!=null){
 					
 					request.getSession().setAttribute(contentPage.USERSOBJ,bean);
-					request.setAttribute(contentPage.MEMBERS,bean);
+					request.getSession().setAttribute(contentPage.MEMBERS,bean);
+					/*request.setAttribute("member",bean);*/
 					HashMap<String, permissionBean> map=new HashMap<String, permissionBean>();
 					
 					

@@ -463,5 +463,15 @@ public class memberMaintenance {
 		
 	}
 
+	public void getMemberById(HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		memberDAO dao=new memberImpl();
+		String mid = request.getParameter("memberId");
+		int id = Integer.parseInt(mid);
+		memberBean memberBean=dao.getMemberBaseOnId(id);
+		request.getSession().setAttribute(contentPage.MEMBERS,memberBean);
+		
+	}
+
 
 }
