@@ -102,7 +102,7 @@
 															</a>
 														</li>
 
-														<li>
+													<!-- 	<li>
 															<a data-toggle="tab" href="#edit-settings">
 																<i class="purple ace-icon fa fa-cog bigger-125"></i>
 																Other Details
@@ -114,7 +114,7 @@
 																<i class="red ace-icon fa fa-book bigger-125"></i>
 																Education & Career
 															</a>
-														</li> 
+														</li>  -->
 
 														<li>
 															<a data-toggle="tab" href="#edit-password">
@@ -328,7 +328,7 @@
 													
 														<!-- 	  setting tab pane content -->
 															
-														<div id="edit-settings" class="tab-pane">
+														<%-- <div id="edit-settings" class="tab-pane">
 															<div class="space-10"></div>
 													<h4 class="header blue bolder smaller">Family Status:</h4>
 														<div class="row">
@@ -617,11 +617,11 @@
 													</div>
 
 													
-											</div> 
+											</div>  --%>
 											<!-- setting tab finish -->
 											
 											<!-- eduction tab content -->
-											<div id="edit-education" class="tab-pane">
+											<%-- <div id="edit-education" class="tab-pane">
 															<div class="space-10"></div>
 													
 														
@@ -757,7 +757,7 @@
 															</div>
 													
 											
-											</div> 
+											</div>  --%>
 											
 											<!-- education tab finished -->
 											
@@ -832,6 +832,7 @@
 	            yearRange: '-100y:c+nn',
 	            clearBtn: true,
 	            endDate:'-20y', //'12-06-1990' ,
+	            todayHighlight: true,
                 closeBtn: true, // close button visible
 	        
 	        });

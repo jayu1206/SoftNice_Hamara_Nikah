@@ -48919,7 +48919,7 @@ CREATE TABLE `member` (
   PRIMARY KEY (`id`),
   KEY `FK_member_1` (`planId`),
   CONSTRAINT `FK_member_1` FOREIGN KEY (`planId`) REFERENCES `member_plan` (`planId`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `member`
@@ -48927,11 +48927,14 @@ CREATE TABLE `member` (
 
 /*!40000 ALTER TABLE `member` DISABLE KEYS */;
 INSERT INTO `member` (`id`,`memberId`,`planId`,`password`,`firstName`,`lastName`,`phno`,`creationDate`,`status`,`gender`,`DOB`,`country`,`state`,`city`,`email`,`age`) VALUES 
- (1,'F0FA21E3',2,'NKNo+XID5fGQy/lc6Zhe+w==','jay','gagnani','9898977468','2018-08-08 22:21:53',1,'male','1998-07-27',101,12,791,'jayu.gagnani@gmail.com',20),
+ (1,'F0FA21E3',7,'NKNo+XID5fGQy/lc6Zhe+w==','jay','gagnani','9898977468','2018-08-08 22:21:53',1,'male','1998-07-27',101,12,791,'jayu.gagnani@gmail.com',20),
  (2,'44E1BD4C',2,'NKNo+XID5fGQy/lc6Zhe+w==','iqbal','shaiyad','9647581236','2018-08-09 21:52:51',1,'male','1998-07-30',101,12,791,'iqbal@gmail.com',25),
  (3,'545F4F64',2,'NKNo+XID5fGQy/lc6Zhe+w==','dev1','xyz',NULL,'2018-08-10 20:07:09',1,'female','1998-07-28',101,12,1068,'dev1@gmail.com',28),
  (4,'255B1A9F',2,'NKNo+XID5fGQy/lc6Zhe+w==','dev2','gag','6745127963','2018-08-10 20:14:24',0,'male','1998-07-28',101,12,783,'dev2@gmail.com',30),
- (5,'686C037C',2,'NKNo+XID5fGQy/lc6Zhe+w==','ragini','patel','8674127984','2018-08-16 19:41:38',1,'male','1998-07-28',101,12,1040,'ragini@gmail.com',35);
+ (5,'686C037C',2,'NKNo+XID5fGQy/lc6Zhe+w==','ragini','patel','8674127984','2018-08-16 19:41:38',1,'male','1998-07-28',101,12,1040,'ragini@gmail.com',35),
+ (6,'D85963BE',2,'NKNo+XID5fGQy/lc6Zhe+w==','jaytest','gagnani',NULL,'2018-08-20 19:55:30',1,'male','1990-06-12',101,12,1040,'jaytest@gmail.com',28),
+ (7,'F4E84C16',2,'NKNo+XID5fGQy/lc6Zhe+w==','jaytest4','gagnani',NULL,'2018-08-20 20:10:44',1,'male','1990-06-12',101,12,1042,'jaytest4@gmail.com',28),
+ (8,'A585A173',2,'NKNo+XID5fGQy/lc6Zhe+w==','jaytest5','gagnani',NULL,'2018-08-20 20:16:27',1,'male','1990-06-12',101,22,2707,'jaytest5@gmail.com',28);
 /*!40000 ALTER TABLE `member` ENABLE KEYS */;
 
 
@@ -49021,6 +49024,31 @@ INSERT INTO `memberdetails` (`id`,`memberId`,`familyStatus`,`culture`,`height`,`
  (5,1,'Upper',4,130,153,208,213,224,227,230,' sdfdf  ',43,121,'Legal',50),
  (6,5,'Rich',12,130,152,208,213,224,227,230,' lsjdflkjsdlkfjdslfjldskfjlds',45,122,'Legal',50);
 /*!40000 ALTER TABLE `memberdetails` ENABLE KEYS */;
+
+
+--
+-- Definition of table `ordermember`
+--
+
+DROP TABLE IF EXISTS `ordermember`;
+CREATE TABLE `ordermember` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `memberId` varchar(100) NOT NULL,
+  `startDate` date NOT NULL,
+  `endDate` date NOT NULL,
+  `createdBy` varchar(45) NOT NULL,
+  `creationDate` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `ordermember`
+--
+
+/*!40000 ALTER TABLE `ordermember` DISABLE KEYS */;
+INSERT INTO `ordermember` (`id`,`memberId`,`startDate`,`endDate`,`createdBy`,`creationDate`) VALUES 
+ (1,'F0FA21E3','2018-08-22','2019-02-18','admin','2018-08-21 22:58:14');
+/*!40000 ALTER TABLE `ordermember` ENABLE KEYS */;
 
 
 --

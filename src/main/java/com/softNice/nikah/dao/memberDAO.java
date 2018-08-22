@@ -6,6 +6,8 @@ import com.softNice.nikah.beans.memberBean;
 import com.softNice.nikah.beans.memberDetailsBean;
 import com.softNice.nikah.beans.memberPlanBean;
 import com.softNice.nikah.beans.memberStoryBean;
+import com.softNice.nikah.beans.orderBean;
+
 
 public interface memberDAO {
 
@@ -36,5 +38,13 @@ public interface memberDAO {
 	public abstract int updateMember(memberBean bean);
 
 	public abstract int addMemberStory(memberStoryBean bean);
+	
+	public abstract ArrayList<memberBean> getAllActiveMembers();
+
+	public abstract memberPlanBean getAllPlanByID(int planId);
+
+	public abstract memberBean getMemberBaseOnMemberId(String memberId);
+
+	public abstract int insertOrder(orderBean bean);
 
 }

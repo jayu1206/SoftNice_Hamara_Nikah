@@ -331,6 +331,21 @@ public class FormServlet extends HttpServlet {
 					request.setAttribute(contentPage.CONTENT_PAGE, "/member/memberPlanList.jsp");
 				}
 			}
+			if(key.equals("addOrder")){
+				
+				
+				ErrorMsg obj=(ErrorMsg) memberMaintenance.getInstance().validationForOrder(request);
+				request.setAttribute("error", obj);
+				memberMaintenance.getInstance().getAllMemberPlan(request);
+				memberMaintenance.getInstance().getAllActiveMembers(request);
+				request.setAttribute(contentPage.CONTENT_PAGE, "/administrator/orderMember.jsp");
+				/*System.out.println("memberId "+request.getParameter("memberId"));
+				System.out.println("planId "+request.getParameter("planId"));
+				System.out.println("txtStartDate "+request.getParameter("txtStartDate"));
+				System.out.println("txtEndDate "+request.getParameter("txtEndDate"));*/
+				
+			}
+			
 			
 			
 			

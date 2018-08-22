@@ -7,11 +7,11 @@ import java.util.logging.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
-import com.softNice.nikah.beans.UserBean;
 import com.softNice.nikah.beans.memberBean;
 import com.softNice.nikah.beans.memberDetailsBean;
 import com.softNice.nikah.beans.memberPlanBean;
 import com.softNice.nikah.beans.memberStoryBean;
+import com.softNice.nikah.beans.orderBean;
 import com.softNice.nikah.dao.memberDAO;
 import com.softNice.nikah.database.HibernateFactory;
 
@@ -323,6 +323,32 @@ public class memberImpl implements memberDAO {
 		return arrActivity;
 	}
 	
+	@Override
+	public ArrayList<memberBean> getAllActiveMembers() {
+		// TODO Auto-generated method stub
+		Session session = null;
+
+		ArrayList<memberBean> arrActivity = null;
+		try {
+
+			session = HibernateFactory.openSession();
+
+			Query query = session.createQuery(" from memberBean where status=1 ");
+			if(query.list().size()>0){
+				arrActivity = new ArrayList<memberBean>();
+				arrActivity = (ArrayList<memberBean>) query.list();
+			}
+			
+
+		} catch (Exception e) {
+			log.log(Level.SEVERE, e.getMessage());
+			 e.printStackTrace();
+		} finally {
+			HibernateFactory.close(session);
+		}
+
+		return arrActivity;
+	}
 	
 	@Override
 	public boolean checkDublicatePhone(String str,int id) {
@@ -395,7 +421,87 @@ public class memberImpl implements memberDAO {
 	}
 
 	@Override
-	public int addMemberStory(memberStoryBean bean) {		
+//	public int addMemberStory(memberStoryBean bean) {		
+
+	public memberPlanBean getAllPlanByID(int planId) {
+		// TODO Auto-generated method stub
+		Session session = null;
+
+		memberPlanBean arrActivity = new memberPlanBean();
+		try {
+
+			session = HibernateFactory.openSession();
+
+			Query query = session.createQuery(" from memberPlanBean where status=1 and planId=:planId ");
+			query.setParameter("planId", planId);
+			arrActivity = (memberPlanBean) query.list().get(0);
+
+		} catch (Exception e) {
+			log.log(Level.SEVERE, e.getMessage());
+			 e.printStackTrace();
+		} finally {
+			HibernateFactory.close(session);
+		}
+
+		return arrActivity;
+	}
+
+	@Override
+	public memberBean getMemberBaseOnMemberId(String memberId) {
+		// TODO Auto-generated method stub
+		Session session = null;
+
+		memberBean arrActivity = null;
+		try {
+
+			session = HibernateFactory.openSession();
+
+			Query query = session.createQuery(" from memberBean where memberId=:memberId  and status=1");
+			query.setParameter("memberId", memberId);
+			if(query.list().size()>0){
+				arrActivity = new memberBean();
+				arrActivity = (memberBean) query.list().get(0);
+			}
+			
+			//arrActivity.setPassword(EncrypitDecrypit.decrypt(arrActivity.getPassword(), "password"));
+
+		} catch (Exception e) {
+			log.log(Level.SEVERE, e.getMessage());
+			 e.printStackTrace();
+		} finally {
+			HibernateFactory.close(session);
+		}
+
+		return arrActivity;
+	}
+
+	@Override
+	public int insertOrder(orderBean bean) {
+		// TODO Auto-generated method stub
+		Session session=null;
+		try {
+			session=HibernateFactory.openSession();
+			session.save(bean);
+			session.flush();
+			return 0;
+
+		} catch (Exception e) {
+			log.log(Level.SEVERE, e.getMessage());
+			e.printStackTrace();
+			return 2;
+			  
+		} finally {
+			try {
+				HibernateFactory.close(session);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	@Override
+	public int addMemberStory(memberStoryBean bean) {
 
 		// TODO Auto-generated method stub
 		Session session=null;

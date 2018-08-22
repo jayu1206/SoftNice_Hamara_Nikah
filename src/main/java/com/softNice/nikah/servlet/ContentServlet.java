@@ -205,12 +205,23 @@ public class ContentServlet extends HttpServlet {
 				request.setAttribute(contentPage.CONTENT_PAGE, "/member/searchMember.jsp");
 				
 			}
+
+			if(request.getParameter("key").equals("order")){
+				memberMaintenance.getInstance().getAllMemberPlan(request);
+				memberMaintenance.getInstance().getAllActiveMembers(request);
+				request.setAttribute(contentPage.CONTENT_PAGE, "/administrator/orderMember.jsp");
+			}
+			
+			
+			
+
 			if(request.getParameter("key").equals("viewMember")){
 				
 				memberMaintenance.getInstance().getMemberById(request);
 				request.setAttribute(contentPage.CONTENT_PAGE, "/member/memberProfile.jsp");
 				
 			}
+
 			
 		}
 		rd=request.getRequestDispatcher("/index.jsp");  
