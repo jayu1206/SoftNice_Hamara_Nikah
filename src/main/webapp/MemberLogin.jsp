@@ -159,13 +159,29 @@
 													<i class="ace-icon fa fa-arrow-right"></i>
 												</a>
 											</div>
-											<div>
-												<a href="memberServlet?key=addStory" data-target="#signup-box" class="user-signup-link">
-													Post your success story here
-													<i class="ace-icon fa fa-arrow-right"></i>
-												</a>
-											</div>
-										</div>
+											
+											
+				</div>
+				
+								<div> 
+				
+									<div style="text-align: center;">
+										<a href="memberServlet?key=addStory" data-target="#forgot-box" class="forgot-password-link">
+											Post your success story here
+											<i class="ace-icon fa fa-arrow-right"></i>
+										</a>
+									</div>
+								</div>
+				
+							<div> 
+				
+								<div style="text-align: center;">
+									<a href="memberServlet?key=addStory" data-target="#forgot-box" class="forgot-password-link">
+										Show Stories
+										<i class="ace-icon fa fa-arrow-right"></i>
+									</a>
+								</div>
+						</div>
 				</div><!-- /.row -->
 			</div><!-- /.main-content -->
 		</div><!-- /.main-container -->
