@@ -111,12 +111,15 @@ public class memberServlet extends HttpServlet {
 				rd=request.getRequestDispatcher("/memberIndex.jsp");  
 				rd.forward(request, response); 
 			}
-			if (request.getParameter("key").equals("memberProfile")){
-				
+			if (request.getParameter("key").equals("memberProfile")){				
 				request.setAttribute(contentPage.CONTENT_PAGE, "/member/memberProfile.jsp");
 				rd=request.getRequestDispatcher("/memberIndex.jsp");  
-				rd.forward(request, response);
+				rd.forward(request, response);				
+			}
+			if (request.getParameter("key").equals("addStory")){
 				
+				rd=request.getRequestDispatcher("/memberStory.jsp");  
+				rd.forward(request, response);
 			}
 			
 			
@@ -229,6 +232,19 @@ public class memberServlet extends HttpServlet {
 				rd=request.getRequestDispatcher("/memberIndex.jsp");  
 				rd.forward(request, response); 
 				
+			}
+			
+			if(request.getParameter("key").equals("addMemberStory")){
+				
+				ErrorMsg obj=(ErrorMsg) memberMaintenance.getInstance().addMemberStory(request);
+				request.setAttribute("error", obj);
+				if(obj.getErrorCode()!=0){
+					rd=request.getRequestDispatcher("/registration.jsp");  
+					rd.forward(request, response); 
+				}else{
+					rd=request.getRequestDispatcher("/MemberLogin.jsp");  
+					rd.forward(request, response); 
+				}
 			}
 			
 			

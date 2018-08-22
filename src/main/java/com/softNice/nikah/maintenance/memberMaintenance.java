@@ -15,6 +15,7 @@ import com.softNice.nikah.beans.UserBean;
 import com.softNice.nikah.beans.memberBean;
 import com.softNice.nikah.beans.memberDetailsBean;
 import com.softNice.nikah.beans.memberPlanBean;
+import com.softNice.nikah.beans.memberStoryBean;
 import com.softNice.nikah.constent.ErrorMsg;
 import com.softNice.nikah.constent.contentPage;
 import com.softNice.nikah.dao.administratorDAO;
@@ -471,6 +472,104 @@ public class memberMaintenance {
 		memberBean memberBean=dao.getMemberBaseOnId(id);
 		request.getSession().setAttribute(contentPage.MEMBERS,memberBean);
 		
+	}
+
+	public ErrorMsg addMemberStory(HttpServletRequest request) {
+		
+
+//		private String brideName;
+//		private String groomName;
+//		private String memberId;
+//		private String partnerMemberId;
+//		private String email;
+//		private Date engDate;
+//		private Date marriageDate;
+//		private String imgUrl;
+//		private String address;
+//		private String country;
+//		private String countryCode;
+//		private String phone;
+//		private String sussessStory;
+		
+		// TODO Auto-generated method stub
+		memberStoryBean bean= new memberStoryBean();
+		
+		if (request.getParameter("brideName") == null	|| request.getParameter("brideName").trim().length() == 0){
+			return new ErrorMsg(1, "Bride Name field is required");
+		}
+		bean.setBrideName(request.getParameter("brideName"));
+		
+		if (request.getParameter("groomName") == null	|| request.getParameter("groomName").trim().length() == 0){
+			return new ErrorMsg(1, "Groom Name field is required");
+		}
+		bean.setGroomName(request.getParameter("groomName"));
+		
+		if (request.getParameter("memberId") == null	|| request.getParameter("memberId").trim().length() == 0){
+			return new ErrorMsg(1, "Member Id field is required");
+		}
+		bean.setMemberId(request.getParameter("memberId"));
+		
+		if (request.getParameter("partnerMemberId") == null	|| request.getParameter("partnerMemberId").trim().length() == 0){
+			return new ErrorMsg(1, "Partner's Member Id field is required");
+		}
+		bean.setPartnerMemberId(request.getParameter("partnerMemberId"));
+				
+		if (request.getParameter("engDate") == null || request.getParameter("engDate").trim().length() == 0){
+			return new ErrorMsg(1, "Please select Engagement Date");
+		}
+		bean.setEngDate(validation.convertStringToDate(request.getParameter("engDate")));
+		
+		if (request.getParameter("marriageDate") == null || request.getParameter("marriageDate").trim().length() == 0){
+			return new ErrorMsg(1, "Please select Marriage Date");
+		}
+		bean.setMarriageDate(validation.convertStringToDate(request.getParameter("marriageDate")));
+		
+		if (request.getParameter("email") == null || request.getParameter("email").trim().length() == 0){
+			return new ErrorMsg(1, "Email field is required");
+		}else if(!validation.checkEmail(request.getParameter("email"))){
+			return new ErrorMsg(1, "Email is invalid");
+		}else if(!checkDublicateEmail(request.getParameter("email"),0)){
+			return new ErrorMsg(1, "Email is already exist");
+		}
+		bean.setEmail(request.getParameter("email"));		
+		
+		bean.setImgUrl(request.getParameter("imgUrl"));
+		
+		if (request.getParameter("address") == null || request.getParameter("address").trim().length() == 0){
+			return new ErrorMsg(1, "Please Enter Address");
+		}
+		bean.setAddress(request.getParameter("address"));
+		
+		if (request.getParameter("country") == null || request.getParameter("country").trim().length() == 0){
+			return new ErrorMsg(1, "Please select Country");
+		}
+		bean.setCountry(request.getParameter("country"));
+		
+		if (request.getParameter("countryCode").equals("0") || request.getParameter("countryCode").trim().length() == 0){
+			return new ErrorMsg(1, "Please select Country Code");
+		}
+		bean.setAddress(request.getParameter("address"));
+		
+		if (request.getParameter("phone") == null || request.getParameter("phone").trim().length() == 0){
+			return new ErrorMsg(1, "Please Enter Phone");
+		}
+		bean.setAddress(request.getParameter("phone"));
+		
+		if (request.getParameter("sussessStory") == null || request.getParameter("sussessStory").trim().length() == 0){
+			return new ErrorMsg(1, "Please Enter Success Story");
+		}
+		bean.setAddress(request.getParameter("sussessStory"));		
+		
+		memberDAO dao=new memberImpl();
+		int flag = dao.addMemberStory(bean);
+		
+		if(flag!=0){
+			return new ErrorMsg(2, "Internal Error");
+		}
+		
+		
+		return new ErrorMsg(0, "Story created sucessfully");
+	
 	}
 
 

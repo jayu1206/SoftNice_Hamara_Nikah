@@ -53330,6 +53330,24 @@ INSERT INTO `users` (`id`,`userName`,`password`,`firstName`,`lastName`,`phno`,`c
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 
+CREATE TABLE `member_story` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `brideName` varchar(45) DEFAULT NULL,
+  `groomName` varchar(45) DEFAULT NULL,
+  `memberId` varchar(45) DEFAULT NULL,
+  `partnerMemberId` varchar(45) DEFAULT NULL,
+  `email` varchar(45) DEFAULT NULL,
+  `engDate` date DEFAULT NULL,
+  `marriageDate` datetime DEFAULT NULL,
+  `imgUrl` varchar(100) DEFAULT NULL,
+  `address` varchar(200) DEFAULT NULL,
+  `country` varchar(45) DEFAULT NULL,
+  `countryCode` varchar(45) DEFAULT NULL,
+  `phone` varchar(45) DEFAULT NULL,
+  `successStory` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

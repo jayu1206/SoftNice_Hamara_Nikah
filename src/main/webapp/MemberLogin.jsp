@@ -159,6 +159,12 @@
 													<i class="ace-icon fa fa-arrow-right"></i>
 												</a>
 											</div>
+											<div>
+												<a href="memberServlet?key=addStory" data-target="#signup-box" class="user-signup-link">
+													Post your success story here
+													<i class="ace-icon fa fa-arrow-right"></i>
+												</a>
+											</div>
 										</div>
 				</div><!-- /.row -->
 			</div><!-- /.main-content -->

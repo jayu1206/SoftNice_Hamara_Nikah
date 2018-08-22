@@ -11,6 +11,7 @@ import com.softNice.nikah.beans.UserBean;
 import com.softNice.nikah.beans.memberBean;
 import com.softNice.nikah.beans.memberDetailsBean;
 import com.softNice.nikah.beans.memberPlanBean;
+import com.softNice.nikah.beans.memberStoryBean;
 import com.softNice.nikah.dao.memberDAO;
 import com.softNice.nikah.database.HibernateFactory;
 
@@ -391,6 +392,33 @@ public class memberImpl implements memberDAO {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	@Override
+	public int addMemberStory(memberStoryBean bean) {		
+
+		// TODO Auto-generated method stub
+		Session session=null;
+		try {
+			session=HibernateFactory.openSession();
+			session.save(bean);
+			session.flush();
+			return 0;
+
+		} catch (Exception e) {
+			log.log(Level.SEVERE, e.getMessage());
+			e.printStackTrace();
+			return 2;
+			  
+		} finally {
+			try {
+				HibernateFactory.close(session);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	
 	}
 
 }
