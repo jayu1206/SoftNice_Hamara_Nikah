@@ -40,6 +40,7 @@
 		 <mapping resource="com/softNice/nikah/hbm/member.hbm.xml" />
 		 <mapping resource="com/softNice/nikah/hbm/memberDetails.hbm.xml" />
 		  <mapping resource="com/softNice/nikah/hbm/order.hbm.xml" />
+		  <mapping resource="com/softNice/nikah/hbm/memberStory.hbm.xml" />
 	
 		
 	</session-factory>

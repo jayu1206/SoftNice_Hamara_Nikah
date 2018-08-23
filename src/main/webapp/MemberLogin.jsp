@@ -176,7 +176,7 @@
 							<div> 
 				
 								<div style="text-align: center;">
-									<a href="memberServlet?key=addStory" data-target="#forgot-box" class="forgot-password-link">
+									<a href="memberServlet?key=viewStory" data-target="#forgot-box" class="forgot-password-link">
 										Show Stories
 										<i class="ace-icon fa fa-arrow-right"></i>
 									</a>

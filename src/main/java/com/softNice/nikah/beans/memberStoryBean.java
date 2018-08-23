@@ -17,7 +17,16 @@ public class memberStoryBean {
 	private String country;
 	private String countryCode;
 	private String phone;
-	private String sussessStory;
+	private String successStory;
+	
+	
+	
+	public String getSuccessStory() {
+		return successStory;
+	}
+	public void setSuccessStory(String successStory) {
+		this.successStory = successStory;
+	}
 	public int getId() {
 		return id;
 	}
@@ -96,12 +105,8 @@ public class memberStoryBean {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public String getSussessStory() {
-		return sussessStory;
-	}
-	public void setSussessStory(String sussessStory) {
-		this.sussessStory = sussessStory;
-	}
+
+
 	
 	
 	

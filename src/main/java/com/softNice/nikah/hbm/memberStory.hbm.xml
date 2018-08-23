@@ -49,8 +49,8 @@
         <property  name="phone" type="java.lang.String">
             <column name="phone"  />
         </property>
-        <property  name="sussessStory" type="java.lang.String">
-            <column name="sussessStory"  />
+        <property  name="successStory" type="java.lang.String">
+            <column name="successStory"  />
         </property>
         
       

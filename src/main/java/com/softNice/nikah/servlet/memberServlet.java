@@ -117,8 +117,14 @@ public class memberServlet extends HttpServlet {
 				rd.forward(request, response);				
 			}
 			if (request.getParameter("key").equals("addStory")){
-				
+				adminMaintenance.getInstance().getAllCountry(request);
+				request.getSession().setAttribute(contentPage.SETTING, getServletContext().getAttribute(contentPage.SETTING));
 				rd=request.getRequestDispatcher("/memberStory.jsp");  
+				rd.forward(request, response);
+			}
+			if (request.getParameter("key").equals("viewStory")){				
+				
+				rd=request.getRequestDispatcher("/viewStories.jsp");  
 				rd.forward(request, response);
 			}
 			
@@ -237,14 +243,10 @@ public class memberServlet extends HttpServlet {
 			if(request.getParameter("key").equals("addMemberStory")){
 				
 				ErrorMsg obj=(ErrorMsg) memberMaintenance.getInstance().addMemberStory(request);
-				request.setAttribute("error", obj);
-				if(obj.getErrorCode()!=0){
-					rd=request.getRequestDispatcher("/registration.jsp");  
-					rd.forward(request, response); 
-				}else{
-					rd=request.getRequestDispatcher("/MemberLogin.jsp");  
-					rd.forward(request, response); 
-				}
+				request.setAttribute("error", obj);				
+				rd=request.getRequestDispatcher("/MemberLogin.jsp");  
+				rd.forward(request, response); 
+				
 			}
 			
 			
