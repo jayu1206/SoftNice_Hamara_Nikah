@@ -49,4 +49,8 @@ public interface memberDAO {
 
 	public abstract ArrayList<memberStoryBean> getAllStories();
 
+	public abstract orderBean checkCurrentOrder(orderBean bean);
+
+	public abstract int updateOrder(orderBean bean);
+
 }

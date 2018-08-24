@@ -531,11 +531,18 @@ public class memberMaintenance {
 		memberbean.setPlanID(bean.getMemberPlanId());
 		
 		int flag = dao.updateMember(memberbean);
-		
+		 orderBean checkBean = null;
 		if(flag!=0){
 			return new ErrorMsg(2, "Internal Error");
 		}else{
-			flag = dao.insertOrder(bean);
+			 checkBean  = dao.checkCurrentOrder(bean);
+			if(checkBean.getId()>0){
+				bean.setId(checkBean.getId());
+				flag = dao.updateOrder(bean);
+			}else{
+				flag = dao.insertOrder(bean);
+			}
+			
 			
 			if(flag!=0){
 				return new ErrorMsg(2, "Internal Error");
@@ -543,7 +550,12 @@ public class memberMaintenance {
 			}
 		}
 		
-		return new ErrorMsg(0, "Ordered successfully");
+		if(checkBean.getId()>0){
+			return new ErrorMsg(0, "Order updated successfully");
+		}
+		else{
+			return new ErrorMsg(0, "Ordered successfully");
+		}
 	}
 	public void getMemberById(HttpServletRequest request) {
 		// TODO Auto-generated method stub

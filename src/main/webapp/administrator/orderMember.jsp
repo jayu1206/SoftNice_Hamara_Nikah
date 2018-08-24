@@ -161,14 +161,15 @@
         });
 	    
 	     $('#txtStartDate').change(function(){
-	       /*  //Change code!
-	        var date2 = $('#txtStartDate').datepicker('getDate');
-	        $('#txtDays').val($('#planId').val()); */
-	      
 	        getEndDate($('#txtStartDate').val(),$('#planId').val());
-	        
 	       
 	   }); 
+	     
+	     $("#planId").change(function(){
+	    	    $('#txtStartDate').val('');
+	    	    $('#txtEndDate').val('');
+	    	});
+
 	    
 	    
 	    $('.select2').css('width','200px').select2({allowClear:true})
