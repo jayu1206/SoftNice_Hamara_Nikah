@@ -80,85 +80,82 @@
 <body>
 	<div class="main-container">
 		<div class="main-content">
-			<div class="row">
-				<div class="col-sm-12 col-sm-offset-1">
-					<div class="center">
-						<h1>
-							<i class="ace-icon fa fa-leaf green"></i> <span class="red"><%=mailbean.getApp_name() %></span>
-							<span class="white" id="id-text2">Application</span>
-						</h1>
-						<h4 class="blue" id="id-company-text">
-							&copy;
-							<%=mailbean.getCmpName() %></h4>
-					</div>
+			<div class="center">
+				<h1>
+					<i class="ace-icon fa fa-leaf green"></i> <span class="red"><%=mailbean.getApp_name() %></span>
+					<span class="white" id="id-text2">Application</span>
+				</h1>
+				<h4 class="blue" id="id-company-text">
+					&copy;
+					<%=mailbean.getCmpName() %></h4>
+			</div>
+			<!-- <div cl> -->
+				<div class="page-header">
+					<h1>
+						Success Stories <small> <i
+							class="ace-icon fa fa-angle-double-right"></i> Happy Marriages
+							from Hamarah Nikah.
+						</small>
+					</h1>
+				</div>
 
-					<div class="space-6"></div>
+				<div class="col-xs-12">
+
 
 					<div class="row">
-						<div class="col-xs-12">
-
-							<div>
-								<div class="row search-page" id="search-page-1">
-									<div class="col-xs-12">
-										<div class="row">
-
-											<div class="col-xs-12 col-sm-9">
-
-												<div class="row">
-													<%
+						<%
 														for (memberStoryBean storyBean : storyList) {
 															String path[] = storyBean.getImgUrl().toString().split("temp");
 															String finalPath = path[1];															
 															String fileName = finalPath.substring(finalPath.lastIndexOf("\\")+1);
 													%>
-													<div class="col-xs-6 col-sm-4 col-md-3">
-														<div class="thumbnail search-thumbnail">
-															<!-- <span
+
+						<div class="col-xs-6 col-sm-4 col-md-2">
+							<div class="thumbnail search-thumbnail">
+								<!-- <span
 																class="search-promotion label label-success arrowed-in arrowed-in-right">Sponsored</span> -->
+								<% if(fileName != null || fileName.length() != 0){ %>
+								<img class="media-object" style="width: 200px; height: 180px;"
+									src="<%="webapp/temp/"+fileName %>"
+									onerror="assets/img/No_Image_Available.png" />
 
-															<img class="media-object" style="width: 200px; height: 180px;"
-																src="<%="webapp/temp/"+fileName %>" />
-															<div class="caption">
-																<div class="clearfix">
-																	<span class="pull-right label label-grey info-label"><%=storyBean.getCountry() %></span>
+								<% }else{ %>
+								<img class="media-object" style="width: 200px; height: 180px;"
+									src="assets/img/No_Image_Available.png" />
 
-																	<div class="pull-left bigger-110">
-																		<i class="ace-icon fa fa-star orange2"></i> <i
-																			class="ace-icon fa fa-star orange2"></i> <i
-																			class="ace-icon fa fa-star orange2"></i> <i
-																			class="ace-icon fa fa-star-half-o orange2"></i> <i
-																			class="ace-icon fa fa-star light-grey"></i>
-																	</div>
-																</div>
+								<%} %>
+								<div class="caption">
 
-																<h3 class="search-title">
-																	<a href="#" class="blue"><%=storyBean.getGroomName() %></a>
-																</h3>
-																<p><%=storyBean.getSuccessStory() %></p>
-															</div>
-														</div>
-													</div>
-													<%
+
+									<h3 class="search-title">
+										<a href="#" class="blue"><%=storyBean.getGroomName() %></a>
+									</h3>
+									<p><%=storyBean.getSuccessStory() %></p>
+								</div>
+							</div>
+						</div>
+						<%
 														}
 													%>
 
-												</div>
-
-												<div class="space-12"></div>
-
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-
-						</div>
 					</div>
-					<!-- /.main-content -->
+
+					<div class="space-12"></div>
+
+
 				</div>
-				<!-- /.main-container -->
+
 			</div>
 		</div>
+		<!-- /.main-content -->
+	<!-- /.main-container -->
+	<div class="form-actions center">
+		<button type="button" class="btn btn-sm btn-success">
+			<a href="memberServlet" data-target="#login-box"
+				class="back-to-login-link"> <i class="ace-icon fa fa-arrow-left"></i>
+				Back to login
+			</a>
+		</button>
 	</div>
 
 </body>

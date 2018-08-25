@@ -318,9 +318,9 @@ public class memberServlet extends HttpServlet {
 			                    	if(item.getFieldName().equals("country")){
 			                    		bean.setCountry(item.getString());
 			                    	}
-			                    	if(item.getFieldName().equals("txtCountryCode")){			                    		
+			                    	/*if(item.getFieldName().equals("txtCountryCode")){			                    		
 			                    		bean.setAddress(item.getString());
-			                    	}
+			                    	}*/
 			                    	if(item.getFieldName().equals("txtPhone")){
 			                    		bean.setPhone(item.getString());
 			                    	}
@@ -331,19 +331,18 @@ public class memberServlet extends HttpServlet {
 			                }
 			           
 			                ErrorMsg obj=(ErrorMsg) memberMaintenance.getInstance().insertMemberStory(bean,request);
-			                
-			                rd=request.getRequestDispatcher("/MemberLogin.jsp");  
+			                request.setAttribute("error", obj);
+			                if(obj.getErrorCode()!=0){
+			                	rd=request.getRequestDispatcher("/memberStory.jsp");
+							}else{
+								rd=request.getRequestDispatcher("/MemberLogin.jsp");
+							}
 							rd.forward(request, response); 
 			            } catch (Exception ex) {
 			            	ex.printStackTrace();
 			            }          
 			         
-			        }else{
-			            request.setAttribute("message",
-			                                 "Sorry this Servlet only handles file upload request");
 			        }
-				 
-				
 			
 				
 //				ErrorMsg obj=(ErrorMsg) memberMaintenance.getInstance().addMemberStory(request);

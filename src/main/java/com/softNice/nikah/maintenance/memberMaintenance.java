@@ -658,6 +658,59 @@ public class memberMaintenance {
 		// TODO Auto-generated method stub
 		Session session=null;
 		try {
+			
+			if (bean.getBrideName() == null	|| bean.getBrideName().length() == 0){
+				return new ErrorMsg(1, "Bride Name field is required");
+			}
+			
+			if (bean.getGroomName() == null	|| bean.getGroomName().length() == 0){
+				return new ErrorMsg(1, "Groom Name field is required");
+			}
+			
+			if (bean.getMemberId() == null	|| bean.getMemberId().length() == 0){
+				return new ErrorMsg(1, "Member Id field is required");
+			}
+			
+			if (bean.getPartnerMemberId() == null	|| bean.getPartnerMemberId().length() == 0){
+				return new ErrorMsg(1, "Partner's Member Id field is required");
+			}
+				
+			if (bean.getEngDate() == null || bean.getEngDate().toString().length() == 0){
+				return new ErrorMsg(1, "Please select Engagement Date");
+			}
+			
+			if (bean.getMarriageDate() == null || bean.getEngDate().toString().length() == 0){
+				return new ErrorMsg(1, "Please select Marriage Date");
+			}
+			
+			if (bean.getEmail() == null || bean.getEmail().length() == 0){
+				return new ErrorMsg(1, "Email field is required");
+			}else if(!validation.checkEmail(bean.getEmail())){
+				return new ErrorMsg(1, "Email is invalid");
+			}else if(!checkDublicateEmail(bean.getEmail(),0)){
+				return new ErrorMsg(1, "Email is already exist");
+			}
+			
+			if (bean.getAddress() == null || bean.getAddress().length() == 0){
+				return new ErrorMsg(1, "Please Enter Address");
+			}
+			
+			if (bean.getCountry() == null || bean.getCountry().length() == 0){
+				return new ErrorMsg(1, "Please select Country");
+			}
+			
+			/*if (bean.getCountryCode().equals("0") || bean.getCountryCode().length() == 0){
+				return new ErrorMsg(1, "Please select Country Code");
+			}*/
+			
+			if (bean.getPhone() == null || bean.getPhone().length() == 0){
+				return new ErrorMsg(1, "Please Enter Phone");
+			}
+			
+			if (bean.getSuccessStory() == null || bean.getSuccessStory().length() == 0){
+				return new ErrorMsg(1, "Please Enter Success Story");
+			}
+			
 			session=HibernateFactory.openSession();
 			session.save(bean);
 			session.flush();

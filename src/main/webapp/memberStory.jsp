@@ -197,12 +197,12 @@
 										</select>
 									</label>
 									
-									 <label class="block clearfix">
+									<%--  <label class="block clearfix">
 										<span class="block input-icon input-icon-right">
 											<input type="text" id="txtCountryCode" name="txtCountryCode" class="form-control" value="<%=countryCode %>" placeholder="Country Code" />
 											<!-- <i class="ace-icon fa fa-user"></i> -->
 										</span>
-									 </label>
+									 </label> --%>
 									 
 									  <label class="block clearfix">
 										<span class="block input-icon input-icon-right">
