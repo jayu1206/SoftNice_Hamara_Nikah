@@ -2,18 +2,28 @@ package com.softNice.nikah.servlet;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+
+import com.softNice.nikah.beans.generalSettingBean;
 import com.softNice.nikah.beans.memberBean;
+import com.softNice.nikah.beans.memberStoryBean;
 import com.softNice.nikah.beans.permissionBean;
 import com.softNice.nikah.beans.roleBean;
 import com.softNice.nikah.constent.ErrorMsg;
@@ -21,6 +31,8 @@ import com.softNice.nikah.constent.contentPage;
 import com.softNice.nikah.maintenance.adminMaintenance;
 import com.softNice.nikah.maintenance.memberMaintenance;
 import com.softNice.nikah.maintenance.roleMaintenance;
+import com.softNice.nikah.maintenance.settingMaintenance;
+import com.softNice.nikah.utility.validation;
 
 /**
  * Servlet implementation class memberServlet
@@ -65,9 +77,7 @@ public class memberServlet extends HttpServlet {
 				}
 				
 				List<String> results = new ArrayList<String>();
-				//File[] files = new File("D:/Sahil/Project/SoftNice_Hamara_Nikah/SoftNice_Hamara_Nikah/src/main/webapp/galleryImage").listFiles();
 				String path = getServletContext().getRealPath("/") + File.separator;
-//				File[] files = new File(path+"galleryImage").listFiles();
 				String mId = bean.getMemberId();
 				String finalUrl = path+"galleryImage\\"+mId;
 				File[] files = new File(finalUrl).listFiles();
@@ -124,6 +134,8 @@ public class memberServlet extends HttpServlet {
 			}
 			if (request.getParameter("key").equals("viewStory")){				
 				
+				memberMaintenance.getInstance().getAllStories(request);
+				request.getSession().setAttribute(contentPage.STORIES, getServletContext().getAttribute(contentPage.STORIES));
 				rd=request.getRequestDispatcher("/viewStories.jsp");  
 				rd.forward(request, response);
 			}
@@ -242,19 +254,105 @@ public class memberServlet extends HttpServlet {
 			
 			if(request.getParameter("key").equals("addMemberStory")){
 				
-				ErrorMsg obj=(ErrorMsg) memberMaintenance.getInstance().addMemberStory(request);
-				request.setAttribute("error", obj);				
-				rd=request.getRequestDispatcher("/MemberLogin.jsp");  
-				rd.forward(request, response); 
+
+				memberStoryBean bean= new memberStoryBean();
+				ServletContext servletContext = this.getServletConfig().getServletContext();
+				 if(ServletFileUpload.isMultipartContent(request)){
+			            try {
+			                List<FileItem> multiparts = new ServletFileUpload(
+			                                         new DiskFileItemFactory()).parseRequest(request);
+			              
+			                for(FileItem item : multiparts){
+			                    if(!item.isFormField()){
+			                    	if(new File(item.getName()).getName().length()>0){
+			                    		String name = new File(item.getName()).getName();
+			                    		
+			                    		final String IMAGE_RESOURCE_PATH = "/webapp/temp";
+			                    		
+			                    		String directoryPath = 
+			                    		        getServletContext().getRealPath(IMAGE_RESOURCE_PATH);
+			                    		
+			                    		File directory = new File(directoryPath);
+
+			                    		if(!directory.exists()) {
+			                    		    directory.mkdirs();
+			                    		}
+			                    		
+										 String withFile = directoryPath  + File.separator+ name;
+										 File uploadedFile = new File(withFile);
+										 if(!uploadedFile.exists())
+											 uploadedFile.createNewFile();
+										 item.write(uploadedFile);
+										 bean.setImgUrl(withFile);
+			                    	}
+			                        
+									 
+			                    }
+			                    else{
+			                    	if(item.getFieldName().equals("txtBrideName")){
+			                    		//System.out.println(item.getString());
+			                    		bean.setBrideName(item.getString());
+			                    	}
+			                    	if(item.getFieldName().equals("txtGroomName")){
+			                    		bean.setGroomName(item.getString());
+			                    	}
+			                    	if(item.getFieldName().equals("txtMemberId")){
+			                    		bean.setMemberId(item.getString());
+			                    	}
+			                    	if(item.getFieldName().equals("txtPartnerMemberId")){
+			                    		//System.out.println(item.getString());
+			                    		bean.setPartnerMemberId(item.getString());
+			                    	}
+			                    	if(item.getFieldName().equals("txtEngDate")){
+			                    		bean.setEngDate(validation.convertStringToDate(item.getString()));			                    		
+			                    	}
+			                    	if(item.getFieldName().equals("txtMarriageDate")){
+			                    		bean.setMarriageDate(validation.convertStringToDate(item.getString()));
+			                    	}
+			                    	if(item.getFieldName().equals("txtEmail")){			                    		
+			                    		bean.setEmail(item.getString());	
+			                    	}
+			                    	if(item.getFieldName().equals("txtAddress")){
+			                    		bean.setAddress(item.getString());
+			                    	}
+			                    	if(item.getFieldName().equals("country")){
+			                    		bean.setCountry(item.getString());
+			                    	}
+			                    	if(item.getFieldName().equals("txtCountryCode")){			                    		
+			                    		bean.setAddress(item.getString());
+			                    	}
+			                    	if(item.getFieldName().equals("txtPhone")){
+			                    		bean.setPhone(item.getString());
+			                    	}
+			                    	if(item.getFieldName().equals("txtSussessStory")){
+			                    		bean.setSuccessStory(item.getString());
+			                    	}
+			                    }
+			                }
+			           
+			                ErrorMsg obj=(ErrorMsg) memberMaintenance.getInstance().insertMemberStory(bean,request);
+			                
+			                rd=request.getRequestDispatcher("/MemberLogin.jsp");  
+							rd.forward(request, response); 
+			            } catch (Exception ex) {
+			            	ex.printStackTrace();
+			            }          
+			         
+			        }else{
+			            request.setAttribute("message",
+			                                 "Sorry this Servlet only handles file upload request");
+			        }
+				 
+				
+			
+				
+//				ErrorMsg obj=(ErrorMsg) memberMaintenance.getInstance().addMemberStory(request);
+//				request.setAttribute("error", obj);				
+//				rd=request.getRequestDispatcher("/MemberLogin.jsp");  
+//				rd.forward(request, response); 
 				
 			}
 			
-			
-			
-		/*	if(!request.getParameter("key").equals("login") && !request.getParameter("key").equals("register")){
-				
-				
-			}*/
 			
 			
 			

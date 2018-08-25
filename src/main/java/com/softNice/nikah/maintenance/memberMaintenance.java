@@ -1,23 +1,39 @@
 package com.softNice.nikah.maintenance;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Part;
 
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.hibernate.Session;
+
+import com.google.gson.Gson;
 import com.softNice.nikah.beans.UserBean;
+import com.softNice.nikah.beans.countryBean;
+import com.softNice.nikah.beans.generalSettingBean;
 import com.softNice.nikah.beans.memberBean;
 import com.softNice.nikah.beans.memberDetailsBean;
 import com.softNice.nikah.beans.memberPlanBean;
 import com.softNice.nikah.beans.memberStoryBean;
 import com.softNice.nikah.beans.orderBean;
+import com.softNice.nikah.beans.settingBean;
 import com.softNice.nikah.constent.ErrorMsg;
 import com.softNice.nikah.constent.contentPage;
+import com.softNice.nikah.dao.administratorDAO;
 import com.softNice.nikah.dao.memberDAO;
+import com.softNice.nikah.database.HibernateFactory;
+import com.softNice.nikah.impl.administratorImpl;
 import com.softNice.nikah.impl.memberImpl;
 import com.softNice.nikah.utility.EncrypitDecrypit;
 import com.softNice.nikah.utility.validation;
@@ -545,73 +561,75 @@ public class memberMaintenance {
 		
 		// TODO Auto-generated method stub
 		memberStoryBean bean= new memberStoryBean();
-		
-		if (request.getParameter("txtBrideName") == null	|| request.getParameter("txtBrideName").trim().length() == 0){
-			return new ErrorMsg(1, "Bride Name field is required");
-		}
-		bean.setBrideName(request.getParameter("txtBrideName"));
-		
-		if (request.getParameter("txtGroomName") == null	|| request.getParameter("txtGroomName").trim().length() == 0){
-			return new ErrorMsg(1, "Groom Name field is required");
-		}
-		bean.setGroomName(request.getParameter("txtGroomName"));
-		
-		if (request.getParameter("txtMemberId") == null	|| request.getParameter("txtMemberId").trim().length() == 0){
-			return new ErrorMsg(1, "Member Id field is required");
-		}
-		bean.setMemberId(request.getParameter("txtMemberId"));
-		
-		if (request.getParameter("txtPartnerMemberId") == null	|| request.getParameter("txtPartnerMemberId").trim().length() == 0){
-			return new ErrorMsg(1, "Partner's Member Id field is required");
-		}
-		bean.setPartnerMemberId(request.getParameter("txtPartnerMemberId"));
-				
-		if (request.getParameter("txtEngDate") == null || request.getParameter("txtEngDate").trim().length() == 0){
-			return new ErrorMsg(1, "Please select Engagement Date");
-		}
-		bean.setEngDate(validation.convertStringToDate(request.getParameter("txtEngDate")));
-		
-		if (request.getParameter("txtMarriageDate") == null || request.getParameter("txtMarriageDate").trim().length() == 0){
-			return new ErrorMsg(1, "Please select Marriage Date");
-		}
-		bean.setMarriageDate(validation.convertStringToDate(request.getParameter("txtMarriageDate")));
-		
-		if (request.getParameter("txtEmail") == null || request.getParameter("txtEmail").trim().length() == 0){
-			return new ErrorMsg(1, "Email field is required");
-		}else if(!validation.checkEmail(request.getParameter("txtEmail"))){
-			return new ErrorMsg(1, "Email is invalid");
-		}else if(!checkDublicateEmail(request.getParameter("txtEmail"),0)){
-			return new ErrorMsg(1, "Email is already exist");
-		}
-		bean.setEmail(request.getParameter("txtEmail"));		
-		
-		bean.setImgUrl(request.getParameter("imgUrl"));
-		
-		if (request.getParameter("txtAddress") == null || request.getParameter("txtAddress").trim().length() == 0){
-			return new ErrorMsg(1, "Please Enter Address");
-		}
-		bean.setAddress(request.getParameter("txtAddress"));
-		
-		if (request.getParameter("country") == null || request.getParameter("country").trim().length() == 0){
-			return new ErrorMsg(1, "Please select Country");
-		}
-		bean.setCountry(request.getParameter("country"));
-		
-		if (request.getParameter("txtCountryCode").equals("0") || request.getParameter("txtCountryCode").trim().length() == 0){
-			return new ErrorMsg(1, "Please select Country Code");
-		}
-		bean.setAddress(request.getParameter("txtCountryCode"));
-		
-		if (request.getParameter("txtPhone") == null || request.getParameter("txtPhone").trim().length() == 0){
-			return new ErrorMsg(1, "Please Enter Phone");
-		}
-		bean.setAddress(request.getParameter("txtPhone"));
-		
-		if (request.getParameter("txtSussessStory") == null || request.getParameter("txtSussessStory").trim().length() == 0){
-			return new ErrorMsg(1, "Please Enter Success Story");
-		}
-		bean.setAddress(request.getParameter("txtSussessStory"));		
-		
+	
+			if (request.getParameter("txtBrideName") == null	|| request.getParameter("txtBrideName").trim().length() == 0){
+				return new ErrorMsg(1, "Bride Name field is required");
+			}
+			bean.setBrideName(request.getParameter("txtBrideName"));
+			
+			if (request.getParameter("txtGroomName") == null	|| request.getParameter("txtGroomName").trim().length() == 0){
+				return new ErrorMsg(1, "Groom Name field is required");
+			}
+			bean.setGroomName(request.getParameter("txtGroomName"));
+			
+			if (request.getParameter("txtMemberId") == null	|| request.getParameter("txtMemberId").trim().length() == 0){
+				return new ErrorMsg(1, "Member Id field is required");
+			}
+			bean.setMemberId(request.getParameter("txtMemberId"));
+			
+			if (request.getParameter("txtPartnerMemberId") == null	|| request.getParameter("txtPartnerMemberId").trim().length() == 0){
+				return new ErrorMsg(1, "Partner's Member Id field is required");
+			}
+			bean.setPartnerMemberId(request.getParameter("txtPartnerMemberId"));
+					
+			if (request.getParameter("txtEngDate") == null || request.getParameter("txtEngDate").trim().length() == 0){
+				return new ErrorMsg(1, "Please select Engagement Date");
+			}
+			bean.setEngDate(validation.convertStringToDate(request.getParameter("txtEngDate")));
+			
+			if (request.getParameter("txtMarriageDate") == null || request.getParameter("txtMarriageDate").trim().length() == 0){
+				return new ErrorMsg(1, "Please select Marriage Date");
+			}
+			bean.setMarriageDate(validation.convertStringToDate(request.getParameter("txtMarriageDate")));
+			
+			if (request.getParameter("txtEmail") == null || request.getParameter("txtEmail").trim().length() == 0){
+				return new ErrorMsg(1, "Email field is required");
+			}else if(!validation.checkEmail(request.getParameter("txtEmail"))){
+				return new ErrorMsg(1, "Email is invalid");
+			}else if(!checkDublicateEmail(request.getParameter("txtEmail"),0)){
+				return new ErrorMsg(1, "Email is already exist");
+			}
+			bean.setEmail(request.getParameter("txtEmail"));		
+			
+			
+			
+			if (request.getParameter("txtAddress") == null || request.getParameter("txtAddress").trim().length() == 0){
+				return new ErrorMsg(1, "Please Enter Address");
+			}
+			bean.setAddress(request.getParameter("txtAddress"));
+			
+			if (request.getParameter("country") == null || request.getParameter("country").trim().length() == 0){
+				return new ErrorMsg(1, "Please select Country");
+			}
+			bean.setCountry(request.getParameter("country"));
+			
+			if (request.getParameter("txtCountryCode").equals("0") || request.getParameter("txtCountryCode").trim().length() == 0){
+				return new ErrorMsg(1, "Please select Country Code");
+			}
+			bean.setAddress(request.getParameter("txtCountryCode"));
+			
+			if (request.getParameter("txtPhone") == null || request.getParameter("txtPhone").trim().length() == 0){
+				return new ErrorMsg(1, "Please Enter Phone");
+			}
+			bean.setAddress(request.getParameter("txtPhone"));
+			
+			if (request.getParameter("txtSussessStory") == null || request.getParameter("txtSussessStory").trim().length() == 0){
+				return new ErrorMsg(1, "Please Enter Success Story");
+			}
+			bean.setAddress(request.getParameter("txtSussessStory"));		
+			
+			
+	
 		memberDAO dao=new memberImpl();
 		int flag = dao.addMemberStory(bean);
 		
@@ -622,6 +640,52 @@ public class memberMaintenance {
 		
 		return new ErrorMsg(0, "Story created sucessfully");
 	
+	}
+
+	private String getFileName(Part filePart) {
+		final String partHeader = filePart.getHeader("content-disposition");
+	    for (String content : filePart.getHeader("content-disposition").split(";")) {
+	        if (content.trim().startsWith("filename")) {
+	            return content.substring(
+	                    content.indexOf('=') + 1).trim().replace("\"", "");
+	        }
+	    }
+	    return null;
+	}
+
+	public ErrorMsg insertMemberStory(memberStoryBean bean, HttpServletRequest request) {
+		
+		// TODO Auto-generated method stub
+		Session session=null;
+		try {
+			session=HibernateFactory.openSession();
+			session.save(bean);
+			session.flush();
+			return new ErrorMsg(0, "Data added sucessfully");
+
+		} catch (Exception e) {
+			log.log(Level.SEVERE, e.getMessage());
+			e.printStackTrace();
+			return new ErrorMsg(1, "Data Not added..");
+			  
+		} finally {
+			try {
+				HibernateFactory.close(session);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	
+	
+	}
+
+	public void getAllStories(HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		memberDAO dao=new memberImpl();
+		ArrayList<memberStoryBean> list =dao.getAllStories();
+		request.setAttribute("storyList", list);
+		
 	}
 
 

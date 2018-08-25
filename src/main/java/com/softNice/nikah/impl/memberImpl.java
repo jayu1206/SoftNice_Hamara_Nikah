@@ -527,4 +527,31 @@ public class memberImpl implements memberDAO {
 	
 	}
 
+	@Override
+	public ArrayList<memberStoryBean> getAllStories() {
+		// TODO Auto-generated method stub
+		Session session = null;
+
+		ArrayList<memberStoryBean> arrActivity = null;
+		try {
+
+			session = HibernateFactory.openSession();
+
+			Query query = session.createQuery(" from memberStoryBean ");
+			if(query.list().size()>0){
+				arrActivity = new ArrayList<memberStoryBean>();
+				arrActivity = (ArrayList<memberStoryBean>) query.list();
+			}
+			
+
+		} catch (Exception e) {
+			log.log(Level.SEVERE, e.getMessage());
+			 e.printStackTrace();
+		} finally {
+			HibernateFactory.close(session);
+		}
+
+		return arrActivity;
+	}
+
 }

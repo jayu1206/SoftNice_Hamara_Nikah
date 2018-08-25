@@ -46,6 +46,7 @@ public class contentPage {
 	public static String MEMBERS="members";
 	public static String DASHBOARD="dashboard";
 	public static String ImageList="imageList";
+	public static String STORIES="storyList";
 	
 	public static String RELIGION="Religion";
 	public static String  CULTURE="Culture";

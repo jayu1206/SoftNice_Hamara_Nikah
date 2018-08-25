@@ -47,4 +47,6 @@ public interface memberDAO {
 
 	public abstract int insertOrder(orderBean bean);
 
+	public abstract ArrayList<memberStoryBean> getAllStories();
+
 }

@@ -121,7 +121,7 @@
 
 											<div class="space-6"></div>
 
-					<form action="memberServlet?key=addMemberStory" method="post" name="memberStoryForm" id="memberStoryForm" >
+					<form action="memberServlet?key=addMemberStory" enctype="multipart/form-data" method="post" name="memberStoryForm" id="memberStoryForm" >
 								<fieldset>
 									<label class="block clearfix">
 										<span class="block input-icon input-icon-right">
@@ -184,14 +184,14 @@
 									</label>
 									
 									<label class="block clearfix"> 
-										<select class="col-sm-12" id="country" name="country" onchange="getState(this.value,0);">
+										<select class="col-sm-12" id="country" name="country" >
 												<option value="0">Country</option>
 													<%for(countryBean countrybean : countryList){ 
 															if(country == countrybean.getId()){
 													%>
 															<option selected="selected" value="<%=countrybean.getName() %>" ><%=countrybean.getName() %></option>
 													<%}else{ %>
-															<option value="<%=countrybean.getId() %>" ><%=countrybean.getName() %></option>
+															<option value="<%=countrybean.getName() %>" ><%=countrybean.getName() %></option>
 													<%}} %>
 													
 										</select>
@@ -226,7 +226,12 @@
 										</span>
 									 </label>
 									
-
+									<label class="block clearfix">
+										<span class="block input-icon input-icon-right">
+										   	<input type="file" name="imgUrl" id="imgUrl" />											
+										</span>
+									</label>							 
+						
 									<div class="space-24"></div>
 
 									<div class="clearfix">
@@ -276,9 +281,10 @@
 </div>
 		
 <script>
+
 $(document).ready(function($){
-		
-	
+
+
    <%--  getState('<%=country %>','<%=state %>');
 	getCity('<%=state %>','<%=city %>')  --%>
 	
