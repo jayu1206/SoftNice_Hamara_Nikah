@@ -554,4 +554,62 @@ public class memberImpl implements memberDAO {
 		return arrActivity;
 	}
 
+	@Override
+	public orderBean checkCurrentOrder(orderBean bean) {
+		// TODO Auto-generated method stub
+		
+		Session session = null;
+		try {
+			session = HibernateFactory.openSession();
+			Query query= null;
+			query = session.createQuery(" from orderBean where  memberId=:memberId ");
+			query.setParameter("memberId", bean.getMemberId());
+			
+			if(query.list().get(0)!=null){
+				bean = (orderBean) query.list().get(0);
+			}
+			
+			
+
+		} catch (Exception e) {
+			log.log(Level.SEVERE, e.getMessage());
+			e.printStackTrace();
+			  
+		} finally {
+			try {
+				HibernateFactory.close(session);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		return bean;
+	}
+
+	@Override
+	public int updateOrder(orderBean bean) {
+		// TODO Auto-generated method stub
+		Session session=null;
+		try {
+			session=HibernateFactory.openSession();
+			session.update(bean);
+			session.flush();
+			return 0;
+
+		} catch (Exception e) {
+			log.log(Level.SEVERE, e.getMessage());
+			e.printStackTrace();
+			return 2;
+			  
+		} finally {
+			try {
+				HibernateFactory.close(session);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
 }

@@ -139,9 +139,13 @@ public class softNiceUtilityData {
 		
 		memberPlanBean bean = memberMaintenance.getInstance().getmemberPlanById(planId);
 		
-		Date date = validation.convertStringToDate(dt);
-		date.setDate(date.getDate()+bean.getPlanValidity());
-		dt = validation.convertDateToString(date);
+		if(dt.length()>0){
+			Date date = validation.convertStringToDate(dt);
+			date.setDate(date.getDate()+bean.getPlanValidity());
+			dt = validation.convertDateToString(date);
+		}
+		
+		
 		
 		/*System.out.println("date :"+dt);
 		System.out.println("planId :"+planId);*/
