@@ -10,7 +10,8 @@
 				bean = (UserBean)request.getSession().getAttribute(contentPage.USERSOBJ);
 			}
 			
-			
+			String fileName = null;
+			String finalPath = null;
 			settingBean settingbean= null;
 			generalSettingBean mailbean= new generalSettingBean();
 			if(request.getSession().getAttribute(contentPage.SETTING)!=null){
@@ -22,15 +23,21 @@
 					mailbean = new Gson().fromJson(settingbean.getValue(),generalSettingBean.class);
 				}
 				
+				
+				
+				String path[] = mailbean.getLogo().toString().split("images");
+				finalPath = path[1];															
+				fileName = finalPath.substring(finalPath.lastIndexOf("\\")+1);;
+				
 			}
 	
 	%>
 	
 	
-		<div id="navbar" class="navbar navbar-default          ace-save-state">
+		<div id="navbar" class="navbar navbar-default ace-save-state">
 			<div class="navbar-container ace-save-state" id="navbar-container">
 				<button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler" data-target="#sidebar">
-					<span class="sr-only">Toggle sidebar</span>
+					<span class="sr-only">Toggle sidebar </span>
 
 					<span class="icon-bar"></span>
 
@@ -42,7 +49,9 @@
 				<div class="navbar-header pull-left">
 					<a href="index.html" class="navbar-brand">
 						<small>
-							<i class="fa fa-leaf"></i>
+						
+							<!-- <i class="fa fa-leaf"></i> -->
+							<img style="width: 45px;height: 30px;" src="<%="webapp/images/"+fileName%>">							
 							<%=mailbean.getApp_name() %>
 						</small>
 					</a>
