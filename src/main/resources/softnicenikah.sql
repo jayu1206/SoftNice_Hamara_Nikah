@@ -48910,17 +48910,17 @@ CREATE TABLE `member` (
   `creationDate` datetime NOT NULL,
   `status` tinyint(1) NOT NULL,
   `gender` varchar(10) NOT NULL,
-  `DOB` date NOT NULL,
+  `DOB` date DEFAULT NULL,
   `country` int(10) unsigned NOT NULL,
   `state` int(10) unsigned NOT NULL,
   `city` int(10) unsigned NOT NULL,
   `email` varchar(45) NOT NULL,
-  `age` int(11) NOT NULL DEFAULT '0',
+  `age` int(11) DEFAULT '0',
   `maritalStatus` varchar(45) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_member_1` (`planId`),
   CONSTRAINT `FK_member_1` FOREIGN KEY (`planId`) REFERENCES `member_plan` (`planId`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `member`
@@ -48933,7 +48933,13 @@ INSERT INTO `member` (`id`,`memberId`,`planId`,`password`,`firstName`,`lastName`
  (3,'545F4F64',2,'NKNo+XID5fGQy/lc6Zhe+w==','dev1','xyz',NULL,'2018-08-10 20:07:09',1,'female','1998-07-28',101,12,1068,'dev1@gmail.com',28,''),
  (4,'255B1A9F',2,'NKNo+XID5fGQy/lc6Zhe+w==','dev2','gag','6745127963','2018-08-10 20:14:24',0,'male','1998-07-28',101,12,783,'dev2@gmail.com',30,''),
  (5,'686C037C',2,'NKNo+XID5fGQy/lc6Zhe+w==','ragini','patel','8674127984','2018-08-16 19:41:38',1,'male','1998-07-28',101,12,1040,'ragini@gmail.com',35,''),
- (6,'50B92B47',2,'NKNo+XID5fGQy/lc6Zhe+w==','Sahil','Parmar',NULL,'2018-08-20 18:33:16',1,'female','1998-07-28',101,12,791,'sahil@gmail.com',0,'');
+ (6,'50B92B47',2,'NKNo+XID5fGQy/lc6Zhe+w==','Sahil','Parmar',NULL,'2018-08-20 18:33:16',1,'female','1998-07-28',101,12,791,'sahil@gmail.com',0,''),
+ (7,'051551BB',2,'NKNo+XID5fGQy/lc6Zhe+w==','arti','gagnani',NULL,'2018-09-04 23:13:07',1,'female',NULL,101,21,2295,'arti@gmail.com',0,'Single'),
+ (8,'F13F9DBF',2,'NKNo+XID5fGQy/lc6Zhe+w==','kkk','kkk',NULL,'2018-09-04 23:25:31',1,'female',NULL,151,2552,29746,'kkk@gmail.com',0,'Single'),
+ (9,'F4C9239C',2,'NKNo+XID5fGQy/lc6Zhe+w==','hh','hh',NULL,'2018-09-04 23:29:47',1,'female',NULL,101,34,3548,'hh@gmail.com',0,'Single'),
+ (10,'F9D4C655',2,'NKNo+XID5fGQy/lc6Zhe+w==','uu','uu',NULL,'2018-09-04 23:31:13',1,'male',NULL,183,3084,37369,'uu@gmail.com',0,'Single'),
+ (11,'616E854F',2,'NKNo+XID5fGQy/lc6Zhe+w==','b','b',NULL,'2018-09-04 23:32:03',1,'female',NULL,101,13,1127,'b@gmail.com',0,'Single'),
+ (12,'7F0498DF',2,'NKNo+XID5fGQy/lc6Zhe+w==','q','q',NULL,'2018-09-04 23:34:31',1,'female',NULL,101,21,2295,'q@gmail.com',0,'Single');
 /*!40000 ALTER TABLE `member` ENABLE KEYS */;
 
 
