@@ -49172,6 +49172,27 @@ INSERT INTO `permissionnames` (`id`,`name`) VALUES
 
 
 --
+-- Definition of table `request_member_plan`
+--
+
+DROP TABLE IF EXISTS `request_member_plan`;
+CREATE TABLE `request_member_plan` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `memberId` varchar(45) DEFAULT NULL,
+  `planId` int(11) DEFAULT NULL,
+  `flag` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `request_member_plan`
+--
+
+/*!40000 ALTER TABLE `request_member_plan` DISABLE KEYS */;
+/*!40000 ALTER TABLE `request_member_plan` ENABLE KEYS */;
+
+
+--
 -- Definition of table `role`
 --
 
