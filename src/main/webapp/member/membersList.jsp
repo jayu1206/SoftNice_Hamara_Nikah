@@ -101,6 +101,11 @@ ArrayList<memberBean> list=new ArrayList<memberBean>();
 																	View
 																</a>
 															</div>
+															<div class="hidden-sm hidden-xs action-buttons">
+																<a  href="ContentServlet?key=addStory&memberId=<%=bean.getId() %>">
+																	Add Story
+																</a>
+															</div>
 
 															<div class="hidden-md hidden-lg">
 																<div class="inline pos-rel">
