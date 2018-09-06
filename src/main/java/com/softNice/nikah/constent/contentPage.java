@@ -60,6 +60,7 @@ public class contentPage {
 	public static String DIET="Diet";
 	public static String DRINK="Drink";
 	public static String SMOKE="Smoke";
+	public static String MotherTounge="MotherTounge";
 	
 	
 }

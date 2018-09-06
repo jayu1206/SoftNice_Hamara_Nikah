@@ -18,6 +18,7 @@ public class memberDetailsBean {
 	private int profession;
 	private int income;
 	private String visaStatus;
+	private int motherTounge;
 	
 	
 	public int getId() {
@@ -115,6 +116,12 @@ public class memberDetailsBean {
 	}
 	public void setProfession(int profession) {
 		this.profession = profession;
+	}
+	public int getMotherTounge() {
+		return motherTounge;
+	}
+	public void setMotherTounge(int motherTounge) {
+		this.motherTounge = motherTounge;
 	}
 	
 	

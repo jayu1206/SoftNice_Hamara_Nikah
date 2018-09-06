@@ -73,6 +73,10 @@
          <property  name="visaStatus" type="java.lang.String">
             <column name="visaStatus"  />
         </property>
+        
+         <property  name="motherTounge" type="java.lang.Integer">
+            <column name="motherTounge"  />
+        </property>
        
     </class>
 </hibernate-mapping>

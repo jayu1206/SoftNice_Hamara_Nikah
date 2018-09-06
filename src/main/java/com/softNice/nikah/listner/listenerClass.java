@@ -75,6 +75,7 @@ public class listenerClass implements ServletContextListener{
 		map.put(10,"Diet");
 		map.put(11,"Drink"); 
 		map.put(12,"Smoke"); 
+		map.put(13, "MotherTounge");
 		
 		context.setAttribute(contentPage.MASTERMAPOBJ, map);
 		
