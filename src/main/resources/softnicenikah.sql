@@ -48658,7 +48658,7 @@ CREATE TABLE `master` (
   `value` varchar(45) NOT NULL,
   `status` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=233 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=244 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `master`
@@ -48890,7 +48890,18 @@ INSERT INTO `master` (`id`,`masterId`,`value`,`status`) VALUES
  (229,'11','Drink regularly',1),
  (230,'12','Do not smoke',1),
  (231,'12','Smoke socially/occasionally',1),
- (232,'12','Smoke regularly',1);
+ (232,'12','Smoke regularly',1),
+ (233,'13','Hindi',1),
+ (234,'13','English',1),
+ (235,'13','Urdu',1),
+ (236,'13','Punjabi',1),
+ (237,'13','Marathi',1),
+ (238,'13','Gujarati',1),
+ (239,'13','Bangla',1),
+ (240,'13','Tamil',1),
+ (241,'13','Malayalam',1),
+ (242,'13','Telugu',1),
+ (243,'13','Bihari',1);
 /*!40000 ALTER TABLE `master` ENABLE KEYS */;
 
 
@@ -48928,12 +48939,12 @@ CREATE TABLE `member` (
 
 /*!40000 ALTER TABLE `member` DISABLE KEYS */;
 INSERT INTO `member` (`id`,`memberId`,`planId`,`password`,`firstName`,`lastName`,`phno`,`creationDate`,`status`,`gender`,`DOB`,`country`,`state`,`city`,`email`,`age`,`maritalStatus`) VALUES 
- (1,'F0FA21E3',5,'NKNo+XID5fGQy/lc6Zhe+w==','jay','gagnani','9898977468','2018-08-08 22:21:53',1,'male','1998-07-27',101,12,791,'jayu.gagnani@gmail.com',20,''),
- (2,'44E1BD4C',2,'NKNo+XID5fGQy/lc6Zhe+w==','iqbal','shaiyad','9647581236','2018-08-09 21:52:51',1,'male','1998-07-30',101,12,791,'iqbal@gmail.com',25,''),
- (3,'545F4F64',2,'NKNo+XID5fGQy/lc6Zhe+w==','dev1','xyz',NULL,'2018-08-10 20:07:09',1,'female','1998-07-28',101,12,1068,'dev1@gmail.com',28,''),
- (4,'255B1A9F',2,'NKNo+XID5fGQy/lc6Zhe+w==','dev2','gag','6745127963','2018-08-10 20:14:24',0,'male','1998-07-28',101,12,783,'dev2@gmail.com',30,''),
- (5,'686C037C',2,'NKNo+XID5fGQy/lc6Zhe+w==','ragini','patel','8674127984','2018-08-16 19:41:38',1,'male','1998-07-28',101,12,1040,'ragini@gmail.com',35,''),
- (6,'50B92B47',2,'NKNo+XID5fGQy/lc6Zhe+w==','Sahil','Parmar',NULL,'2018-08-20 18:33:16',1,'female','1998-07-28',101,12,791,'sahil@gmail.com',0,''),
+ (1,'F0FA21E3',5,'NKNo+XID5fGQy/lc6Zhe+w==','jay','gagnani','9898977468','2018-08-08 22:21:53',1,'male','1998-07-27',101,12,791,'jayu.gagnani@gmail.com',20,'Single'),
+ (2,'44E1BD4C',2,'NKNo+XID5fGQy/lc6Zhe+w==','iqbal','shaiyad','9647581236','2018-08-09 21:52:51',1,'male','1998-07-30',101,12,791,'iqbal@gmail.com',20,'Single'),
+ (3,'545F4F64',2,'NKNo+XID5fGQy/lc6Zhe+w==','dev1','xyz',NULL,'2018-08-10 20:07:09',1,'female','1998-07-28',101,12,1068,'dev1@gmail.com',28,'Single'),
+ (4,'255B1A9F',2,'NKNo+XID5fGQy/lc6Zhe+w==','dev2','gag','6745127963','2018-08-10 20:14:24',0,'male','1998-07-28',101,12,783,'dev2@gmail.com',30,'Single'),
+ (5,'686C037C',2,'NKNo+XID5fGQy/lc6Zhe+w==','ragini','patel','8674127984','2018-08-16 19:41:38',1,'male','1998-07-28',101,12,1040,'ragini@gmail.com',35,'Single'),
+ (6,'50B92B47',2,'NKNo+XID5fGQy/lc6Zhe+w==','Sahil','Parmar',NULL,'2018-08-20 18:33:16',1,'female','1998-07-28',101,12,791,'sahil@gmail.com',0,'Single'),
  (7,'051551BB',2,'NKNo+XID5fGQy/lc6Zhe+w==','arti','gagnani',NULL,'2018-09-04 23:13:07',1,'female',NULL,101,21,2295,'arti@gmail.com',0,'Single'),
  (8,'F13F9DBF',2,'NKNo+XID5fGQy/lc6Zhe+w==','kkk','kkk',NULL,'2018-09-04 23:25:31',1,'female',NULL,151,2552,29746,'kkk@gmail.com',0,'Single'),
  (9,'F4C9239C',2,'NKNo+XID5fGQy/lc6Zhe+w==','hh','hh',NULL,'2018-09-04 23:29:47',1,'female',NULL,101,34,3548,'hh@gmail.com',0,'Single'),
@@ -49037,37 +49048,40 @@ INSERT INTO `member_story` (`id`,`brideName`,`groomName`,`memberId`,`partnerMemb
 DROP TABLE IF EXISTS `memberdetails`;
 CREATE TABLE `memberdetails` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `memberId` int(10) unsigned NOT NULL,
+  `memberId` int(10) unsigned NOT NULL DEFAULT '0',
   `familyStatus` varchar(45) DEFAULT NULL,
-  `culture` int(11) DEFAULT NULL,
-  `height` int(11) DEFAULT NULL,
-  `weight` int(11) DEFAULT NULL,
-  `built` int(11) DEFAULT NULL,
-  `complexion` int(11) DEFAULT NULL,
-  `diet` int(11) DEFAULT NULL,
-  `drink` int(11) DEFAULT NULL,
-  `smoke` int(11) DEFAULT NULL,
+  `culture` int(11) DEFAULT '0',
+  `height` int(11) DEFAULT '0',
+  `weight` int(11) DEFAULT '0',
+  `built` int(11) DEFAULT '0',
+  `complexion` int(11) DEFAULT '0',
+  `diet` int(11) DEFAULT '0',
+  `drink` int(11) DEFAULT '0',
+  `smoke` int(11) DEFAULT '0',
   `about` text,
-  `education` int(11) DEFAULT NULL,
-  `income` int(11) DEFAULT NULL,
+  `education` int(11) DEFAULT '0',
+  `income` int(11) DEFAULT '0',
   `visaStatus` varchar(45) DEFAULT NULL,
-  `profession` int(10) unsigned DEFAULT NULL,
+  `profession` int(10) unsigned DEFAULT '0',
+  `motherTounge` int(10) unsigned DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `FK_memberdetails_1` (`memberId`),
   CONSTRAINT `FK_memberdetails_1` FOREIGN KEY (`memberId`) REFERENCES `member` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `memberdetails`
 --
 
 /*!40000 ALTER TABLE `memberdetails` DISABLE KEYS */;
-INSERT INTO `memberdetails` (`id`,`memberId`,`familyStatus`,`culture`,`height`,`weight`,`built`,`complexion`,`diet`,`drink`,`smoke`,`about`,`education`,`income`,`visaStatus`,`profession`) VALUES 
- (1,1,'Rich',4,130,152,208,213,230,0,0,'demo dsfdfdfd',43,121,'Citizenship',50),
- (3,2,'Rich',4,130,152,208,213,224,227,230,'             ',43,121,'Legal',50),
- (4,4,'Upper',6,131,165,208,214,225,227,230,'   ',43,122,'Citizenship',50),
- (5,1,'Upper',4,130,153,208,213,224,227,230,' sdfdf  ',43,121,'Legal',50),
- (6,5,'Rich',12,130,152,208,213,224,227,230,' lsjdflkjsdlkfjdslfjldskfjlds',45,122,'Legal',50);
+INSERT INTO `memberdetails` (`id`,`memberId`,`familyStatus`,`culture`,`height`,`weight`,`built`,`complexion`,`diet`,`drink`,`smoke`,`about`,`education`,`income`,`visaStatus`,`profession`,`motherTounge`) VALUES 
+ (1,1,'Rich',4,130,152,208,213,230,0,0,'demo dsfdfdfd',43,121,'Citizenship',50,0),
+ (3,2,'Rich',4,130,152,208,213,224,227,230,'             ',43,121,'Legal',50,0),
+ (4,4,'Upper',6,131,165,208,214,225,227,230,'   ',43,122,'Citizenship',50,0),
+ (5,1,'Upper',4,130,153,208,213,224,227,230,' sdfdf  ',43,121,'Legal',50,0),
+ (6,5,'Rich',12,130,152,208,213,224,227,230,' lsjdflkjsdlkfjdslfjldskfjlds',45,122,'Legal',50,0),
+ (7,2,'Rich',4,130,152,210,215,224,227,230,' sfsdfdsfdsfdfd',44,124,'Citizenship',51,0),
+ (8,2,'Rich',5,131,154,209,213,224,227,231,' eaerfdsf  ',43,121,'Citizenship',51,0);
 /*!40000 ALTER TABLE `memberdetails` ENABLE KEYS */;
 
 
